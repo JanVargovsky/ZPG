@@ -42,9 +42,8 @@ static void cursor_callback(GLFWwindow *window, double x, double y)
 {
 	printf("cursor_callback \n");
 
-	const float borderOffset = WIDTH * 0.05f;
+	const float borderOffset = WIDTH * 0.01f;
 	angle = ((float)((x - borderOffset) / (WIDTH - 2 * borderOffset))) * 360;
-	cout << angle << endl;;
 }
 
 static void button_callback(GLFWwindow* window, int button, int action, int mode) {
