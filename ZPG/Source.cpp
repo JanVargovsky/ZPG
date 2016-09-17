@@ -11,6 +11,14 @@
 //Include the standard C++ headers  
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
+
+using namespace std;
+
+const int WIDTH = 640;
+const int HEIGHT = 480;
+
+GLfloat angle = 0;
 
 static void error_callback(int error, const char* description) { fputs(description, stderr); }
 
@@ -30,13 +38,18 @@ static void window_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-static void cursor_callback(GLFWwindow *window, double x, double y) { printf("cursor_callback \n"); }
+static void cursor_callback(GLFWwindow *window, double x, double y)
+{
+	printf("cursor_callback \n");
+
+	const float borderOffset = WIDTH * 0.05f;
+	angle = ((float)((x - borderOffset) / (WIDTH - 2 * borderOffset))) * 360;
+	cout << angle << endl;;
+}
 
 static void button_callback(GLFWwindow* window, int button, int action, int mode) {
 	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
 }
-
-
 
 //GLM test
 
@@ -62,7 +75,7 @@ int main(void)
 
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
-	window = glfwCreateWindow(640, 480, "ZPG", NULL, NULL);
+	window = glfwCreateWindow(WIDTH, HEIGHT, "ZPG", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -102,7 +115,8 @@ int main(void)
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glRotatef((float)glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
+		glRotatef(angle, 0.f, 0.f, 1.f);
+		//glRotatef((float)glfwGetTime() * 1000.f, 0.f, 0.f, 1.f);
 
 		drawSquare();
 
