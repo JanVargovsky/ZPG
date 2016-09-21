@@ -19,42 +19,40 @@
 
 using namespace std;
 
-const int WIDTH = 640;
-const int HEIGHT = 480;
-
-//float points[] = {
-//	0.0f, 0.5f, 0.0f,
-//	0.5f, -0.5f, 0.0f,
-//	-0.5f, -0.5f, 0.0f
-//};
-
 float points[] = {
 	// Triangle points
-	0.0f, 0.5f, 0.0f, // bottom left
-	0.5f, -0.5f, 0.0f, // bottom right
-	-0.5f, -0.5f, 0.0f,  // top left
+	0.0f, 0.3f, 0.0f, // bottom left
+	0.3f, -0.3f, 0.0f, // bottom right
+	-0.3f, -0.3f, 0.0f,  // top left
 
 	// square points
 	-0.5f, -0.5f, 0.0f, // bottom left
-	0.5f, -0.5f, 0.0f, // bottom right
 	-0.5f, 0.5f, 0.0f, // top left
 	0.5f, 0.5f, 0.0f, // top right
+	0.5f, -0.5f, 0.0f, // bottom right
 };
 
 const char* vertex_shader =
 "#version 330\n"
 "layout(location = 0) in vec3 vp;"
-"out vec4 color;"
+//"out vec4 color;"
 "void main() {"
 " gl_Position = vec4(vp, 1.0);"
-" color = vec4(vp, 1.0);"
+//" color = vec4(vp, 1.0);"
 "}";
-const char* fragment_shader =
+const char* red_fragment_shader =
 "#version 330\n"
-"in vec4 color;"
+//"in vec4 color;"
 "out vec4 frag_colour;"
 "void main() {"
-" frag_colour = color;"
+" frag_colour = vec4(1.f, 0.f, 0.f, 1.f);"
+"}";
+const char* blue_fragment_shader =
+"#version 330\n"
+//"in vec4 color;"
+"out vec4 frag_colour;"
+"void main() {"
+" frag_colour = vec4(0.f, 1.f, 0.f, 1.f);"
 "}";
 
 static void error_callback(int error, const char* description) { fputs(description, stderr); }
@@ -91,7 +89,8 @@ int main(void)
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+
 	//vertex attribute object(VAO)
 	GLuint VAO_Triangle = 0;
 	glGenVertexArrays(1, &VAO_Triangle); //generate the VAO
@@ -112,14 +111,23 @@ int main(void)
 	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
 	glCompileShader(vertexShader);
 	// Create & compile fragment shader
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
-	glCompileShader(fragmentShader);
+	GLuint red_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(red_fragmentShader, 1, &red_fragment_shader, NULL);
+	glCompileShader(red_fragmentShader);
+	GLuint blue_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(blue_fragmentShader, 1, &blue_fragment_shader, NULL);
+	glCompileShader(blue_fragmentShader);
 	// Create shader program that consist of fragment and vertex shaders
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
+	glAttachShader(shaderProgram, red_fragmentShader);
+	glLinkProgram(shaderProgram);
+
+	GLuint shaderProgram2 = glCreateProgram();
+	glAttachShader(shaderProgram2, vertexShader);
+	glAttachShader(shaderProgram2, blue_fragmentShader);
+	glLinkProgram(shaderProgram2);
+
 	// Check shaders
 	CheckShaders(shaderProgram);
 
@@ -131,16 +139,18 @@ int main(void)
 
 		// draw square
 		glBindVertexArray(VAO_Square);
-		glDrawArrays(GL_QUADS, 3, 7); //mode,first,count
+		glDrawArrays(GL_QUADS, 3, 4); //mode,first,count
 
+		glUseProgram(shaderProgram2);
 		// draw triangles
-		//glBindVertexArray(VAO_Triangle);
-		//glDrawArrays(GL_TRIANGLES, 0, 3); //mode,first,count
+		glBindVertexArray(VAO_Triangle);
+		glDrawArrays(GL_TRIANGLES, 0, 3); //mode,first,count
 
 		// update other events like input handling
 		glfwPollEvents();
 		// put the stuff we’ve been drawing onto the display
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(window);
+
 	}
 	glfwDestroyWindow(window);
 	glfwTerminate();
