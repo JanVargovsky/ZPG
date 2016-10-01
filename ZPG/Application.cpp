@@ -1,6 +1,27 @@
 #include "Application.h"
 #include <cstdio>
 
+using namespace std;
+
+const GLfloat Application::vertices[] = {
+	
+	// 1st Triangle
+	-0.5f, -0.5f, 0.0f, // bottom left
+	0.5f, -0.5f, 0.0f, // bottom right
+	-0.5f,  0.5f, 0.0f, // top left
+
+	// 2nd Triangle
+	-0.5f, 0.5f, 0.0f, // top left
+	0.5f, 0.5f, 0.0f, // top right
+	0.5f, -0.5f, 0.0f, // bottom right
+	
+};
+
+const GLuint Application::indices[] = {
+	0, 1, 3,
+	1, 3, 2,
+};
+
 Application::Application()
 {
 	Initialize();
@@ -9,12 +30,59 @@ Application::Application()
 Application::~Application()
 {
 	glfwDestroyWindow(window);
-	glfwTerminate();
-	exit(EXIT_SUCCESS);
+}
+
+void Application::Initialize()
+{
+	glfwSetErrorCallback(this->ErrorCallback);
+	//glfwSetErrorCallback([](int error, const char * description)
+	//{
+	//	Application::ErrorCallback(error, description);
+	//	//this->ErrorCallback(error, description);
+	//});
+	// glfwSetErrorCallback(Application::ErrorCallback);
+
+	if (!glfwInit()) {
+		cerr << "Could not start FLFW3" << endl;
+		exit(EXIT_FAILURE);
+	}
+
+	window = glfwCreateWindow(800, 600, "ZPG", nullptr, nullptr);
+	if (window == nullptr)
+	{
+		cerr << "Failed to create GLFW window" << endl;
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
+	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK)
+	{
+		cerr << "Failed to initializate GLEW" << endl;
+		exit(EXIT_FAILURE);
+	}
+	// get version info
+	PrintVersions();
+
+	// TODO: Create callbacks
+	// glfwSetKeyCallback(window, key_callback);
+	// glfwSetCursorPosCallback(window, cursor_callback);
+	// glfwSetMouseButtonCallback(window, button_callback);
+	// glfwSetWindowFocusCallback(window, window_focus_callback);
+	// glfwSetWindowIconifyCallback(window, window_iconify_callback);
+	// glfwSetWindowSizeCallback(window, window_size_callback);
+
+	int width, height;
+	glfwGetFramebufferSize(window, &width, &height);
+	//float ratio = width / (float)height;
+	glViewport(0, 0, width, height);
 }
 
 void Application::Run()
 {
+#pragma region School stuff
+	/*
 	//vertex buffer object (VBO)
 	GLuint VBO = 0;
 	glGenBuffers(1, &VBO); // generate the VBO
@@ -41,89 +109,82 @@ void Application::Run()
 	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
 	glCompileShader(vertexShader);
 	// Create & compile fragment shader
-	GLuint red_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(red_fragmentShader, 1, &red_fragment_shader, NULL);
-	glCompileShader(red_fragmentShader);
-	GLuint blue_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(blue_fragmentShader, 1, &blue_fragment_shader, NULL);
-	glCompileShader(blue_fragmentShader);
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
+	glCompileShader(fragmentShader);
 	// Create shader program that consist of fragment and vertex shaders
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, red_fragmentShader);
+	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
-
-	GLuint shaderProgram2 = glCreateProgram();
-	glAttachShader(shaderProgram2, vertexShader);
-	glAttachShader(shaderProgram2, blue_fragmentShader);
-	glLinkProgram(shaderProgram2);
 
 	// Check shaders
 	CheckShaders(shaderProgram);
+	*/
+#pragma endregion
+
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
+	CheckVertexShader(vertexShader);
+
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
+
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	// Vertex Buffer Objects
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+	// Vertex Array Object
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);
+
+	// Bind the VAO, and then set which VBO it uses and how it is used (attribute pointer)
+	glBindVertexArray(VAO);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		// 0 stands for layout=0
+		// Normalized data = data that are not between 0 and 1 will be mapped to those values
+		// stride = how big is that
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+		glEnableVertexAttribArray(0);
+
+		// Unbind VBO
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	// Unbind VAO
+	glBindVertexArray(0);
 
 	while (!glfwWindowShouldClose(window))
 	{
-		// clear color and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(shaderProgram);
-
-		// draw square
-		glBindVertexArray(VAO_Square);
-		glDrawArrays(GL_QUADS, 3, 4); //mode,first,count
-
-		glUseProgram(shaderProgram2);
-		// draw triangles
-		glBindVertexArray(VAO_Triangle);
-		glDrawArrays(GL_TRIANGLES, 0, 3); //mode,first,count
-
 		// update other events like input handling
 		glfwPollEvents();
+
+		// clear color and depth buffer
+		glClearColor(.2f, .3f, .4f, 1.f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glUseProgram(shaderProgram);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 3, 3);
+		glBindVertexArray(0);
+
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
 	}
-}
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 
-void Application::Initialize()
-{
-	glfwSetErrorCallback(this->ErrorCallback);
-	//glfwSetErrorCallback([](int error, const char * description)
-	//{
-	//	Application::ErrorCallback(error, description);
-	//	//this->ErrorCallback(error, description);
-	//});
-	// glfwSetErrorCallback(Application::ErrorCallback);
-
-	if (!glfwInit()) {
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		exit(EXIT_FAILURE);
-	}
-
-	window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
-	glfwSwapInterval(1);
-	// start GLEW extension handler
-	glewExperimental = GL_TRUE;
-	glewInit();
-	// get version info
-	PrintVersions();
-
-	// TODO: Create callbacks
-	// glfwSetKeyCallback(window, key_callback);
-	// glfwSetCursorPosCallback(window, cursor_callback);
-	// glfwSetMouseButtonCallback(window, button_callback);
-	// glfwSetWindowFocusCallback(window, window_focus_callback);
-	// glfwSetWindowIconifyCallback(window, window_iconify_callback);
-	// glfwSetWindowSizeCallback(window, window_size_callback);
-
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	float ratio = width / (float)height;
-	glViewport(0, 0, width, height);
+	glfwTerminate();
 }
 
 void Application::PrintVersions()
@@ -138,7 +199,20 @@ void Application::PrintVersions()
 	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 }
 
-void Application::CheckShaders(const GLuint & shaderProgram)
+void Application::CheckVertexShader(const GLuint & vertexShader)
+{
+	GLint success;
+	GLchar infoLog[512];
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+	if (!success)
+	{
+		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+		cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED" << endl << infoLog << endl;
+	}
+}
+
+void Application::CheckShaderProgram(const GLuint & shaderProgram)
 {
 	GLint status;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
@@ -148,7 +222,7 @@ void Application::CheckShaders(const GLuint & shaderProgram)
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLogLength);
 		GLchar *strInfoLog = new GLchar[infoLogLength + 1];
 		glGetProgramInfoLog(shaderProgram, infoLogLength, NULL, strInfoLog);
-		fprintf(stderr, "Linker failure : %s\n", strInfoLog);
+		cerr << "Linker failure: " << strInfoLog << endl;
 		delete[] strInfoLog;
 	}
 }
