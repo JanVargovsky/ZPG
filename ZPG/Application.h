@@ -35,6 +35,13 @@ private:
 		"{"
 		"	color = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
 		"}";
+	const char* fragmentShaderSource2 =
+		"#version 330 core\n"
+		"out vec4 color;"
+		"void main()"
+		"{"
+		"	color = vec4(1.0f, 1.0f, 0.0f, 1.0f);"
+		"}";
 
 	const char* vertex_shader =
 		"#version 330\n"

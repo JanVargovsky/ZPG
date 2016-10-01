@@ -154,25 +154,35 @@ void Application::Run()
 	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
 	glCompileShader(fragmentShader);
 
+	GLuint fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
+	glCompileShader(fragmentShader2);
+
 	GLuint shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, vertexShader);
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
+
+	GLuint shaderProgram2 = glCreateProgram();
+	glAttachShader(shaderProgram2, vertexShader);
+	glAttachShader(shaderProgram2, fragmentShader2);
+	glLinkProgram(shaderProgram2);
+
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
 	// Vertex Buffer Objects
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
-	// Vertex Array Object
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
 	// Element Buffer Objects
 	GLuint EBO;
 	glGenBuffers(1, &EBO);
+	// Vertex Array Object
+	GLuint VAO[2];
+	glGenVertexArrays(2, VAO);
 
 	// Bind the VAO, and then set which VBO it uses and how it is used (attribute pointer)
-	glBindVertexArray(VAO);
+	glBindVertexArray(VAO[0]);
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -182,11 +192,26 @@ void Application::Run()
 		// 0 stands for layout=0
 		// Normalized data = data that are not between 0 and 1 will be mapped to those values
 		// stride = how big is that
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), nullptr);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(0);
 
 		// Unbind VBO
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	// Bind the VAO, and then set which VBO it uses and how it is used (attribute pointer)
+	glBindVertexArray(VAO[1]);
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		// 0 stands for layout=0
+		// Normalized data = data that are not between 0 and 1 will be mapped to those values
+		// stride = how big is that
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(0);
 	}
 	// Unbind VAO
 	glBindVertexArray(0);
@@ -205,21 +230,23 @@ void Application::Run()
 
 		glUseProgram(shaderProgram);
 
-		glBindVertexArray(VAO);
-
 		// 1. approach
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//glDrawArrays(GL_TRIANGLES, 3, 3);
 
 		// 2. approach
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(VAO[0]);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+		glUseProgram(shaderProgram2);
+		glBindVertexArray(VAO[1]);
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);
 
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
 	}
-	glDeleteVertexArrays(1, &VAO);
+	glDeleteVertexArrays(1, VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 
