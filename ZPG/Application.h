@@ -24,23 +24,20 @@ private:
 	const char* vertexShaderSource =
 		"#version 330 core\n"
 		"layout (location = 0) in vec3 position;"
+		"layout (location = 1) in vec3 color;"
+		"out vec3 ourColor;"
 		"void main()"
 		"{"
 		"	gl_Position = vec4(position, 1.0);"
+		"	ourColor = color;"
 		"}";
 	const char* fragmentShaderSource =
 		"#version 330 core\n"
+		"in vec3 ourColor;"
 		"out vec4 color;"
 		"void main()"
 		"{"
-		"	color = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
-		"}";
-	const char* fragmentShaderSource2 =
-		"#version 330 core\n"
-		"out vec4 color;"
-		"void main()"
-		"{"
-		"	color = vec4(1.0f, 1.0f, 0.0f, 1.0f);"
+		"	color = vec4(ourColor, 1.0f);"
 		"}";
 
 	const char* vertex_shader =

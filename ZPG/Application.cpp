@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Shader.h"
 #include <cstdio>
 
 using namespace std;
@@ -15,22 +16,23 @@ const GLfloat Application::vertices[] = {
 	//0.5f, 0.5f, 0.0f, // top right
 	//0.5f, -0.5f, 0.0f, // bottom right
 
-	// Left triangle
-	//-1.0f, -0.5f, 0.0f, // bottom left
-	//0.0f, -0.5f, 0.0f, // bottom right
-	//-0.5f,  0.5f, 0.0f, // top
+	 //Left triangle
+	// Positions			Colors
+	-1.0f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
+	0.0f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
+	-0.5f,  0.5f, 0.0f,		0.0f, 0.0f, 1.0f, // top
 
 	// Right triangle
-	//0.0f, -0.5f, 0.0f, // bottom left
-	//1.0f, -0.5f, 0.0f, // bottom right
-	//0.5f,  0.5f, 0.0f, // top
+	0.0f, -0.5f, 0.0f,		1.0f, 1.0f, 0.0f, // bottom left
+	1.0f, -0.5f, 0.0f,		0.0f, 1.0f, 1.0f, // bottom right
+	0.5f,  0.5f, 0.0f,		1.0f, 0.0f, 1.0f, // top
 
 	// Two triangles with indices
-	-1.0f, -0.5f, 0.0f, // bottom left
-	0.0f, -0.5f, 0.0f, // bottom middle
-	1.0f, -0.5f, 0.0f, // bottom right
-	-0.5f,  0.5f, 0.0f, // top left
-	0.5f,  0.5f, 0.0f, // top right
+	//-1.0f, -0.5f, 0.0f, // bottom left
+	//0.0f, -0.5f, 0.0f, // bottom middle
+	//1.0f, -0.5f, 0.0f, // bottom right
+	//-0.5f,  0.5f, 0.0f, // top left
+	//0.5f,  0.5f, 0.0f, // top right
 
 	// Square
 	//-0.5f, -0.5f, 0.0f, // bottom left
@@ -145,73 +147,56 @@ void Application::Run()
 	*/
 #pragma endregion
 
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	CheckVertexShader(vertexShader);
+	Shader shader("Shaders/shader.vs", "Shaders/shader.frag");
 
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
+	//GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	//glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	//glCompileShader(vertexShader);
+	//CheckVertexShader(vertexShader);
 
-	GLuint fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
-	glCompileShader(fragmentShader2);
+	//GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	//glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	//glCompileShader(fragmentShader);
 
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
+	//GLuint shaderProgram = glCreateProgram();
+	//glAttachShader(shaderProgram, vertexShader);
+	//glAttachShader(shaderProgram, fragmentShader);
+	//glLinkProgram(shaderProgram);
 
-	GLuint shaderProgram2 = glCreateProgram();
-	glAttachShader(shaderProgram2, vertexShader);
-	glAttachShader(shaderProgram2, fragmentShader2);
-	glLinkProgram(shaderProgram2);
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	//glDeleteShader(vertexShader);
+	//glDeleteShader(fragmentShader);
 
 	// Vertex Buffer Objects
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
 	// Element Buffer Objects
-	GLuint EBO;
-	glGenBuffers(1, &EBO);
+	//GLuint EBO;
+	//glGenBuffers(1, &EBO);
 	// Vertex Array Object
-	GLuint VAO[2];
-	glGenVertexArrays(2, VAO);
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);
 
 	// Bind the VAO, and then set which VBO it uses and how it is used (attribute pointer)
-	glBindVertexArray(VAO[0]);
+	glBindVertexArray(VAO);
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 		// 0 stands for layout=0
 		// Normalized data = data that are not between 0 and 1 will be mapped to those values
 		// stride = how big is that
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+		// Position
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(0);
+
+		// Color
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
 
 		// Unbind VBO
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-	}
-
-	// Bind the VAO, and then set which VBO it uses and how it is used (attribute pointer)
-	glBindVertexArray(VAO[1]);
-	{
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-		// 0 stands for layout=0
-		// Normalized data = data that are not between 0 and 1 will be mapped to those values
-		// stride = how big is that
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(0);
 	}
 	// Unbind VAO
 	glBindVertexArray(0);
@@ -228,27 +213,23 @@ void Application::Run()
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glUseProgram(shaderProgram);
+		shader.Use();
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-		// 1. approach
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//glDrawArrays(GL_TRIANGLES, 3, 3);
 
-		// 2. approach
-		glBindVertexArray(VAO[0]);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-		glUseProgram(shaderProgram2);
-		glBindVertexArray(VAO[1]);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 3, 3);
+		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);
 
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
 	}
-	glDeleteVertexArrays(1, VAO);
+	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
+	//glDeleteBuffers(1, &EBO);
 
 	glfwTerminate();
 }
@@ -264,9 +245,9 @@ void Application::PrintVersions()
 	glfwGetVersion(&major, &minor, &revision);
 	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 
-	GLint nrAttributes;
-	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-	cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
+	//GLint nrAttributes;
+	//glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	//cout << "Maximum nr of vertex attributes supported: " << nrAttributes << endl;
 }
 
 void Application::CheckVertexShader(const GLuint & vertexShader)
