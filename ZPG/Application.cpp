@@ -4,7 +4,7 @@
 using namespace std;
 
 const GLfloat Application::vertices[] = {
-	
+
 	// 1st Triangle
 	//-0.5f, -0.5f, 0.0f, // bottom left
 	//0.5f, -0.5f, 0.0f, // bottom right
@@ -16,14 +16,21 @@ const GLfloat Application::vertices[] = {
 	//0.5f, -0.5f, 0.0f, // bottom right
 
 	// Left triangle
-	-1.0f, -0.5f, 0.0f, // bottom left
-	0.0f, -0.5f, 0.0f, // bottom right
-	-0.5f,  0.5f, 0.0f, // top left
+	//-1.0f, -0.5f, 0.0f, // bottom left
+	//0.0f, -0.5f, 0.0f, // bottom right
+	//-0.5f,  0.5f, 0.0f, // top
 
-	// Right triangle
-	0.0f, -0.5f, 0.0f, // bottom left
+	//// Right triangle
+	//0.0f, -0.5f, 0.0f, // bottom left
+	//1.0f, -0.5f, 0.0f, // bottom right
+	//0.5f,  0.5f, 0.0f, // top
+
+	-1.0f, -0.5f, 0.0f, // bottom left
+	0.0f, -0.5f, 0.0f, // bottom middle
 	1.0f, -0.5f, 0.0f, // bottom right
-	0.5f,  0.5f, 0.0f, // top left
+	-0.5f,  0.5f, 0.0f, // top left
+	0.5f,  0.5f, 0.0f, // top right
+
 
 	// Square
 	//-0.5f, -0.5f, 0.0f, // bottom left
@@ -34,7 +41,7 @@ const GLfloat Application::vertices[] = {
 
 const GLuint Application::indices[] = {
 	0, 1, 3,
-	1, 3, 2,
+	1, 2, 4,
 };
 
 Application::Application()
@@ -201,11 +208,11 @@ void Application::Run()
 		glBindVertexArray(VAO);
 
 		// 1. approach
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawArrays(GL_TRIANGLES, 3, 3);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawArrays(GL_TRIANGLES, 3, 3);
 
 		// 2. approach
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		glBindVertexArray(0);
 
