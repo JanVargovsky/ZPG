@@ -4,7 +4,7 @@
 using namespace std;
 
 const GLfloat Application::vertices[] = {
-	
+	/*
 	// 1st Triangle
 	-0.5f, -0.5f, 0.0f, // bottom left
 	0.5f, -0.5f, 0.0f, // bottom right
@@ -14,7 +14,13 @@ const GLfloat Application::vertices[] = {
 	-0.5f, 0.5f, 0.0f, // top left
 	0.5f, 0.5f, 0.0f, // top right
 	0.5f, -0.5f, 0.0f, // bottom right
-	
+	*/
+
+	// Square
+	-0.5f, -0.5f, 0.0f, // bottom left
+	-0.5f, 0.5f, 0.0f, // top left
+	0.5f, 0.5f, 0.0f, // top right
+	0.5f, -0.5f, 0.0f, // bottom right
 };
 
 const GLuint Application::indices[] = {
@@ -145,12 +151,18 @@ void Application::Run()
 	// Vertex Array Object
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
+	// Element Buffer Objects
+	GLuint EBO;
+	glGenBuffers(1, &EBO);
 
 	// Bind the VAO, and then set which VBO it uses and how it is used (attribute pointer)
 	glBindVertexArray(VAO);
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 		// 0 stands for layout=0
 		// Normalized data = data that are not between 0 and 1 will be mapped to those values
 		// stride = how big is that
@@ -173,16 +185,23 @@ void Application::Run()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glUseProgram(shaderProgram);
+		// 1. approach
+		//glBindVertexArray(VAO);
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glDrawArrays(GL_TRIANGLES, 3, 3);
+		//glBindVertexArray(0);
+
+		// 2. approach
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDrawArrays(GL_TRIANGLES, 3, 3);
-		glBindVertexArray(0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
 	}
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+
 
 	glfwTerminate();
 }
