@@ -4,23 +4,32 @@
 using namespace std;
 
 const GLfloat Application::vertices[] = {
-	/*
+	
 	// 1st Triangle
-	-0.5f, -0.5f, 0.0f, // bottom left
-	0.5f, -0.5f, 0.0f, // bottom right
+	//-0.5f, -0.5f, 0.0f, // bottom left
+	//0.5f, -0.5f, 0.0f, // bottom right
+	//-0.5f,  0.5f, 0.0f, // top left
+
+	//// 2nd Triangle
+	//-0.5f, 0.5f, 0.0f, // top left
+	//0.5f, 0.5f, 0.0f, // top right
+	//0.5f, -0.5f, 0.0f, // bottom right
+
+	// Left triangle
+	-1.0f, -0.5f, 0.0f, // bottom left
+	0.0f, -0.5f, 0.0f, // bottom right
 	-0.5f,  0.5f, 0.0f, // top left
 
-	// 2nd Triangle
-	-0.5f, 0.5f, 0.0f, // top left
-	0.5f, 0.5f, 0.0f, // top right
-	0.5f, -0.5f, 0.0f, // bottom right
-	*/
+	// Right triangle
+	0.0f, -0.5f, 0.0f, // bottom left
+	1.0f, -0.5f, 0.0f, // bottom right
+	0.5f,  0.5f, 0.0f, // top left
 
 	// Square
-	-0.5f, -0.5f, 0.0f, // bottom left
-	-0.5f, 0.5f, 0.0f, // top left
-	0.5f, 0.5f, 0.0f, // top right
-	0.5f, -0.5f, 0.0f, // bottom right
+	//-0.5f, -0.5f, 0.0f, // bottom left
+	//-0.5f, 0.5f, 0.0f, // top left
+	//0.5f, 0.5f, 0.0f, // top right
+	//0.5f, -0.5f, 0.0f, // bottom right
 };
 
 const GLuint Application::indices[] = {
@@ -175,6 +184,9 @@ void Application::Run()
 	// Unbind VAO
 	glBindVertexArray(0);
 
+	// Wireframe mode
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// update other events like input handling
@@ -185,15 +197,17 @@ void Application::Run()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glUseProgram(shaderProgram);
+
+		glBindVertexArray(VAO);
+
 		// 1. approach
-		//glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//glDrawArrays(GL_TRIANGLES, 3, 3);
-		//glBindVertexArray(0);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 3, 3);
 
 		// 2. approach
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		glBindVertexArray(0);
 
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
