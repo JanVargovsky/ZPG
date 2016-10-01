@@ -20,17 +20,17 @@ const GLfloat Application::vertices[] = {
 	//0.0f, -0.5f, 0.0f, // bottom right
 	//-0.5f,  0.5f, 0.0f, // top
 
-	//// Right triangle
+	// Right triangle
 	//0.0f, -0.5f, 0.0f, // bottom left
 	//1.0f, -0.5f, 0.0f, // bottom right
 	//0.5f,  0.5f, 0.0f, // top
 
+	// Two triangles with indices
 	-1.0f, -0.5f, 0.0f, // bottom left
 	0.0f, -0.5f, 0.0f, // bottom middle
 	1.0f, -0.5f, 0.0f, // bottom right
 	-0.5f,  0.5f, 0.0f, // top left
 	0.5f,  0.5f, 0.0f, // top right
-
 
 	// Square
 	//-0.5f, -0.5f, 0.0f, // bottom left
@@ -250,7 +250,6 @@ void Application::Run()
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 
-
 	glfwTerminate();
 }
 
@@ -264,6 +263,10 @@ void Application::PrintVersions()
 	int major, minor, revision;
 	glfwGetVersion(&major, &minor, &revision);
 	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
+
+	GLint nrAttributes;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 }
 
 void Application::CheckVertexShader(const GLuint & vertexShader)
