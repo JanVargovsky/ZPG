@@ -106,7 +106,7 @@ void Application::Initialize()
 
 void Application::Run()
 {
-	Shader shader("Shaders/shader.vs", "Shaders/shader.frag");
+	Shader shader("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
 
 	// Vertex Buffer Objects
 	GLuint VBO;
@@ -146,6 +146,8 @@ void Application::Run()
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+	GLuint transformLocation = glGetUniformLocation(shader.GetProgram(), "transform");
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// update other events like input handling
@@ -160,7 +162,6 @@ void Application::Run()
 		trans = rotate(trans, (GLfloat)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
 		trans = scale(trans, vec3(0.25f, 0.25f, 0.25f));
 
-		GLuint transformLocation = glGetUniformLocation(shader.GetProgram(), "transform");
 		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, value_ptr(trans));
 
 		shader.Use();
@@ -174,7 +175,6 @@ void Application::Run()
 		GLfloat scaleFactor = abs(sin((GLfloat)glfwGetTime())) / 5 + 0.2;
 		trans = scale(trans, vec3(scaleFactor));
 
-		transformLocation = glGetUniformLocation(shader.GetProgram(), "transform");
 		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, value_ptr(trans));
 
 		glDrawArrays(GL_TRIANGLES, 3, 3);

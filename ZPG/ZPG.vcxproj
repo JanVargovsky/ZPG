@@ -140,8 +140,8 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="shader.vs" />
-    <None Include="Shaders\shader.frag" />
-    <None Include="Shaders\shader.vs" />
+    <None Include="Shaders\FragmentShader.glsl" />
+    <None Include="Shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />

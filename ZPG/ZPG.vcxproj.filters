@@ -24,20 +24,19 @@
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderLoader.cpp">
+    <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="ShaderLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="shader.frag" />
-    <None Include="Shaders\shader.frag">
+    <None Include="Shaders\FragmentShader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\shader.vs">
+    <None Include="Shaders\VertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -45,10 +44,10 @@
     <ClInclude Include="Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderLoader.h">
+    <ClInclude Include="Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="ShaderLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
