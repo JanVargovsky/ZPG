@@ -3,6 +3,7 @@
 #include <cstdio>
 
 using namespace std;
+using namespace glm;
 
 const GLfloat Application::vertices[] = {
 
@@ -18,14 +19,14 @@ const GLfloat Application::vertices[] = {
 
 	 //Left triangle
 	// Positions			Colors
-	-1.0f, 0.5f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
-	0.0f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
-	-0.5f,  -0.5f, 0.0f,		0.0f, 0.0f, 1.0f, // top
+	-1.0f, -1.0f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
+	1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
+	0.0f,  1.0f, 0.0f,		0.0f, 0.0f, 1.0f, // top
 
 	// Right triangle
-	0.0f, -0.5f, 0.0f,		1.0f, 1.0f, 0.0f, // bottom left
-	1.0f, -0.5f, 0.0f,		0.0f, 1.0f, 1.0f, // bottom right
-	0.5f,  0.5f, 0.0f,		1.0f, 0.0f, 1.0f, // top
+	-1.0f, -1.0f, 0.0f,		1.0f, 1.0f, 0.0f, // bottom left
+	1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 1.0f, // bottom right
+	0.0f,  1.0f, 0.0f,		1.0f, 0.0f, 1.0f, // top
 
 	// Two triangles with indices
 	//-1.0f, -0.5f, 0.0f, // bottom left
@@ -107,23 +108,6 @@ void Application::Run()
 {
 	Shader shader("Shaders/shader.vs", "Shaders/shader.frag");
 
-	//GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	//glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	//glCompileShader(vertexShader);
-	//CheckVertexShader(vertexShader);
-
-	//GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	//glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	//glCompileShader(fragmentShader);
-
-	//GLuint shaderProgram = glCreateProgram();
-	//glAttachShader(shaderProgram, vertexShader);
-	//glAttachShader(shaderProgram, fragmentShader);
-	//glLinkProgram(shaderProgram);
-
-	//glDeleteShader(vertexShader);
-	//glDeleteShader(fragmentShader);
-
 	// Vertex Buffer Objects
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
@@ -171,13 +155,28 @@ void Application::Run()
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		mat4 trans;
+		trans = translate(trans, vec3(-0.5f, -0.5f, 0.0f));
+		trans = rotate(trans, (GLfloat)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
+		trans = scale(trans, vec3(0.25f, 0.25f, 0.25f));
+
+		GLuint transformLocation = glGetUniformLocation(shader.GetProgram(), "transform");
+		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, value_ptr(trans));
+
 		shader.Use();
 		glBindVertexArray(VAO);
-		glUniform1f(glGetUniformLocation(shader.GetProgram(), "offset"), 0.75f);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-		glUniform1f(glGetUniformLocation(shader.GetProgram(), "offset"), -0.75f);
+		trans = mat4();
+		trans = translate(trans, vec3(-0.5f, 0.5f, 0.0f));
+		trans = rotate(trans, (GLfloat)-glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
+		GLfloat scaleFactor = abs(sin((GLfloat)glfwGetTime())) / 5 + 0.2;
+		trans = scale(trans, vec3(scaleFactor));
+
+		transformLocation = glGetUniformLocation(shader.GetProgram(), "transform");
+		glUniformMatrix4fv(transformLocation, 1, GL_FALSE, value_ptr(trans));
+
 		glDrawArrays(GL_TRIANGLES, 3, 3);
 		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
