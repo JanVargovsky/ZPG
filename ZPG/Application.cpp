@@ -18,9 +18,9 @@ const GLfloat Application::vertices[] = {
 
 	 //Left triangle
 	// Positions			Colors
-	-1.0f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
-	0.0f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
-	-0.5f,  0.5f, 0.0f,		0.0f, 0.0f, 1.0f, // top
+	-1.0f, 0.5f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
+	0.0f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
+	-0.5f,  -0.5f, 0.0f,		0.0f, 0.0f, 1.0f, // top
 
 	// Right triangle
 	0.0f, -0.5f, 0.0f,		1.0f, 1.0f, 0.0f, // bottom left
@@ -105,48 +105,6 @@ void Application::Initialize()
 
 void Application::Run()
 {
-#pragma region School stuff
-	/*
-	//vertex buffer object (VBO)
-	GLuint VBO = 0;
-	glGenBuffers(1, &VBO); // generate the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
-
-	//vertex attribute object(VAO)
-	GLuint VAO_Triangle = 0;
-	glGenVertexArrays(1, &VAO_Triangle); //generate the VAO
-	glBindVertexArray(VAO_Triangle); //bind the VAO
-	glEnableVertexAttribArray(0); //enable vertex attributes
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	GLuint VAO_Square = 0;
-	glGenVertexArrays(1, &VAO_Square); //generate the VAO
-	glBindVertexArray(VAO_Square); //bind the VAO
-	glEnableVertexAttribArray(0); //enable vertex attributes
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	// Create & compile vertex shader
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
-	glCompileShader(vertexShader);
-	// Create & compile fragment shader
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
-	glCompileShader(fragmentShader);
-	// Create shader program that consist of fragment and vertex shaders
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	// Check shaders
-	CheckShaders(shaderProgram);
-	*/
-#pragma endregion
-
 	Shader shader("Shaders/shader.vs", "Shaders/shader.frag");
 
 	//GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -215,10 +173,11 @@ void Application::Run()
 
 		shader.Use();
 		glBindVertexArray(VAO);
+		glUniform1f(glGetUniformLocation(shader.GetProgram(), "offset"), 0.75f);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-
+		glUniform1f(glGetUniformLocation(shader.GetProgram(), "offset"), -0.75f);
 		glDrawArrays(GL_TRIANGLES, 3, 3);
 		//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 

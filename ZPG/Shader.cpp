@@ -7,10 +7,18 @@ using namespace std;
 
 Shader::Shader(const GLchar * vertexPath, const GLchar * fragmentPath)
 {
-	int vertexShader = CompileShader(vertexPath, Vertex);
-	int fragmentShader = CompileShader(fragmentPath, Fragment);
+	int vertexShader = CreateShader(vertexPath, Vertex);
+	int fragmentShader = CreateShader(fragmentPath, Fragment);
 
 	program = CreateProgram(vertexShader, fragmentShader);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+}
+
+Shader::~Shader()
+{
+	glDeleteProgram(program);
 }
 
 void Shader::Use()
@@ -37,7 +45,7 @@ string Shader::GetContent(const GLchar * path) const
 	return "";
 }
 
-int Shader::CompileShader(const GLchar *path, const ShaderType type) const
+int Shader::CreateShader(const GLchar *path, const ShaderType type) const
 {
 	int shader = glCreateShader(type);
 	string content = GetContent(path);
@@ -69,9 +77,6 @@ int Shader::CreateProgram(const int vertexShader, const int fragmentShader) cons
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
 	CheckProgram(shaderProgram);
 	return shaderProgram;
 }
@@ -89,7 +94,7 @@ bool Shader::CheckProgram(const int program) const
 	return success;
 }
 
-std::string Shader::ToString(const ShaderType type) const
+string Shader::ToString(const ShaderType type) const
 {
 	switch (type)
 	{

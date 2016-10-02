@@ -20,46 +20,6 @@ private:
 	GLFWwindow* window;
 	static const GLfloat vertices[];
 	static const GLuint indices[];
-
-	const char* vertexShaderSource =
-		"#version 330 core\n"
-		"layout (location = 0) in vec3 position;"
-		"layout (location = 1) in vec3 color;"
-		"out vec3 ourColor;"
-		"void main()"
-		"{"
-		"	gl_Position = vec4(position, 1.0);"
-		"	ourColor = color;"
-		"}";
-	const char* fragmentShaderSource =
-		"#version 330 core\n"
-		"in vec3 ourColor;"
-		"out vec4 color;"
-		"void main()"
-		"{"
-		"	color = vec4(ourColor, 1.0f);"
-		"}";
-
-	const char* vertex_shader =
-		"#version 330\n"
-		"layout(location=0) in vec3 vp;"
-		//"uniform mat4 ModelMatrix = mat4("
-		//"	1.0, 0.0, 0.0, 0.0," // first column 
-		//"	0.0, 1.0, 0.0, 0.0," // second column
-		//"	0.0, 0.0, 1.0, 0.0," // third column
-		//"	0.5, 0.0, 0.0, 1.0);" // last column
-		"void main() {"
-		" gl_Position = vec4(vp, 1.0);"
-		//" gl_Position = ModelMatrix *vec4 (vp, 1);"
-		"}";
-	const char* fragment_shader =
-		"#version 330\n"
-		//"in vec4 color;"
-		"out vec4 frag_colour;"
-		"void main() {"
-		" frag_colour = vec4(1.f, 0.f, 0.f, 1.f);"
-		"}";
-
 public:
 	Application();
 	~Application();
