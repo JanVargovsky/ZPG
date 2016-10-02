@@ -1,5 +1,4 @@
 #include "ShaderLoader.h"
-
 #include <fstream>
 #include <iostream>
 
