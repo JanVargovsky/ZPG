@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <string>
 
-class Shader: public ShaderLoader
+class Shader : private ShaderLoader
 {
 private:
 	GLuint program;
@@ -12,14 +12,11 @@ public:
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
 	virtual ~Shader();
 
-	void Use();
+	void UseProgram() const;
 
+	// TODO: Remove
 	const GLuint GetProgram() const
 	{
 		return program;
 	}
-
-private:
-	int CreateProgram(const int vertexShader, const int fragmentShader) const;
-	bool CheckProgram(const int program) const;
 };

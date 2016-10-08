@@ -1,8 +1,11 @@
+#include <GL/glew.h>
 #include "Application.h"
 
 int main()
 {
-	Application app;
-	app.Run();
+	if (!Application::GetInstance().Initialize())
+		exit(EXIT_FAILURE);
+
+	Application::GetInstance().Run();
 	return 0;
 }

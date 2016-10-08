@@ -133,11 +133,17 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="ApplicationController.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <Content Include="shader.vs" />
     <None Include="Shaders\FragmentShader.glsl" />
@@ -145,8 +151,13 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="ApplicationController.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

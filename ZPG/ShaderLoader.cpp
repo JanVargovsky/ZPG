@@ -4,10 +4,6 @@
 
 using namespace std;
 
-ShaderLoader::~ShaderLoader()
-{
-}
-
 string ShaderLoader::GetContent(const GLchar * path) const
 {
 	try
@@ -25,6 +21,19 @@ string ShaderLoader::GetContent(const GLchar * path) const
 		cerr << "Reason: " << ex.what() << endl;
 	}
 	return "";
+}
+
+string ShaderLoader::ToString(const ShaderType type) const
+{
+	switch (type)
+	{
+	case Vertex:
+		return "Vertex";
+	case Fragment:
+		return "Fragment";
+	default:
+		return "Unknown";
+	}
 }
 
 int ShaderLoader::CreateShader(const GLchar *path, const ShaderType type) const
@@ -52,15 +61,26 @@ bool ShaderLoader::CheckShader(const int shader, const ShaderType type) const
 	return success == GL_TRUE;
 }
 
-string ShaderLoader::ToString(const ShaderType type) const
+int ShaderLoader::CreateProgram(const int vertexShader, const int fragmentShader) const
 {
-	switch (type)
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	glLinkProgram(shaderProgram);
+
+	CheckProgram(shaderProgram);
+	return shaderProgram;
+}
+
+bool ShaderLoader::CheckProgram(const int program) const
+{
+	GLint success;
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (!success)
 	{
-	case Vertex:
-		return "Vertex";
-	case Fragment:
-		return "Fragment";
-	default:
-		return "Unknown";
+		GLchar infoLog[512];
+		glGetProgramInfoLog(program, 512, NULL, infoLog);
+		cerr << "Compilation of program linking failed: " << infoLog << endl;
 	}
+	return success == GL_TRUE;
 }

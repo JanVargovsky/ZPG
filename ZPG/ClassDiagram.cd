@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ShaderLoader">
+    <Position X="6.25" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="ShaderLoader::ShaderType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ShaderLoader.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAACAAAAEAEAAAAAACAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ShaderLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Application">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAQEAAAAAAIEABAACAAAACAAgBAAAAAI=</HashCode>
+      <FileName>Application.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApplicationController">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAiAAAgAAAIEAAAACBAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>ApplicationController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Camera">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Object">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIgAAAQAAAgAgAAEAIAACAAAAAAAAAAAAAEBEACA=</HashCode>
+      <FileName>Object.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scene">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAABAAAwAAgAAAAAAAQQAIAAAIAAAAAECEAAA=</HashCode>
+      <FileName>Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shader">
+    <Position X="6.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAQAAAAEAAAAABAAAAAAAAAE=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

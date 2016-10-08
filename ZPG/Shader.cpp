@@ -21,31 +21,7 @@ Shader::~Shader()
 	glDeleteProgram(program);
 }
 
-void Shader::Use()
+void Shader::UseProgram() const
 {
 	glUseProgram(program);
-}
-
-int Shader::CreateProgram(const int vertexShader, const int fragmentShader) const
-{
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	CheckProgram(shaderProgram);
-	return shaderProgram;
-}
-
-bool Shader::CheckProgram(const int program) const
-{
-	GLint success;
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		GLchar infoLog[512];
-		glGetProgramInfoLog(program, 512, NULL, infoLog);
-		cerr << "Compilation of program linking failed: " << infoLog << endl;
-	}
-	return success == GL_TRUE;
 }

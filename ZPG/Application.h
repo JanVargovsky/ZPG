@@ -1,4 +1,7 @@
 #pragma once
+#include "ApplicationController.h"
+#include "Scene.h"
+
 //Include GLEW
 #include <GL/glew.h>
 
@@ -16,25 +19,30 @@
 
 class Application
 {
-private:
-	GLFWwindow* window;
-	static const GLfloat vertices[];
-	static const GLuint indices[];
+#pragma region Singleton stuff
 public:
+	static Application& GetInstance();
+
+private:
+	Application(const Application&) = delete;
+	Application& operator=(const Application&) = delete;
 	Application();
+	Application(Scene *scene, ApplicationController* controller);
 	~Application();
+#pragma endregion
+
+private:
+	bool initialized;
+	ApplicationController *controller;
+	Scene *scene;
+
+public:
+	bool Initialize();
 
 	void Run();
+
+	ApplicationController* GetController() { return controller; }
+	Scene* GetScene() { return scene; }
 private:
-
-	void Initialize();
 	void PrintVersions();
-	void CheckVertexShader(const GLuint &vertexShader);
-	void CheckShaderProgram(const GLuint &shaderProgram);
-
-	// Callbacks
-	static void ErrorCallback(int error, const char * description)
-	{
-		std::cerr << "ERROR: " << description << std::endl;
-	}
 };
