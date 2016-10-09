@@ -15,10 +15,11 @@
 using namespace std;
 using namespace glm;
 
-Scene::Scene()
+Scene::Scene(int width, int height)
+	:width(width), height(height)
 {
 	window = nullptr;
-	shader = nullptr;
+
 }
 
 Scene::~Scene()
@@ -26,20 +27,22 @@ Scene::~Scene()
 	if (window != nullptr)
 		glfwDestroyWindow(window);
 
-	//for (auto & object : objects)
-	//	delete object;
-
 	objects.clear();
 }
 
 bool Scene::Initialize()
 {
-	window = glfwCreateWindow(800, 600, "ZPG", nullptr, nullptr);
+	window = glfwCreateWindow(width, height, "ZPG", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		cerr << "Failed to create GLFW window" << endl;
 		return false;
 	}
+
+	//glfwGetFramebufferSize(window, &width, &height);
+	//float ratio = width / (float)height;
+
+	ChangeViewPort();
 
 	return true;
 }
@@ -52,18 +55,27 @@ bool Scene::CanDraw()
 void Scene::Draw()
 {
 	for (auto & object : objects)
-	{
 		object->Draw();
-	}
-		//objectDraw();
 
 	// put the stuff we’ve been drawing onto the display
 	glfwSwapBuffers(window);
 }
 
-void Scene::Add(Object * object)
+void Scene::AddObject(Object * object)
 {
 	unique_ptr<Object> objectPtr(object);
 
 	objects.push_back(move(objectPtr));
+}
+
+void Scene::ChangeViewPort()
+{
+	glViewport(0, 0, width, height);
+}
+
+void Scene::ChangeViewPort(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+	ChangeViewPort();
 }

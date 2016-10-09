@@ -5,7 +5,7 @@
 
 class Transform
 {
-private:
+public:
 	glm::vec3 position;
 	float angle;
 	glm::vec3 axis;

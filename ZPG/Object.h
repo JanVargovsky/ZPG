@@ -1,23 +1,27 @@
 #pragma once
-#include <glm/vec3.hpp>
-
 #include "Shader.h"
 #include "Transform.h"
+
+#include <glm/vec3.hpp>
+#include <functional>
+#include <memory>
 
 class Object
 {
 private:
-	const Shader * shader;
+	const std::shared_ptr<Shader> shader;
 	Transform transform;
 
 	GLuint VBO, EBO, VAO;
+
+	std::function<void(Object &)> update;
 public:
-	Object(Shader * shader);
+	Object(std::shared_ptr<Shader> shader);
+	Object(std::shared_ptr<Shader> shader, std::function<void(Object &)> update);
 	~Object();
 
-	void Draw() const;
+	void Draw();
 
-	//glm::vec3 getPosition() { return position; }
-	//void setPosition(glm::vec3 value) { position = value; }
+	Transform & GetTransform();
 };
 

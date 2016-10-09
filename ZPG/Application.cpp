@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "Shader.h"
 
+#include <memory>
+
 using namespace std;
 using namespace glm;
 
@@ -52,7 +54,11 @@ bool Application::Initialize()
 	glfwSetMouseButtonCallback(window, [](GLFWwindow * window, int button, int action, int mode) {Application::GetInstance().GetController()->OnMouseButtonChange(window, button, action, mode); });
 	glfwSetWindowFocusCallback(window, [](GLFWwindow * window, int focused) {Application::GetInstance().GetController()->OnWindowFocus(window, focused); });
 	glfwSetWindowIconifyCallback(window, [](GLFWwindow * window, int iconified) {Application::GetInstance().GetController()->OnWindowIconify(window, iconified); });
-	glfwSetWindowSizeCallback(window, [](GLFWwindow * window, int width, int height) {Application::GetInstance().GetController()->OnWindowSize(window, width, height); });
+	glfwSetWindowSizeCallback(window, [](GLFWwindow * window, int width, int height)
+	{
+		Application::GetInstance().GetController()->OnWindowSize(window, width, height);
+		Application::GetInstance().GetScene()->ChangeViewPort(width, height);
+	});
 	glfwSetScrollCallback(window, [](GLFWwindow *window, double xoffset, double yoffset) {Application::GetInstance().GetController()->OnMouseScroll(window, xoffset, yoffset); });
 
 	glfwMakeContextCurrent(window);
@@ -63,15 +69,9 @@ bool Application::Initialize()
 		cerr << "Failed to initializate GLEW" << endl;
 		return false;
 	}
+
 	// get version info
 	PrintVersions();
-
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	//float ratio = width / (float)height;
-	glViewport(0, 0, width, height);
-
-	scene->Add(new Object(new Shader("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl")));
 
 	initialized = true;
 	return true;
@@ -85,6 +85,56 @@ void Application::Run()
 		return;
 	}
 
+	shared_ptr<Shader> shader = make_shared<Shader>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
+	shader->UseProgram();
+	// TODO: Move to camera
+	//mat4 viewMatrix = lookAt(vec3(2, 2, 2), vec3(0, 0, 0), vec3(0, 1, 0));
+	mat4 viewMatrix = translate(mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
+	shader->Send("viewMatrix", viewMatrix);
+
+	// TODO: Use ratio width/height instead of 4/3
+	//45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
+	//mat4 projectionMatrix = perspective(radians(45.0f), 4.f / 3.f, 0.0f, 1000.f);
+	mat4 projectionMatrix = perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
+	shader->Send("projectionMatrix", projectionMatrix);
+	shader->UnuseProgram();
+
+
+	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
+	float x = -1.5f;
+	for (size_t i = 0; i < 3; i++)
+	{
+		auto scaleObject = new Object(shader, [i](Object & o)
+		{
+			o.GetTransform().scale = abs(sin(glfwGetTime() + i)) / 3 + 0.1f;
+		});
+		scaleObject->GetTransform().position = vec3(x, 1.3, 0);
+		scene->AddObject(scaleObject);
+
+		auto angleObject = new Object(shader, [](Object & o)
+		{
+			//o.GetTransform().angle = abs(sin(glfwGetTime())) * 90.f;
+			o.GetTransform().angle = glfwGetTime() * 50.f;
+		});
+		angleObject->GetTransform().position = vec3(x, 0, 0);
+		angleObject->GetTransform().scale = 0.5f;
+		angleObject->GetTransform().axis = axis[i];
+		scene->AddObject(angleObject);
+
+		auto positionObject = new Object(shader, [i](Object & o)
+		{
+			o.GetTransform().position = vec3(sin(glfwGetTime()) + i - 1, -1.3, 0);
+
+			o.GetTransform().scale = abs(sin(glfwGetTime() + i)) / 3 + 0.1f;
+			o.GetTransform().angle = (glfwGetTime() + i) * 50.f;
+
+		});
+		positionObject->GetTransform().axis = axis[i];
+		scene->AddObject(positionObject);
+
+		x += 1.5f;
+	}
+
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -92,6 +142,8 @@ void Application::Run()
 	{
 		// update other events like input handling
 		glfwPollEvents();
+
+		cout << glfwGetTime() << endl;
 
 		// clear color and depth buffer
 		glClearColor(.2f, .3f, .4f, 1.f);

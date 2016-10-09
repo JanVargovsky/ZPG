@@ -16,7 +16,7 @@ mat4 Transform::Get() const
 	mat4 transform;
 
 	transform = translate(transform, position);
-	transform = rotate(transform, angle, axis);
+	transform = rotate(transform, radians(angle), axis);
 	transform = glm::scale(transform, vec3(scale));
 
 	return transform;

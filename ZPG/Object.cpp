@@ -10,44 +10,19 @@
 using namespace std;
 using namespace glm;
 
-Object::Object(Shader * shader)
-	:shader(shader)
+Object::Object(std::shared_ptr<Shader> shader)
+	:Object(shader, nullptr)
+{
+}
+
+Object::Object(std::shared_ptr<Shader> shader, function<void(Object &)> update)
+	: shader(shader), update(update), VBO(0), EBO(0), VAO(0)
 {
 	GLfloat vertices[] = {
-
-		// 1st Triangle
-		//-0.5f, -0.5f, 0.0f, // bottom left
-		//0.5f, -0.5f, 0.0f, // bottom right
-		//-0.5f,  0.5f, 0.0f, // top left
-
-		//// 2nd Triangle
-		//-0.5f, 0.5f, 0.0f, // top left
-		//0.5f, 0.5f, 0.0f, // top right
-		//0.5f, -0.5f, 0.0f, // bottom right
-
-		//Left triangle
 		// Positions			Colors
 		-1.0f, -1.0f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
 		1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
 		0.0f,  1.0f, 0.0f,		0.0f, 0.0f, 1.0f, // top
-
-		// Right triangle
-		-1.0f, -1.0f, 0.0f,		1.0f, 1.0f, 0.0f, // bottom left
-		1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 1.0f, // bottom right
-		0.0f,  1.0f, 0.0f,		1.0f, 0.0f, 1.0f, // top
-
-		// Two triangles with indices
-		//-1.0f, -0.5f, 0.0f, // bottom left
-		//0.0f, -0.5f, 0.0f, // bottom middle
-		//1.0f, -0.5f, 0.0f, // bottom right
-		//-0.5f,  0.5f, 0.0f, // top left
-		//0.5f,  0.5f, 0.0f, // top right
-
-		// Square
-		//-0.5f, -0.5f, 0.0f, // bottom left
-		//-0.5f, 0.5f, 0.0f, // top left
-		//0.5f, 0.5f, 0.0f, // top right
-		//0.5f, -0.5f, 0.0f, // bottom right
 	};
 
 	// TODO: Remove ... Temp
@@ -84,28 +59,10 @@ Object::Object(Shader * shader)
 	}
 	// Unbind VAO
 	glBindVertexArray(0);
-
-	shader->UseProgram();
-	//GLuint transformLocation = glGetUniformLocation(shader->GetProgram(), "transform");
-
-	// TODO: Use ratio width/height
-	mat4 modelMatrix;
-	mat4 viewMatrix = lookAt(vec3(2, 2, 2), vec3(0, 0, 0), vec3(0, 1, 0));
-
-	GLuint viewMatrixLocation = glGetUniformLocation(shader->GetProgram(), "viewMatrix");
-	glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, value_ptr(viewMatrix));
-
-	//45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	mat4 projectionMatrix = perspective(radians(45.0f), 4.f / 3.f, 0.0f, 1000.f);
-	//mat4 projectionMatrix = glm::mat4(1.0f);
-	GLuint projectionMatrixLocation = glGetUniformLocation(shader->GetProgram(), "projectionMatrix");
-	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, value_ptr(projectionMatrix));
 }
 
 Object::~Object()
 {
-	if (shader != nullptr)
-		delete shader;
 	if (VAO != 0)
 		glDeleteVertexArrays(1, &VAO);
 	if (VBO != 0)
@@ -114,54 +71,45 @@ Object::~Object()
 		glDeleteBuffers(1, &EBO);
 }
 
-void Object::Draw() const
+void Object::Draw()
 {
 	if (shader == nullptr)
 		return;
 
-	shader->UseProgram();
-	//GLuint transformLocation = glGetUniformLocation(shader->GetProgram(), "transform");
+	if (update != nullptr)
+		update(*this);
 
+	shader->UseProgram();
 	glBindVertexArray(VAO);
-	// TODO: Use ratio width/height
-	// TODO: Replace by Transform
-	//mat4 test = transform.Get();
+	mat4 modelMatrix = GetTransform().Get();
+	shader->Send("modelMatrix", modelMatrix);
+
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glBindVertexArray(0);
+	shader->UnuseProgram();
+
+	/*
+	mat4 test = transform.Get();
 	mat4 modelMatrix;
 	mat4 viewMatrix = lookAt(vec3(2, 2, 2), vec3(0, 0, 0), vec3(0, 1, 0));
+	//viewMatrix = mat4();
 
 	GLuint viewMatrixLocation = glGetUniformLocation(shader->GetProgram(), "viewMatrix");
 	glUniformMatrix4fv(viewMatrixLocation, 1, GL_FALSE, value_ptr(viewMatrix));
 
 	//45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	mat4 projectionMatrix = perspective(radians(45.0f), 4.f / 3.f, 0.0f, 1000.f);
-	//mat4 projectionMatrix = glm::mat4(1.0f);
+	mat4 projectionMatrix = perspective(radians(45.0f), 4.f / 3.f, 0.1f, 1000.f);
+	//projectionMatrix = glm::mat4(1.0f);
 	GLuint projectionMatrixLocation = glGetUniformLocation(shader->GetProgram(), "projectionMatrix");
 	glUniformMatrix4fv(projectionMatrixLocation, 1, GL_FALSE, value_ptr(projectionMatrix));
 
-	mat4 trans;
-	trans = translate(trans, vec3(-0.5f, -0.5f, 0.0f));
-	trans = rotate(trans, (GLfloat)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
-	trans = scale(trans, vec3(0.25f, 0.25f, 0.25f));
-
 	GLuint modelMatrixLocation = glGetUniformLocation(shader->GetProgram(), "modelMatrix");
-	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, value_ptr(trans));
+	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, value_ptr(test));
+	*/
+}
 
-	shader->UseProgram();
-
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
-	trans = mat4();
-	trans = translate(trans, vec3(-0.5f, 0.5f, 0.0f));
-	auto time = (GLfloat)glfwGetTime();
-	trans = rotate(trans, -time, vec3(0.0f, 0.0f, 1.0f));
-	GLfloat scaleFactor = abs(sin(time)) / 5 + 0.2;
-	trans = scale(trans, vec3(scaleFactor));
-
-	glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, value_ptr(trans));
-
-	glDrawArrays(GL_TRIANGLES, 3, 3);
-	//glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
-	glBindVertexArray(0);
+Transform & Object::GetTransform()
+{
+	return transform;
 }
