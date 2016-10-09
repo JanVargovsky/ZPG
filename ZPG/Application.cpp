@@ -143,8 +143,6 @@ void Application::Run()
 		// update other events like input handling
 		glfwPollEvents();
 
-		cout << glfwGetTime() << endl;
-
 		// clear color and depth buffer
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
