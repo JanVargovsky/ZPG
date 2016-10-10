@@ -15,7 +15,4 @@ public:
 
 	int CreateShader(const GLchar *path, ShaderType type) const;
 	bool CheckShader(const int shader, const ShaderType type) const;
-
-	int CreateProgram(const int vertexShader, const int fragmentShader) const;
-	bool CheckProgram(const int program) const;
 };

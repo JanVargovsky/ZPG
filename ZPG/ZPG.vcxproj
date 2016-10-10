@@ -137,14 +137,16 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Program.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="shader.vs" />
     <None Include="Shaders\FragmentShader.glsl" />
     <None Include="Shaders\VertexShader.glsl" />
@@ -155,7 +157,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Program.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
@@ -167,6 +169,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <Import Project="..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets" Condition="Exists('..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" />
     <Import Project="..\packages\glew.1.9.0.1\build\native\glew.targets" Condition="Exists('..\packages\glew.1.9.0.1\build\native\glew.targets')" />
     <Import Project="..\packages\glew.v140.1.12.0\build\native\glew.v140.targets" Condition="Exists('..\packages\glew.v140.1.12.0\build\native\glew.v140.targets')" />
+    <Import Project="..\packages\boost.1.62.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.62.0.0\build\native\boost.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -178,5 +181,6 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <Error Condition="!Exists('..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets'))" />
     <Error Condition="!Exists('..\packages\glew.1.9.0.1\build\native\glew.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.1.9.0.1\build\native\glew.targets'))" />
     <Error Condition="!Exists('..\packages\glew.v140.1.12.0\build\native\glew.v140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.v140.1.12.0\build\native\glew.v140.targets'))" />
+    <Error Condition="!Exists('..\packages\boost.1.62.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.62.0.0\build\native\boost.targets'))" />
   </Target>
 </Project>

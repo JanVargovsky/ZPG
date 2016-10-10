@@ -9,15 +9,19 @@ Transform::Transform(glm::vec3 position, float angle, glm::vec3 axis, float scal
 {
 }
 
-mat4 Transform::Get() const
+mat4 Transform::Get()
 {
-	// TODO: Add caching with lazy loading
+	if (!matrix)
+		CalculateMatrix();
 
-	mat4 transform;
+	return matrix.get();
+}
 
-	transform = translate(transform, position);
-	transform = rotate(transform, radians(angle), axis);
-	transform = glm::scale(transform, vec3(scale));
+void Transform::CalculateMatrix()
+{
+	matrix = mat4();
 
-	return transform;
+	matrix = translate(matrix.get(), position);
+	matrix = rotate(matrix.get(), radians(angle), axis);
+	matrix = glm::scale(matrix.get(), vec3(scale));
 }

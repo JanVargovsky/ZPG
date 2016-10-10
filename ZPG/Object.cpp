@@ -10,13 +10,13 @@
 using namespace std;
 using namespace glm;
 
-Object::Object(std::shared_ptr<Shader> shader)
-	:Object(shader, nullptr)
+Object::Object(std::shared_ptr<Program> program)
+	:Object(program, nullptr)
 {
 }
 
-Object::Object(std::shared_ptr<Shader> shader, function<void(Object &)> update)
-	: shader(shader), update(update), VBO(0), EBO(0), VAO(0)
+Object::Object(std::shared_ptr<Program> program, function<void(Object &)> update)
+	: program(program), update(update), VBO(0), EBO(0), VAO(0)
 {
 	GLfloat vertices[] = {
 		// Positions			Colors
@@ -73,21 +73,21 @@ Object::~Object()
 
 void Object::Draw()
 {
-	if (shader == nullptr)
+	if (program == nullptr)
 		return;
 
 	if (update != nullptr)
 		update(*this);
 
-	shader->UseProgram();
+	program->Use();
 	glBindVertexArray(VAO);
 	mat4 modelMatrix = GetTransform().Get();
-	shader->Send("modelMatrix", modelMatrix);
+	program->Send("modelMatrix", modelMatrix);
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	glBindVertexArray(0);
-	shader->UnuseProgram();
+	program->Unuse();
 }
 
 Transform & Object::GetTransform()

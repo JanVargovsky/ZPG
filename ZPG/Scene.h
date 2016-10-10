@@ -1,6 +1,7 @@
 #pragma once
-#include "Shader.h"
+#include "Program.h"
 #include "Object.h"
+#include "Camera.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -11,6 +12,7 @@ class Scene
 {
 private:
 	GLFWwindow* window;
+	Camera* camera;
 	int width, height;
 	bool initialized;
 
@@ -18,7 +20,7 @@ private:
 	std::vector<std::unique_ptr<Object>> objects;
 
 public:
-	Scene(int width = 800, int height = 600);
+	Scene(Camera* camera, int width = 800, int height = 600);
 	~Scene();
 	bool Initialize();
 	bool CanDraw();
@@ -26,7 +28,8 @@ public:
 	void AddObject(Object * object);
 	void ChangeViewPort(int width, int height);
 
-	GLFWwindow* GetWindow() { return window; }
+	inline GLFWwindow* GetWindow() { return window; }
+	inline Camera* GetCamera() { return camera; }
 	int GetWidth() { return width; }
 	int GetHeight() { return height; }
 

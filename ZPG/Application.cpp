@@ -1,6 +1,11 @@
 #include "Application.h"
-#include "Shader.h"
+#include "Program.h"
 
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <iostream>
 #include <memory>
 
 using namespace std;
@@ -13,7 +18,7 @@ Application& Application::GetInstance()
 }
 
 Application::Application()
-	: Application(new Scene(), new ApplicationController())
+	: Application(new Scene(new Camera(vec3(0), radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f)), new ApplicationController())
 {
 }
 
@@ -70,13 +75,14 @@ bool Application::Initialize()
 		return false;
 	}
 
+
 	// get version info
 	PrintVersions();
 
 	initialized = true;
 	return true;
 }
-
+#include <glm/gtc/matrix_transform.hpp>
 void Application::Run()
 {
 	if (!initialized)
@@ -85,50 +91,37 @@ void Application::Run()
 		return;
 	}
 
-	shared_ptr<Shader> shader = make_shared<Shader>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
-	shader->UseProgram();
-	// TODO: Move to camera
-	//mat4 viewMatrix = lookAt(vec3(2, 2, 2), vec3(0, 0, 0), vec3(0, 1, 0));
-	mat4 viewMatrix = translate(mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
-	shader->Send("viewMatrix", viewMatrix);
-
-	//45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	float ratio = scene->GetWidth() / (float)scene->GetHeight();
-	mat4 projectionMatrix = perspective(glm::radians(45.0f), ratio, 0.1f, 1000.0f);
-	shader->Send("projectionMatrix", projectionMatrix);
-	shader->UnuseProgram();
-
+	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
+	scene->GetCamera()->Set(program.get());
 
 	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
 	float x = -1.5f;
 	for (size_t i = 0; i < 3; i++)
 	{
-		auto scaleObject = new Object(shader, [i](Object & o)
+		auto scaleObject = new Object(program, [i](Object & o)
 		{
-			o.GetTransform().scale = abs(sin(glfwGetTime() + i)) / 3 + 0.1f;
+			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
 		});
-		scaleObject->GetTransform().position = vec3(x, 1.3, 0);
+		scaleObject->GetTransform().SetPosition(vec3(x, 1.3, 0));
 		scene->AddObject(scaleObject);
 
-		auto angleObject = new Object(shader, [](Object & o)
+		auto angleObject = new Object(program, [](Object & o)
 		{
-			//o.GetTransform().angle = abs(sin(glfwGetTime())) * 90.f;
-			o.GetTransform().angle = glfwGetTime() * 50.f;
+			o.GetTransform().SetAngle(glfwGetTime() * 50.f);
 		});
-		angleObject->GetTransform().position = vec3(x, 0, 0);
-		angleObject->GetTransform().scale = 0.5f;
-		angleObject->GetTransform().axis = axis[i];
+		angleObject->GetTransform().SetPosition(vec3(x, 0, 0));
+		angleObject->GetTransform().SetScale(0.5f);
+		angleObject->GetTransform().SetAxis(axis[i]);
 		scene->AddObject(angleObject);
 
-		auto positionObject = new Object(shader, [i](Object & o)
+		auto positionObject = new Object(program, [i](Object & o)
 		{
-			o.GetTransform().position = vec3(sin(glfwGetTime()) + i - 1, -1.3, 0);
-
-			o.GetTransform().scale = abs(sin(glfwGetTime() + i)) / 3 + 0.1f;
-			o.GetTransform().angle = (glfwGetTime() + i) * 50.f;
+			o.GetTransform().SetPosition(vec3(sin(glfwGetTime()) + i - 1, -1.3, 0));
+			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
+			o.GetTransform().SetAngle((glfwGetTime() + i) * 50.f);
 
 		});
-		positionObject->GetTransform().axis = axis[i];
+		positionObject->GetTransform().SetAxis(axis[i]);
 		scene->AddObject(positionObject);
 
 		x += 1.5f;
@@ -136,7 +129,7 @@ void Application::Run()
 
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+	
 	while (scene->CanDraw())
 	{
 		// update other events like input handling
