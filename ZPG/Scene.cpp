@@ -19,7 +19,6 @@ Scene::Scene(int width, int height)
 	:width(width), height(height)
 {
 	window = nullptr;
-
 }
 
 Scene::~Scene()

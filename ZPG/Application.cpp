@@ -92,10 +92,9 @@ void Application::Run()
 	mat4 viewMatrix = translate(mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
 	shader->Send("viewMatrix", viewMatrix);
 
-	// TODO: Use ratio width/height instead of 4/3
 	//45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	//mat4 projectionMatrix = perspective(radians(45.0f), 4.f / 3.f, 0.0f, 1000.f);
-	mat4 projectionMatrix = perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
+	float ratio = scene->GetWidth() / (float)scene->GetHeight();
+	mat4 projectionMatrix = perspective(glm::radians(45.0f), ratio, 0.1f, 1000.0f);
 	shader->Send("projectionMatrix", projectionMatrix);
 	shader->UnuseProgram();
 

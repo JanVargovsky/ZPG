@@ -27,6 +27,8 @@ public:
 	void ChangeViewPort(int width, int height);
 
 	GLFWwindow* GetWindow() { return window; }
+	int GetWidth() { return width; }
+	int GetHeight() { return height; }
 
 private:
 	void ChangeViewPort();
