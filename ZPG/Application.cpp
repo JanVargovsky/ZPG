@@ -82,7 +82,7 @@ bool Application::Initialize()
 	initialized = true;
 	return true;
 }
-#include <glm/gtc/matrix_transform.hpp>
+
 void Application::Run()
 {
 	if (!initialized)
@@ -129,7 +129,7 @@ void Application::Run()
 
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	
+
 	while (scene->CanDraw())
 	{
 		// update other events like input handling
