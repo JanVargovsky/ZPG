@@ -1,18 +1,16 @@
 #pragma once
+#include "Shader.h"
+
 #include <GL/glew.h>
 #include <string>
+#include <memory>
+
 
 class ShaderLoader
 {
 public:
+	std::unique_ptr<Shader> CreateShader(const GLchar *path, ShaderType type) const;
+
+public:
 	std::string GetContent(const GLchar * path) const;
-
-	enum ShaderType {
-		Vertex = GL_VERTEX_SHADER,
-		Fragment = GL_FRAGMENT_SHADER,
-	};
-	std::string ToString(const ShaderType type) const;
-
-	int CreateShader(const GLchar *path, ShaderType type) const;
-	bool CheckShader(const int shader, const ShaderType type) const;
 };

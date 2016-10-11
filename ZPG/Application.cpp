@@ -75,7 +75,6 @@ bool Application::Initialize()
 		return false;
 	}
 
-
 	// get version info
 	PrintVersions();
 

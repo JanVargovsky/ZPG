@@ -8,14 +8,16 @@ using namespace std;
 using namespace glm;
 
 Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
+	:program(-1)
 {
-	int vertexShader = CreateShader(vertexPath, Vertex);
-	int fragmentShader = CreateShader(fragmentPath, Fragment);
+	ShaderLoader shaderLoader;
+	unique_ptr<Shader> vertex = shaderLoader.CreateShader(vertexPath, ShaderType::Vertex);
+	unique_ptr<Shader> fragment = shaderLoader.CreateShader(fragmentPath, ShaderType::Fragment);
 
-	program = CreateProgram(vertexShader, fragmentShader);
+	shaders.push_back(move(vertex));
+	shaders.push_back(move(fragment));
 
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	Compile();
 }
 
 Program::~Program()
@@ -24,28 +26,19 @@ Program::~Program()
 	glDeleteProgram(program);
 }
 
-int Program::CreateProgram(const int vertexShader, const int fragmentShader) const
+bool Program::Compile()
 {
 	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
+
+	for (auto & shader : shaders)
+		glAttachShader(shaderProgram, shader->GetShaderId());
+
 	glLinkProgram(shaderProgram);
+	if (!CheckProgram(shaderProgram))
+		return false;
 
-	CheckProgram(shaderProgram);
-	return shaderProgram;
-}
-
-bool Program::CheckProgram(const int program) const
-{
-	GLint success;
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (!success)
-	{
-		GLchar infoLog[512];
-		glGetProgramInfoLog(program, 512, NULL, infoLog);
-		cerr << "Compilation of program linking failed: " << infoLog << endl;
-	}
-	return success == GL_TRUE;
+	program = shaderProgram;
+	return false;
 }
 
 void Program::Use() const
@@ -61,6 +54,19 @@ void Program::Unuse() const
 void Program::Use(GLint program) const
 {
 	glUseProgram(program);
+}
+
+bool Program::CheckProgram(const int program) const
+{
+	GLint success;
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		GLchar infoLog[512];
+		glGetProgramInfoLog(program, 512, NULL, infoLog);
+		cerr << "Compilation of program linking failed: " << infoLog << endl;
+	}
+	return success == GL_TRUE;
 }
 
 GLint Program::GetCurrentProgram() const

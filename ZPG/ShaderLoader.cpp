@@ -4,6 +4,14 @@
 
 using namespace std;
 
+unique_ptr<Shader> ShaderLoader::CreateShader(const GLchar *path, const ShaderType type) const
+{
+	string content = GetContent(path);
+	const GLchar* code = content.c_str();
+
+	return unique_ptr<Shader>(new Shader(code, type));
+}
+
 string ShaderLoader::GetContent(const GLchar * path) const
 {
 	try
@@ -23,40 +31,3 @@ string ShaderLoader::GetContent(const GLchar * path) const
 	return "";
 }
 
-string ShaderLoader::ToString(const ShaderType type) const
-{
-	switch (type)
-	{
-	case Vertex:
-		return "Vertex";
-	case Fragment:
-		return "Fragment";
-	default:
-		return "Unknown";
-	}
-}
-
-int ShaderLoader::CreateShader(const GLchar *path, const ShaderType type) const
-{
-	int shader = glCreateShader(type);
-	string content = GetContent(path);
-	const GLchar* code = content.c_str();
-	glShaderSource(shader, 1, &code, NULL);
-	glCompileShader(shader);
-
-	CheckShader(shader, type);
-	return shader;
-}
-
-bool ShaderLoader::CheckShader(const int shader, const ShaderType type) const
-{
-	GLint success;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		GLchar infoLog[512];
-		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		cerr << "Compilation of " << ToString(type) << " shader failed: " << infoLog << endl;
-	}
-	return success == GL_TRUE;
-}

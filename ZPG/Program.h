@@ -4,15 +4,20 @@
 #include <GL/glew.h>
 #include <string>
 #include <glm/mat4x4.hpp>
+#include <vector>
+#include <memory>
 
-class Program : private ShaderLoader
+class Program
 {
 private:
 	GLuint program;
+	std::vector<std::unique_ptr<Shader>> shaders;
 
 public:
 	Program(const GLchar* vertexPath, const GLchar* fragmentPath);
-	virtual ~Program();
+	~Program();
+
+	bool Compile();
 
 	void Use() const;
 	void Unuse() const;
@@ -20,7 +25,6 @@ public:
 	void Send(const GLchar* name, glm::vec3 & value) const;
 
 private:
-	int CreateProgram(const int vertexShader, const int fragmentShader) const;
 	bool CheckProgram(const int program) const;
 
 	GLint GetCurrentProgram() const;

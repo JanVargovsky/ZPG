@@ -5,7 +5,6 @@ int main()
 {
 	if (!Application::GetInstance().Initialize())
 		exit(EXIT_FAILURE);
-
-	Application::GetInstance().Run();
+ 	Application::GetInstance().Run();
 	return 0;
 }
