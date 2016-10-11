@@ -55,7 +55,11 @@ bool Application::Initialize()
 	auto window = scene->GetWindow();
 
 	glfwSetKeyCallback(window, [](GLFWwindow * window, int key, int scancode, int action, int mods) { Application::GetInstance().GetController()->OnKeyChange(window, key, scancode, action, mods); });
-	glfwSetCursorPosCallback(window, [](GLFWwindow * window, double x, double y) { Application::GetInstance().GetController()->OnMouseMove(window, x, y); });
+	glfwSetCursorPosCallback(window, [](GLFWwindow * window, double x, double y)
+	{
+		Application::GetInstance().GetController()->OnMouseMove(window, x, y);
+		Application::GetInstance().GetScene()->GetCamera()->Rotate(x, y);
+	});
 	glfwSetMouseButtonCallback(window, [](GLFWwindow * window, int button, int action, int mode) {Application::GetInstance().GetController()->OnMouseButtonChange(window, button, action, mode); });
 	glfwSetWindowFocusCallback(window, [](GLFWwindow * window, int focused) {Application::GetInstance().GetController()->OnWindowFocus(window, focused); });
 	glfwSetWindowIconifyCallback(window, [](GLFWwindow * window, int iconified) {Application::GetInstance().GetController()->OnWindowIconify(window, iconified); });

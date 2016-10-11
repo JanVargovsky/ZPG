@@ -23,5 +23,7 @@ public:
 	void Draw();
 
 	Transform & GetTransform();
+
+	inline std::shared_ptr<Program> GetShaderProgram() { return program; }
 };
 

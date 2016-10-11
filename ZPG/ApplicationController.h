@@ -1,4 +1,6 @@
 #pragma once
+#include "Camera.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
@@ -13,4 +15,8 @@ public:
 	void OnWindowIconify(GLFWwindow* window, int iconified);
 	void OnWindowSize(GLFWwindow* window, int width, int height);
 	void OnMouseScroll(GLFWwindow *window, double xoffset, double yoffset);
+
+private:
+	bool IsCameraMove(int key);
+	CameraMove ParseToCameraMove(int key);
 };

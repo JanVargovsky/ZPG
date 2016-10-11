@@ -1,4 +1,5 @@
 #include "ApplicationController.h"
+#include "Application.h"
 
 #include <iostream>
 
@@ -14,6 +15,9 @@ void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scanco
 	//GLFW_MOD_SHIFT
 	//GLFW_MOD_CONTROL
 	//GLFW_MOD_ALT
+
+	if (IsCameraMove(key))
+		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraMove(key));
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -51,4 +55,29 @@ void ApplicationController::OnWindowSize(GLFWwindow * window, int width, int hei
 void ApplicationController::OnMouseScroll(GLFWwindow * window, double xoffset, double yoffset)
 {
 	cout << "xoffset: " << xoffset << "yoffset: " << yoffset << endl;
+}
+
+bool ApplicationController::IsCameraMove(int key)
+{
+	return key == GLFW_KEY_W ||
+		key == GLFW_KEY_S ||
+		key == GLFW_KEY_A ||
+		key == GLFW_KEY_D;
+}
+
+CameraMove ApplicationController::ParseToCameraMove(int key)
+{
+	switch (key)
+	{
+	case GLFW_KEY_W:
+		return CameraMove::Forward;
+	case GLFW_KEY_S:
+		return CameraMove::Back;
+	case GLFW_KEY_A:
+		return CameraMove::Left;
+	case GLFW_KEY_D:
+		return CameraMove::Right;
+	default:
+		return CameraMove::Invalid;
+	}
 }

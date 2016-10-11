@@ -48,7 +48,10 @@ bool Scene::CanDraw()
 void Scene::Draw()
 {
 	for (auto & object : objects)
+	{
+		camera->Set(object->GetShaderProgram().get());
 		object->Draw();
+	}
 
 	// put the stuff we’ve been drawing onto the display
 	glfwSwapBuffers(window);
