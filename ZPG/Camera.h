@@ -10,7 +10,7 @@ enum CameraMove {
 	Back,
 	Left,
 	Right,
-	Invalid = -1,
+	Invalid,
 };
 
 class Camera

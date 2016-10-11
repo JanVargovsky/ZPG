@@ -1,67 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="ShaderLoader">
-    <Position X="0.5" Y="0.5" Width="4.5" />
-    <NestedTypes>
-      <Enum Name="ShaderLoader::ShaderType" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>ShaderLoader.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
+    <Position X="14" Y="0.5" Width="4.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAEAAAAAACAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>ShaderLoader.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Application" Collapsed="true">
-    <Position X="6" Y="0.5" Width="1.5" />
+  <Class Name="Application">
+    <Position X="0.5" Y="0.5" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAQEAAAAAAIEABAACAAAACAAgBAAAAAI=</HashCode>
       <FileName>Application.h</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="controller" />
+      <Field Name="scene" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="ApplicationController" Collapsed="true">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+  <Class Name="ApplicationController">
+    <Position X="0.5" Y="5.5" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAiAAAgAAAIEAAAACBAAAQAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAiAAAgAAAIUAAAACBAAAQBAAAAAAAAAAAA=</HashCode>
       <FileName>ApplicationController.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Camera" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+  <Class Name="Camera">
+    <Position X="9.75" Y="0.5" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAgCAAAAQCEABAAAIAAgMgAAACAAAAgAAAAAAoAAAAA=</HashCode>
+      <HashCode>AAgCIAAAQKEABAAAIAAgMkAAECAAAggAQBAAAoAAAAA=</HashCode>
       <FileName>Camera.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Object" Collapsed="true">
-    <Position X="6" Y="1.5" Width="1.5" />
+  <Class Name="Object">
+    <Position X="6.5" Y="6.25" Width="4.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAQAAAgAgAABAAAAAAAAEAAAAAAAAAAAEACE=</HashCode>
+      <HashCode>AAAAAgAAAQAAAgAgAABAAAAAAAAEAAAAAAABAAAEACE=</HashCode>
       <FileName>Object.h</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="transform" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Scene" Collapsed="true">
-    <Position X="7.75" Y="1.5" Width="1.5" />
+  <Class Name="Scene">
+    <Position X="5.25" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAhAAAwQAwAAAIAAARQAIAAAIBAAAAACEAAA=</HashCode>
+      <HashCode>AAAAAgAAAhAAAwQAwAAAIABARQAIAAAIBAAAAECEAAA=</HashCode>
       <FileName>Scene.h</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="camera" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Transform" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+  <Class Name="Transform">
+    <Position X="0.5" Y="8.5" Width="4" />
     <TypeIdentifier>
       <HashCode>UAAEAAAAADAAAQBAAAEAICQCAAgEAgAAIAAAAgBAQAA=</HashCode>
       <FileName>Transform.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Program">
-    <Position X="0.5" Y="3.25" Width="4.5" />
+    <Position X="14" Y="5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>ABAAAQAACAAAAgAAAEAAACAAAAAEAAAAAAABAAAAAAE=</HashCode>
+      <HashCode>AAAAAQAACAAAAgAAAEAAACAAgAAEAAAAAAABAAAAAEE=</HashCode>
       <FileName>Program.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Shader">
+    <Position X="14" Y="2" Width="4" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAEAAkAAAAAgAABAAAABAAAAEAAAAA=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="CameraMove">
+    <Position X="12.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
+      <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ShaderType">
+    <Position X="18.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shader.h</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
