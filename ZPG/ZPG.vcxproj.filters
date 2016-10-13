@@ -88,6 +88,9 @@
     <ClCompile Include="Square.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Render\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -155,6 +158,9 @@
       <Filter>Common\Factories</Filter>
     </ClInclude>
     <ClInclude Include="Square.h">
+      <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
       <Filter>Render\Model</Filter>
     </ClInclude>
   </ItemGroup>

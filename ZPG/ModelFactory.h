@@ -7,6 +7,7 @@ enum ModelType
 {
 	TriangleModel,
 	SquareModel,
+	SphereModel,
 };
 
 class ModelFactory

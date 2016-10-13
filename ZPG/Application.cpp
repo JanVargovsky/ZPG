@@ -79,6 +79,9 @@ bool Application::Initialize()
 		return false;
 	}
 
+	// Render by distance
+	glEnable(GL_DEPTH_TEST);
+
 	// get version info
 	PrintVersions();
 
@@ -97,9 +100,14 @@ void Application::Run()
 	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
 	shared_ptr<ModelBase> triangle = ModelManager::Get(TriangleModel);
 	shared_ptr<ModelBase> square = ModelManager::Get(SquareModel);
+	shared_ptr<ModelBase> sphere = ModelManager::Get(SphereModel);
 
 	scene->GetCamera()->Set(program.get());
 	scene->AddObject(new Object(program, square));
+
+	auto squareObject = new Object(program, sphere, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
+	squareObject->GetTransform().SetPosition(vec3(3, 0, 3));
+	scene->AddObject(squareObject);
 
 	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
 	float x = -1.5f;
