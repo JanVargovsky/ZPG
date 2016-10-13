@@ -4,6 +4,7 @@
 #include "VBO.h"
 #include "EBO.h"
 #include "VAO.h"
+#include "ModelBase.h"
 
 #include <glm/vec3.hpp>
 #include <functional>
@@ -13,16 +14,13 @@ class Object
 {
 private:
 	std::shared_ptr<Program> program;
+	std::shared_ptr<ModelBase> model;
 	Transform transform;
-
-	std::unique_ptr<VBO> vbo;
-	std::unique_ptr<EBO> ebo;
-	std::unique_ptr<VAO> vao;
 
 	std::function<void(Object &)> update;
 public:
-	Object(std::shared_ptr<Program> program);
-	Object(std::shared_ptr<Program> program, std::function<void(Object &)> update);
+	Object(std::shared_ptr<Program> program, std::shared_ptr<ModelBase> model);
+	Object(std::shared_ptr<Program> program, std::shared_ptr<ModelBase> model, std::function<void(Object &)> update);
 	~Object();
 
 	void Draw();

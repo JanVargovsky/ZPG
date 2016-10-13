@@ -10,36 +10,14 @@
 using namespace std;
 using namespace glm;
 
-Object::Object(std::shared_ptr<Program> program)
-	:Object(program, nullptr)
+Object::Object(shared_ptr<Program> program, shared_ptr<ModelBase> model)
+	:Object(program, model, nullptr)
 {
 }
 
-Object::Object(std::shared_ptr<Program> program, function<void(Object &)> update)
-	: program(program), update(update), vbo(new VBO()), vao(new VAO())
+Object::Object(shared_ptr<Program> program, shared_ptr<ModelBase> model, function<void(Object &)> update)
+	: program(program), model(model), update(update)
 {
-	GLfloat vertices[] = {
-		// Positions			Colors				Normal
-		-1.0f, -1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	-1.0f, -1.0f, 0.0f,	// bottom left
-		1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, -1.0f, 0.0f,	// bottom right
-		0.0f,  1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,  1.0f, 0.0f,	// top
-	};
-
-	vbo->BindData(sizeof(vertices), vertices);
-	vao->Bind();
-	{
-		vbo->Bind();
-
-		// Position
-		vao->SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
-		// Color
-		vao->SetAttribute(1, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		// Normal
-		vao->SetAttribute(2, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-
-		vbo->Unbind();
-	}
-	vao->Unbind();
 }
 
 Object::~Object()
@@ -56,7 +34,7 @@ void Object::Draw()
 
 	program->Use();
 
-	vao->Bind();
+	model->Use();
 	mat4 modelMatrix = GetTransform().Get();
 	program->Send("model", modelMatrix);
 
@@ -64,7 +42,7 @@ void Object::Draw()
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
-	vao->Unbind();
+	model->Use();
 	program->Unuse();
 }
 
