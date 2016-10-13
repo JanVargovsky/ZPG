@@ -16,10 +16,13 @@ protected:
 
 protected:
 	ModelBase();
+
+	virtual void Render() = 0;
 public:
 	~ModelBase();
 
-	void Use();
-	void Unuse();
+	virtual void PreDraw();
+	void Draw();
+	virtual void PostDraw();
 };
 

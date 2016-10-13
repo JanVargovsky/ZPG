@@ -1,10 +1,11 @@
 #pragma once
 #include "ModelBase.h"
 
-class Triangle : public ModelBase
+class Square : public ModelBase
 {
 public:
-	Triangle();
+	Square();
 protected:
 	void Render();
 };
+

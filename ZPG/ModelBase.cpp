@@ -1,23 +1,27 @@
 #include "ModelBase.h"
 
-
-
 ModelBase::ModelBase()
 {
 	
 }
 
-
 ModelBase::~ModelBase()
 {
 }
 
-void ModelBase::Use()
+void ModelBase::PreDraw()
 {
 	vao.Bind();
 }
 
-void ModelBase::Unuse()
+void ModelBase::Draw()
 {
-	vao.Unbind();
+	PreDraw();
+	Render();
+	PostDraw();
+}
+
+void ModelBase::PostDraw()
+{
+	vao.Bind();
 }

@@ -1,5 +1,7 @@
 #include "ModelFactory.h"
+
 #include "Triangle.h"
+#include "Square.h"
 
 using namespace std;
 
@@ -8,7 +10,9 @@ shared_ptr<ModelBase> ModelFactory::Create(ModelType modelType)
 	switch (modelType)
 	{
 	case TriangleModel:
-		return shared_ptr<ModelBase>(new Triangle());
+		return shared_ptr<ModelBase>(new Triangle);
+	case SquareModel:
+		return shared_ptr<ModelBase>(new Square);
 	default:
 		throw exception("not implemented ModelType");
 	}

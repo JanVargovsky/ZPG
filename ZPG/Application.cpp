@@ -95,22 +95,24 @@ void Application::Run()
 	}
 
 	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
-	shared_ptr<ModelBase> model = ModelManager::Get(TriangleModel);
+	shared_ptr<ModelBase> triangle = ModelManager::Get(TriangleModel);
+	shared_ptr<ModelBase> square = ModelManager::Get(SquareModel);
 
 	scene->GetCamera()->Set(program.get());
+	scene->AddObject(new Object(program, square));
 
 	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
 	float x = -1.5f;
 	for (size_t i = 0; i < 3; i++)
 	{
-		auto scaleObject = new Object(program, model, [i](Object & o)
+		auto scaleObject = new Object(program, triangle, [i](Object & o)
 		{
 			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
 		});
 		scaleObject->GetTransform().SetPosition(vec3(x, 1.3, 0));
 		scene->AddObject(scaleObject);
 
-		auto angleObject = new Object(program, model, [](Object & o)
+		auto angleObject = new Object(program, triangle, [](Object & o)
 		{
 			o.GetTransform().SetAngle(glfwGetTime() * 50.f);
 		});
@@ -119,7 +121,7 @@ void Application::Run()
 		angleObject->GetTransform().SetAxis(axis[i]);
 		scene->AddObject(angleObject);
 
-		auto positionObject = new Object(program, model, [i](Object & o)
+		auto positionObject = new Object(program, triangle, [i](Object & o)
 		{
 			o.GetTransform().SetPosition(vec3(sin(glfwGetTime()) + i - 1, -1.3, 0));
 			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);

@@ -1,6 +1,5 @@
 #include "Triangle.h"
 
-
 Triangle::Triangle()
 {
 	GLfloat vertices[] = {
@@ -16,13 +15,18 @@ Triangle::Triangle()
 		vbo.Bind();
 
 		// Position
-		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
+		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(vertices[0]), (GLvoid*)(0 * sizeof(vertices[0])));
 		// Color
-		vao.SetAttribute(1, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		vao.SetAttribute(1, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(vertices[0]), (GLvoid*)(3 * sizeof(vertices[0])));
 		// Normal
-		vao.SetAttribute(2, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		vao.SetAttribute(2, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(vertices[0]), (GLvoid*)(6 * sizeof(vertices[0])));
 
 		vbo.Unbind();
 	}
 	vao.Unbind();
+}
+
+void Triangle::Render()
+{
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

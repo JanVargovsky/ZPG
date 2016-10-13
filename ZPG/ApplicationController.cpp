@@ -16,7 +16,7 @@ void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scanco
 	//GLFW_MOD_CONTROL
 	//GLFW_MOD_ALT
 
-	if (IsCameraMove(key))
+	if ((action == GLFW_PRESS || action == GLFW_REPEAT) && IsCameraMove(key))
 		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraMove(key));
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)

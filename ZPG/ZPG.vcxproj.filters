@@ -10,9 +10,6 @@
     <Filter Include="Render">
       <UniqueIdentifier>{5d33a32c-f617-454e-8d76-de36fc964d3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Render\Light">
-      <UniqueIdentifier>{1b8b6bbb-f3d0-42fc-a509-91c99f424fc2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common\Shader">
       <UniqueIdentifier>{b69e759f-45ad-4c1e-8d3e-9ec50511a03d}</UniqueIdentifier>
     </Filter>
@@ -22,10 +19,13 @@
     <Filter Include="Common\BufferObject\Base">
       <UniqueIdentifier>{96a09dc7-b62a-4e18-b517-5a66c008971c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Model">
+    <Filter Include="Render\Model">
       <UniqueIdentifier>{473c3d49-e164-4a37-83f5-3a9be0cb01d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers">
+    <Filter Include="Common\Factories">
+      <UniqueIdentifier>{3dd3164d-10e7-4b00-a13f-5314e22e80e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Managers">
       <UniqueIdentifier>{14d64edc-5112-42ca-8559-651ac4b900ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -77,13 +77,16 @@
       <Filter>Render</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
-      <Filter>Model</Filter>
+      <Filter>Render\Model</Filter>
     </ClCompile>
     <ClCompile Include="ModelManager.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Common\Managers</Filter>
     </ClCompile>
     <ClCompile Include="ModelFactory.cpp">
-      <Filter>Model</Filter>
+      <Filter>Common\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Render\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,13 +146,16 @@
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
-      <Filter>Model</Filter>
+      <Filter>Render\Model</Filter>
     </ClInclude>
     <ClInclude Include="ModelManager.h">
-      <Filter>Managers</Filter>
+      <Filter>Common\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ModelFactory.h">
-      <Filter>Model</Filter>
+      <Filter>Common\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Render\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

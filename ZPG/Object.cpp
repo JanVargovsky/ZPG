@@ -34,15 +34,14 @@ void Object::Draw()
 
 	program->Use();
 
-	model->Use();
+
 	mat4 modelMatrix = GetTransform().Get();
 	program->Send("model", modelMatrix);
 
 	program->Send("lightPosition", vec3(3, 3, 3));
 
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	model->Draw();
 
-	model->Use();
 	program->Unuse();
 }
 
