@@ -19,8 +19,11 @@
     <Filter Include="Common\Shader">
       <UniqueIdentifier>{b69e759f-45ad-4c1e-8d3e-9ec50511a03d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Buffer">
+    <Filter Include="Common\BufferObject">
       <UniqueIdentifier>{57d2f2fc-5f77-4ea9-9cd0-912147a505e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\BufferObject\Base">
+      <UniqueIdentifier>{96a09dc7-b62a-4e18-b517-5a66c008971c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +54,21 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="VAO.cpp">
+      <Filter>Common\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="VBO.cpp">
+      <Filter>Common\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EBO.cpp">
+      <Filter>Common\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferBase.cpp">
+      <Filter>Common\BufferObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrayBase.cpp">
+      <Filter>Common\BufferObject\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +108,21 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="VBO.h">
+      <Filter>Common\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="VAO.h">
+      <Filter>Common\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EBO.h">
+      <Filter>Common\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferBase.h">
+      <Filter>Common\BufferObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrayBase.h">
+      <Filter>Common\BufferObject\Base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

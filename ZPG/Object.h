@@ -1,6 +1,9 @@
 #pragma once
 #include "Program.h"
 #include "Transform.h"
+#include "VBO.h"
+#include "EBO.h"
+#include "VAO.h"
 
 #include <glm/vec3.hpp>
 #include <functional>
@@ -12,7 +15,9 @@ private:
 	std::shared_ptr<Program> program;
 	Transform transform;
 
-	GLuint VBO, EBO, VAO;
+	std::unique_ptr<VBO> vbo;
+	std::unique_ptr<EBO> ebo;
+	std::unique_ptr<VAO> vao;
 
 	std::function<void(Object &)> update;
 public:
