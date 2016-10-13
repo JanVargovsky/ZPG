@@ -17,8 +17,8 @@ void Camera::Set(const Program * program)
 {
 	program->Use();
 
-	program->Send("viewMatrix", GetViewMatrix());
-	program->Send("projectionMatrix", GetProjectionMatrix());
+	program->Send("view", GetViewMatrix());
+	program->Send("projection", GetProjectionMatrix());
 
 	program->Unuse();
 }

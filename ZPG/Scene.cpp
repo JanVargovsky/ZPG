@@ -1,5 +1,5 @@
 #include "Scene.h"
- 
+
 #include <GLFW/glfw3.h>  
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -49,6 +49,14 @@ void Scene::Draw()
 {
 	for (auto & object : objects)
 	{
+		// TODO: Add event to OnCameraMove()
+		// TODO: Register event to camera OnCameraMove event in the object, so it calls its Set method
+		// TODO: Add 4 balls to scene and lighting in the middle of them
+
+		// Object -> Model
+		// Object has transformation and model draws
+		// Model has VAO and other stuff
+
 		camera->Set(object->GetShaderProgram().get());
 		object->Draw();
 	}

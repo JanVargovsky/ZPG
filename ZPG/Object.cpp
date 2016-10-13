@@ -2,10 +2,10 @@
 
 #include <GLFW/glfw3.h>  
 
-#include <glm/vec4.hpp> // glm::vec4
-#include <glm/mat4x4.hpp> // glm::mat4
-#include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
-#include <glm/gtc/type_ptr.hpp> // glm::value_ptr
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace std;
 using namespace glm;
@@ -19,13 +19,11 @@ Object::Object(std::shared_ptr<Program> program, function<void(Object &)> update
 	: program(program), update(update), VBO(0), EBO(0), VAO(0)
 {
 	GLfloat vertices[] = {
-		// Positions			Colors
-		-1.0f, -1.0f, 0.0f,		1.0f, 0.0f, 0.0f, // bottom left
-		1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f, // bottom right
-		0.0f,  1.0f, 0.0f,		0.0f, 0.0f, 1.0f, // top
+		// Positions			Colors				Normal
+		-1.0f, -1.0f, 0.0f,		1.0f, 0.0f, 0.0f,	-1.0f, -1.0f, 0.0f,	// bottom left
+		1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, -1.0f, 0.0f,	// bottom right
+		0.0f,  1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,  1.0f, 0.0f,	// top
 	};
-
-	// TODO: Remove ... Temp
 
 	// Vertex Buffer Objects
 	glGenBuffers(1, &VBO);
@@ -47,12 +45,16 @@ Object::Object(std::shared_ptr<Program> program, function<void(Object &)> update
 		// Normalized data = data that are not between 0 and 1 will be mapped to those values
 		// stride = how big is that
 		// Position
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(0);
 
 		// Color
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(1);
+
+		// Normal
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
 
 		// Unbind VBO
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -82,7 +84,9 @@ void Object::Draw()
 	program->Use();
 	glBindVertexArray(VAO);
 	mat4 modelMatrix = GetTransform().Get();
-	program->Send("modelMatrix", modelMatrix);
+	program->Send("model", modelMatrix);
+
+	program->Send("lightPosition", vec3(3, 3, 3));
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 
