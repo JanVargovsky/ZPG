@@ -9,6 +9,7 @@ enum ModelType
 	SquareModel,
 	SphereModel,
 	SuziFlatModel,
+	SuziSmoothModel,
 };
 
 class ModelFactory

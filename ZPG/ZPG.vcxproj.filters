@@ -94,6 +94,9 @@
     <ClCompile Include="SuziFlat.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
+    <ClCompile Include="SuziSmooth.cpp">
+      <Filter>Render\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -167,6 +170,9 @@
       <Filter>Render\Model</Filter>
     </ClInclude>
     <ClInclude Include="SuziFlat.h">
+      <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SuziSmooth.h">
       <Filter>Render\Model</Filter>
     </ClInclude>
   </ItemGroup>

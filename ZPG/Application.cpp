@@ -102,6 +102,7 @@ void Application::Run()
 	shared_ptr<ModelBase> squareModel = ModelManager::Get(SquareModel);
 	shared_ptr<ModelBase> sphereModel = ModelManager::Get(SphereModel);
 	shared_ptr<ModelBase> suziFlatModel = ModelManager::Get(SuziFlatModel);
+	shared_ptr<ModelBase> suziSmoothModel = ModelManager::Get(SuziSmoothModel);
 
 	scene->GetCamera()->Set(program.get());
 	scene->AddObject(new Object(program, squareModel));
@@ -113,6 +114,10 @@ void Application::Run()
 	auto suziFlatObject = new Object(program, suziFlatModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
 	suziFlatObject->GetTransform().SetPosition(vec3(0, 3, 3));
 	scene->AddObject(suziFlatObject);
+
+	auto suziSmoothObject = new Object(program, suziSmoothModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * -50.f); });
+	suziSmoothObject->GetTransform().SetPosition(vec3(3, 3, 0));
+	scene->AddObject(suziSmoothObject);
 
 	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
 	float x = -1.5f;
