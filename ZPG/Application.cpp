@@ -97,12 +97,12 @@ void Application::Run()
 		return;
 	}
 
-	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
-	shared_ptr<ModelBase> triangleModel = ModelManager::Get(TriangleModel);
-	shared_ptr<ModelBase> squareModel = ModelManager::Get(SquareModel);
-	shared_ptr<ModelBase> sphereModel = ModelManager::Get(SphereModel);
-	shared_ptr<ModelBase> suziFlatModel = ModelManager::Get(SuziFlatModel);
-	shared_ptr<ModelBase> suziSmoothModel = ModelManager::Get(SuziSmoothModel);
+	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.vert", "Shaders/FragmentShader.frag");
+	auto triangleModel = ModelManager::Get(TriangleModel);
+	auto squareModel = ModelManager::Get(SquareModel);
+	auto sphereModel = ModelManager::Get(SphereModel);
+	auto suziFlatModel = ModelManager::Get(SuziFlatModel);
+	auto suziSmoothModel = ModelManager::Get(SuziSmoothModel);
 
 	scene->GetCamera()->Set(program.get());
 	scene->AddObject(new Object(program, squareModel));

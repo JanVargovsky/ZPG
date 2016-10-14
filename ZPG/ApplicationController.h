@@ -19,4 +19,6 @@ public:
 private:
 	bool IsCameraMove(int key);
 	CameraMove ParseToCameraMove(int key);
+	bool IsCameraZoom(int key);
+	CameraZoom ParseToCameraZoom(int key);
 };

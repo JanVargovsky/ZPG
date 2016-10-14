@@ -13,6 +13,11 @@ enum CameraMove {
 	Invalid,
 };
 
+enum CameraZoom {
+	In,
+	Out,
+};
+
 class Camera
 {
 private:
@@ -37,6 +42,7 @@ public:
 	void Set(const Program * program);
 	void Rotate(int x, int y);
 	void Move(CameraMove move);
+	void Move(CameraZoom zoom);
 
 private:
 	glm::mat4 CalculateViewMatrix();

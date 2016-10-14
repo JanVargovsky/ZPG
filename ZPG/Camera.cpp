@@ -59,8 +59,30 @@ void Camera::Move(CameraMove move)
 	viewMatrix.reset();
 }
 
+void Camera::Move(CameraZoom zoom)
+{
+	switch (zoom)
+	{
+	case In:
+		position.z += MOVE_STEP;
+	case Out:
+		position.z -= MOVE_STEP;
+	}
+	viewMatrix.reset();
+}
+
+std::ostream& operator<<(std::ostream& os, const vec3 &v) {
+	os << "[" <<
+		v.x << "," <<
+		v.y << "," <<
+		v.z <<
+		"]";
+	return os;
+}
+
 mat4 Camera::CalculateViewMatrix()
 {
+	cout << "CAMERA: position=" << position << " target=" << target << endl;
 	return lookAt(position, target, vec3(0, 1, 0));
 	//return translate(mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
 }
