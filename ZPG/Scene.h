@@ -15,8 +15,6 @@ private:
 	Camera* camera;
 	int width, height;
 	bool initialized;
-
-	GLuint VBO, VAO;
 	std::vector<std::unique_ptr<Object>> objects;
 
 public:

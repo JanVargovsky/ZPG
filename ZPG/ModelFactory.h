@@ -8,6 +8,7 @@ enum ModelType
 	TriangleModel,
 	SquareModel,
 	SphereModel,
+	SuziFlatModel,
 };
 
 class ModelFactory

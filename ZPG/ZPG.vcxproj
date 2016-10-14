@@ -153,6 +153,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Square.cpp" />
+    <ClCompile Include="SuziFlat.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="VAO.cpp" />
@@ -184,6 +185,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="SuziFlat.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="VAO.h" />

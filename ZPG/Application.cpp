@@ -98,29 +98,34 @@ void Application::Run()
 	}
 
 	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.glsl", "Shaders/FragmentShader.glsl");
-	shared_ptr<ModelBase> triangle = ModelManager::Get(TriangleModel);
-	shared_ptr<ModelBase> square = ModelManager::Get(SquareModel);
-	shared_ptr<ModelBase> sphere = ModelManager::Get(SphereModel);
+	shared_ptr<ModelBase> triangleModel = ModelManager::Get(TriangleModel);
+	shared_ptr<ModelBase> squareModel = ModelManager::Get(SquareModel);
+	shared_ptr<ModelBase> sphereModel = ModelManager::Get(SphereModel);
+	shared_ptr<ModelBase> suziFlatModel = ModelManager::Get(SuziFlatModel);
 
 	scene->GetCamera()->Set(program.get());
-	scene->AddObject(new Object(program, square));
+	scene->AddObject(new Object(program, squareModel));
 
-	auto squareObject = new Object(program, sphere, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
-	squareObject->GetTransform().SetPosition(vec3(3, 0, 3));
-	scene->AddObject(squareObject);
+	auto sphereObject = new Object(program, sphereModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
+	sphereObject->GetTransform().SetPosition(vec3(3, 0, 3));
+	scene->AddObject(sphereObject);
+
+	auto suziFlatObject = new Object(program, suziFlatModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
+	suziFlatObject->GetTransform().SetPosition(vec3(0, 3, 3));
+	scene->AddObject(suziFlatObject);
 
 	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
 	float x = -1.5f;
 	for (size_t i = 0; i < 3; i++)
 	{
-		auto scaleObject = new Object(program, triangle, [i](Object & o)
+		auto scaleObject = new Object(program, triangleModel, [i](Object & o)
 		{
 			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
 		});
 		scaleObject->GetTransform().SetPosition(vec3(x, 1.3, 0));
 		scene->AddObject(scaleObject);
 
-		auto angleObject = new Object(program, triangle, [](Object & o)
+		auto angleObject = new Object(program, triangleModel, [](Object & o)
 		{
 			o.GetTransform().SetAngle(glfwGetTime() * 50.f);
 		});
@@ -129,7 +134,7 @@ void Application::Run()
 		angleObject->GetTransform().SetAxis(axis[i]);
 		scene->AddObject(angleObject);
 
-		auto positionObject = new Object(program, triangle, [i](Object & o)
+		auto positionObject = new Object(program, triangleModel, [i](Object & o)
 		{
 			o.GetTransform().SetPosition(vec3(sin(glfwGetTime()) + i - 1, -1.3, 0));
 			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
