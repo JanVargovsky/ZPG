@@ -79,12 +79,6 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
-      <Filter>Common\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelFactory.cpp">
-      <Filter>Common\Factory</Filter>
-    </ClCompile>
     <ClCompile Include="Square.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
@@ -97,13 +91,16 @@
     <ClCompile Include="SuziSmooth.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
+    <ClCompile Include="CameraFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Common\Factory</Filter>
     </ClCompile>
     <ClCompile Include="SceneObjectFactory.cpp">
-      <Filter>Common\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraFactory.cpp">
       <Filter>Common\Factory</Filter>
     </ClCompile>
   </ItemGroup>
@@ -166,12 +163,6 @@
     <ClInclude Include="Triangle.h">
       <Filter>Render\Model</Filter>
     </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>Common\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelFactory.h">
-      <Filter>Common\Factory</Filter>
-    </ClInclude>
     <ClInclude Include="Square.h">
       <Filter>Render\Model</Filter>
     </ClInclude>
@@ -187,17 +178,23 @@
     <ClInclude Include="ManagerBase.h">
       <Filter>Common\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectFactory.h">
+    <ClInclude Include="CameraFactory.h">
       <Filter>Common\Factory</Filter>
     </ClInclude>
     <ClInclude Include="FactoryBase.h">
       <Filter>Common\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="ModelFactory.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
     <ClInclude Include="SceneObjectFactory.h">
       <Filter>Common\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="CameraFactory.h">
-      <Filter>Common\Factory</Filter>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Common\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

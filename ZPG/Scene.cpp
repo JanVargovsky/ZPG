@@ -12,7 +12,7 @@
 using namespace std;
 using namespace glm;
 
-Scene::Scene(Camera * camera, int width, int height)
+Scene::Scene(shared_ptr<Camera> camera, int width, int height)
 	:camera(camera), width(width), height(height)
 {
 	window = nullptr;
@@ -34,6 +34,7 @@ bool Scene::Initialize()
 		cerr << "Failed to create GLFW window" << endl;
 		return false;
 	}
+	glfwSetWindowPos(window, 1000, 100);
 
 	ChangeViewPort();
 

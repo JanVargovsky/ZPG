@@ -16,6 +16,6 @@ enum ModelType
 class ModelFactory : public FactoryBase<ModelType, std::shared_ptr<ModelBase>>
 {
 public:
-	std::shared_ptr<ModelBase> Create(ModelType modelType);
+	std::shared_ptr<ModelBase> Create(ModelType modelType) override;
 };
 

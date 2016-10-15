@@ -16,6 +16,6 @@ enum ObjectType
 class ObjectFactory : public FactoryBase<ObjectType, std::shared_ptr<Object>>
 {
 public:
-	virtual std::shared_ptr<Object> Create(ObjectType key);
+	virtual std::shared_ptr<Object> Create(ObjectType key) override;
 };
 

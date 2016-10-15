@@ -1,6 +1,7 @@
 #include "Camera.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <GLFW\glfw3.h>
 
 #include <memory>
 #include <iostream>
@@ -8,9 +9,27 @@
 using namespace std;
 using namespace glm;
 
-Camera::Camera(glm::vec3 target, float fov, float aspect, float near, float far)
-	: target(target), fov(fov), aspect(aspect), near(near), far(far), mouseX(0), mouseY(0), v(0), h(0)
+Camera::Camera(int width, int height, float fov, float aspect, float near, float farFuckVS)
+	: fov(fov), aspect(aspect), near(near), far(far),
+	up(vec3(0.f, 1.f, 0.f))
 {
+	mouseX = 0;
+	mouseY = 0;
+
+	yaw = 0.f;
+	pitch = MIN_PITCH;
+
+	eye = vec3(0.0f, 10.0f, 0.0f);
+	target = CalculateTarget();
+}
+
+std::ostream& operator<<(std::ostream& os, const vec3 &v) {
+	os << "[" <<
+		v.x << "," <<
+		v.y << "," <<
+		v.z <<
+		"]";
+	return os;
 }
 
 void Camera::Set(const Program * program)
@@ -25,36 +44,37 @@ void Camera::Set(const Program * program)
 
 void Camera::Rotate(int x, int y)
 {
-	//v += ((mouseX - x) * ROTATE_STEP);
-	//h += ((mouseY - y) * ROTATE_STEP);
+	yaw += (x - mouseX) * SENSITIVITY;
+	pitch += (mouseY - y) * SENSITIVITY;
 
-	//target.x = cos(v) * sin(h);
-	//target.y = sin(v);
-	//target.z = cos(v) * cos(h);
+	mouseX = x;
+	mouseY = y;
 
-	target.x = -(mouseX + x) * ROTATE_STEP;
-	target.z = +(mouseY + y) * ROTATE_STEP;
+	if (pitch > MAX_PITCH)
+		pitch = MAX_PITCH;
+	else if (pitch < MIN_PITCH)
+		pitch = MIN_PITCH;
+
+	target = CalculateTarget();
 
 	viewMatrix.reset();
 }
 
-void Camera::Move(CameraMove move)
+void Camera::Move(CameraMove move, bool fast)
 {
-	switch (move)
-	{
-	case Forward:
-		position.z -= MOVE_STEP;
-		break;
-	case Back:
-		position.z += MOVE_STEP;
-		break;
-	case Left:
-		position.x -= MOVE_STEP;
-		break;
-	case Right:
-		position.x += MOVE_STEP;
-		break;
-	}
+	cout << fast << endl;
+
+	const float STEP = (!fast ? MOVE_STEP : MOVE_STEP * 2);
+
+	if (move == Forward)
+		eye += target * STEP;
+	if (move == Back)
+		eye -= target * STEP;
+	if (move == Left)
+		eye -= normalize(cross(target, up)) * STEP;
+	if (move == Right)
+		eye += normalize(cross(target, up)) * STEP;
+
 	viewMatrix.reset();
 }
 
@@ -63,29 +83,18 @@ void Camera::Move(CameraZoom zoom)
 	switch (zoom)
 	{
 	case In:
-		position.y += MOVE_STEP;
+		eye.y += MOVE_STEP;
 		break;
 	case Out:
-		position.y -= MOVE_STEP;
+		eye.y -= MOVE_STEP;
 		break;
 	}
 	viewMatrix.reset();
 }
 
-std::ostream& operator<<(std::ostream& os, const vec3 &v) {
-	os << "[" <<
-		v.x << "," <<
-		v.y << "," <<
-		v.z <<
-		"]";
-	return os;
-}
-
 mat4 Camera::CalculateViewMatrix()
 {
-	cout << "CAMERA: position=" << position << " target=" << target << endl;
-	return lookAt(position, target, vec3(0, 1, 0));
-	//return translate(mat4(), glm::vec3(0.0f, 0.0f, -5.0f));
+	return lookAt(eye, eye + target, up);
 }
 
 mat4 Camera::GetViewMatrix()
@@ -111,4 +120,13 @@ mat4 Camera::GetProjectionMatrix()
 		projectionMatrix = CalculateProjectionMatrix();
 
 	return projectionMatrix.get();
+}
+
+vec3 Camera::CalculateTarget()
+{
+	return  normalize(vec3(
+		cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
+		sin(glm::radians(pitch)),
+		sin(glm::radians(yaw)) * cos(glm::radians(pitch))
+	));
 }

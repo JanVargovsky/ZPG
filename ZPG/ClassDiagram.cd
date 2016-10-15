@@ -21,7 +21,7 @@
   <Class Name="ApplicationController">
     <Position X="0.5" Y="5.5" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAiAAAgAAAIUAAAACBAAAQBAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAAyAAAgAAAIUAAAACBAAAQBAAAAAAAAAAAA=</HashCode>
       <FileName>ApplicationController.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -95,7 +95,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="EBO">
-    <Position X="21.75" Y="5.5" Width="1.5" />
+    <Position X="22" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>EBO.h</FileName>
@@ -116,27 +116,11 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ModelFactory">
-    <Position X="15" Y="0.5" Width="4" />
+    <Position X="21.25" Y="8.75" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>ModelFactory.h</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="ModelManager">
-    <Position X="15" Y="2" Width="4.25" />
-    <AssociationLine Name="modelFactory" Type="ModelFactory" FixedFromPoint="true">
-      <Path>
-        <Point X="17" Y="2" />
-        <Point X="17" Y="1.603" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
-      <FileName>ModelManager.h</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="modelFactory" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="ModelBase">
     <Position X="26.75" Y="5.5" Width="1.75" />
@@ -145,8 +129,8 @@
       <FileName>ModelBase.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="vao" />
       <Field Name="vbo" />
+      <Field Name="vao" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Sphere">
@@ -168,6 +152,41 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Triangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraFactory">
+    <Position X="21" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>CameraFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FactoryBase&lt;TKey, TValue&gt;">
+    <Position X="22.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>FactoryBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectFactory">
+    <Position X="23.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneObjectFactory" Collapsed="true">
+    <Position X="40" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAIAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SceneObjectFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ModelManager">
+    <Position X="15" Y="2" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="CameraMove">
@@ -208,8 +227,29 @@
   <Enum Name="ModelType">
     <Position X="19.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAgAAAAAIAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAgQAAAAIAAAAACAAAAAA=</HashCode>
       <FileName>ModelFactory.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CameraType" Collapsed="true">
+    <Position X="40" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CameraFactory.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ObjectType" Collapsed="true">
+    <Position X="41.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAgAAgAAAAAAAAAAAABAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>ObjectFactory.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SceneType" Collapsed="true">
+    <Position X="40" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SceneObjectFactory.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

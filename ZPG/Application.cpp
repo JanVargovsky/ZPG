@@ -25,7 +25,12 @@ Application::Application()
 {
 	controller = new ApplicationController;
 	CameraFactory cameraFactory;
-	scene = new Scene(cameraFactory.Create(CameraType::Normal));
+
+	currentScene = 0;
+	auto camera = cameraFactory.Create(CameraType::Normal);
+
+	scenes.push_back({ SceneType::Trash, shared_ptr<Scene>(new Scene(camera)) });
+	//scenes.push_back({ SceneType::FourBalls, shared_ptr<Scene>(new Scene(camera)) });
 	initialized = false;
 }
 
@@ -46,12 +51,16 @@ bool Application::Initialize()
 		return false;
 	}
 
-	if (!scene->Initialize())
+	for (auto scene : scenes)
 	{
-		cerr << "Failed to initialize scene" << endl;
-		return false;
+		if (!scene.Scene->Initialize())
+		{
+			cerr << "Failed to initialize scene" << endl;
+			return false;
+		}
 	}
-	auto window = scene->GetWindow();
+
+	auto window = GetScene()->GetWindow();
 
 	glfwSetKeyCallback(window, [](GLFWwindow * window, int key, int scancode, int action, int mods) { Application::GetInstance().GetController()->OnKeyChange(window, key, scancode, action, mods); });
 	glfwSetCursorPosCallback(window, [](GLFWwindow * window, double x, double y)
@@ -78,6 +87,9 @@ bool Application::Initialize()
 		return false;
 	}
 
+	// Disable cursor
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	// Render by distance
 	glEnable(GL_DEPTH_TEST);
 
@@ -86,7 +98,7 @@ bool Application::Initialize()
 
 	SceneObjectFactory sceneObjectFactory;
 	for (auto obj : sceneObjectFactory.GetObjects(SceneType::FourBalls))
-		scene->AddObject(obj);
+		GetScene()->AddObject(obj);
 
 	initialized = true;
 	return true;
@@ -103,7 +115,7 @@ void Application::Run()
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	while (scene->CanDraw())
+	while (GetScene()->CanDraw())
 	{
 		// update other events like input handling
 		glfwPollEvents();
@@ -112,7 +124,7 @@ void Application::Run()
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		scene->Draw();
+		GetScene()->Draw();
 	}
 }
 

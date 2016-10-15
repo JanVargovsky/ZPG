@@ -145,7 +145,6 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="ModelBase.cpp" />
     <ClCompile Include="ModelFactory.cpp" />
-    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="Scene.cpp" />

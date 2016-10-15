@@ -21,27 +21,32 @@ enum CameraZoom {
 class Camera
 {
 private:
-	const float ROTATE_STEP = 0.01f;
+	const float SENSITIVITY = 0.05f;
 	const float MOVE_STEP = 0.5f;
 
-	glm::vec3 position = glm::vec3(10,10,10);
-	glm::vec3 up;
-	glm::vec3 center;
+	const float MAX_PITCH = 89.9f;
+	const float MIN_PITCH = -MAX_PITCH;
 
+	glm::vec3 eye;
 	glm::vec3 target;
+	const glm::vec3 up;
+
 	float fov, aspect, near, far;
 
+	float yaw; // right left
+	float pitch; // up down
+
 	// Mouse
-	int mouseX, mouseY, v, h;
+	int mouseX, mouseY;
 
 	boost::optional<glm::mat4> viewMatrix;
 	boost::optional<glm::mat4> projectionMatrix;
 public:
-	Camera(glm::vec3 target, float fov, float aspect, float near, float far);
+	Camera(int width, int height, float fov, float aspect, float near, float far);
 
 	void Set(const Program * program);
 	void Rotate(int x, int y);
-	void Move(CameraMove move);
+	void Move(CameraMove move, bool fast);
 	void Move(CameraZoom zoom);
 
 private:
@@ -49,5 +54,6 @@ private:
 	glm::mat4 GetViewMatrix();
 	glm::mat4 CalculateProjectionMatrix();
 	glm::mat4 GetProjectionMatrix();
+	glm::vec3 CalculateTarget();
 };
 
