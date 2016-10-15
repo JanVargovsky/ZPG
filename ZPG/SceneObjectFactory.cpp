@@ -24,7 +24,7 @@ vector<Object*> SceneObjectFactory::PrepareTrashScene()
 {
 	vector<Object*> result;
 
-	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.vert", "Shaders/FragmentShader.frag");
+	shared_ptr<Program> program = make_shared<Program>("Shaders/Simple.vert", "Shaders/Simple.frag");
 	auto triangleModel = ModelManager::Get(TriangleModel);
 	auto squareModel = ModelManager::Get(SquareModel);
 	auto sphereModel = ModelManager::Get(SphereModel);
@@ -85,7 +85,7 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 {
 	vector<Object*> result;
 
-	auto program = make_shared<Program>("Shaders/Simple.vert", "Shaders/Simple.frag");
+	auto program = make_shared<Program>("Shaders/Lambert.vert", "Shaders/Lambert.frag");
 	auto sphereModel = ModelManager::Get(SphereModel);
 
 	const float T = 1.5f;
@@ -94,9 +94,10 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 		vec3(-T, 0, T),
 		vec3(T, 0, -T),
 		vec3(-T, 0, -T),
+		vec3(0, -T, 0)
 	};
 
-	for(auto position : positions)
+	for (auto position : positions)
 	{
 		auto obj = new Object(program, sphereModel);
 		obj->GetTransform().SetPosition(position);

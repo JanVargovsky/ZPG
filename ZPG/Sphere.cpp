@@ -2890,7 +2890,9 @@ Sphere::Sphere()
 	{
 		vbo.Bind();
 
+		// Position
 		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 6 * sizeof(sphere[0]), (GLvoid*)0);
+		// Normal
 		vao.SetAttribute(1, 3, AttributeType::Float, GL_FALSE, 6 * sizeof(sphere[0]), (GLvoid*)(3 * sizeof(sphere[0])));
 
 		vbo.Unbind();

@@ -48,9 +48,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Object.cpp">
       <Filter>Render</Filter>
@@ -103,20 +100,23 @@
     <ClCompile Include="SceneObjectFactory.cpp">
       <Filter>Common\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="ClassDiagram.cd" />
-    <None Include="Shaders\VertexShader.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\FragmentShader.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shaders\Simple.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\Simple.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Lambert.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Lambert.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -137,9 +137,6 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
@@ -204,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="IRenderable.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

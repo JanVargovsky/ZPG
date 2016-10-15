@@ -97,7 +97,10 @@ bool Application::Initialize()
 	PrintVersions();
 
 	SceneObjectFactory sceneObjectFactory;
-	for (auto obj : sceneObjectFactory.GetObjects(SceneType::FourBalls))
+	//auto objects = sceneObjectFactory.GetObjects(SceneType::Trash);
+	auto objects = sceneObjectFactory.GetObjects(SceneType::FourBalls);
+
+	for (auto obj : objects)
 		GetScene()->AddObject(obj);
 
 	initialized = true;

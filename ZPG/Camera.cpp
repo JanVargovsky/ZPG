@@ -62,8 +62,6 @@ void Camera::Rotate(int x, int y)
 
 void Camera::Move(CameraMove move, bool fast)
 {
-	cout << fast << endl;
-
 	const float STEP = (!fast ? MOVE_STEP : MOVE_STEP * 2);
 
 	if (move == Forward)

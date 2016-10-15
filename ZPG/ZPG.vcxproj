@@ -168,10 +168,10 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
       <SubType>Designer</SubType>
     </None>
     <Content Include="shader.vs" />
-    <None Include="Shaders\FragmentShader.frag" />
+    <None Include="Shaders\Lambert.frag" />
     <None Include="Shaders\Simple.frag" />
     <None Include="Shaders\Simple.vert" />
-    <None Include="Shaders\VertexShader.vert" />
+    <None Include="Shaders\Lambert.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
