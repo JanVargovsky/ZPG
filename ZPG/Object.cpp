@@ -22,31 +22,25 @@ Object::Object(shared_ptr<Program> program, shared_ptr<ModelBase> model, functio
 
 void Object::PreRender()
 {
+	program->Use();
+	model->PreRender();
+
+	program->Send("model", GetTransform().Get());
+	program->Send("lightPosition", vec3(0, 3, 0));
+
+	if (update != nullptr)
+		update(*this);
 }
 
 void Object::Render()
 {
-	if (program == nullptr)
-		return;
-
-	if (update != nullptr)
-		update(*this);
-
-	program->Use();
-
-
-	mat4 modelMatrix = GetTransform().Get();
-	program->Send("model", modelMatrix);
-
-	program->Send("lightPosition", vec3(0, 3, 0));
-
-	model->Draw();
-
-	program->Unuse();
+	model->Render();
 }
 
 void Object::PostRender()
 {
+	model->PostRender();
+	program->Unuse();
 }
 
 Transform & Object::GetTransform()

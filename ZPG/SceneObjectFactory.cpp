@@ -85,9 +85,8 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 {
 	vector<Object*> result;
 
-	auto program = make_shared<Program>("Shaders/VertexShader.vert", "Shaders/FragmentShader.frag");
+	auto program = make_shared<Program>("Shaders/Simple.vert", "Shaders/Simple.frag");
 	auto sphereModel = ModelManager::Get(SphereModel);
-	auto sphereModel2 = ModelManager::Get(SphereModel);
 
 	const float T = 1.5f;
 	auto positions = {

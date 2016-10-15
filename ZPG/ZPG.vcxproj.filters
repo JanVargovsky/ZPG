@@ -113,6 +113,12 @@
     <None Include="Shaders\FragmentShader.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\Simple.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Simple.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderLoader.h">
@@ -196,6 +202,8 @@
     <ClInclude Include="ModelManager.h">
       <Filter>Common\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="IRenderable.h">
+      <Filter>Render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

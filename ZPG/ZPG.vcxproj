@@ -169,6 +169,8 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     </None>
     <Content Include="shader.vs" />
     <None Include="Shaders\FragmentShader.frag" />
+    <None Include="Shaders\Simple.frag" />
+    <None Include="Shaders\Simple.vert" />
     <None Include="Shaders\VertexShader.vert" />
   </ItemGroup>
   <ItemGroup>

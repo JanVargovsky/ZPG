@@ -41,12 +41,12 @@ bool Scene::Initialize()
 	return true;
 }
 
-bool Scene::CanDraw()
+bool Scene::CanRender()
 {
 	return glfwWindowShouldClose(window) == GL_FALSE;
 }
 
-void Scene::Draw()
+void Scene::Render()
 {
 	for (auto & object : objects)
 	{

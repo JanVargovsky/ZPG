@@ -5,7 +5,5 @@ class Square : public ModelBase
 {
 public:
 	Square();
-protected:
 	void Render();
 };
-

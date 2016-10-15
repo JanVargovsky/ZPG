@@ -1,4 +1,5 @@
 #pragma once
+#include "IRenderable.h"
 #include "VBO.h"
 #include "EBO.h"
 #include "VAO.h"
@@ -7,22 +8,18 @@
 
 #include <memory>
 
-class ModelBase
+class ModelBase : public IRenderable
 {
 protected:
 	VBO vbo;
 	VAO vao;
 	boost::optional<EBO> ebo;
 
-protected:
-	ModelBase();
+	ModelBase() = default;
 
-	virtual void Render() = 0;
 public:
-	~ModelBase();
-
-	virtual void PreDraw();
-	void Draw();
-	virtual void PostDraw();
+	virtual void PreRender();
+	virtual void Render() = 0;
+	virtual void PostRender();
 };
 

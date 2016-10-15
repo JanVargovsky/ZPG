@@ -4,7 +4,6 @@
 class SuziSmooth : public ModelBase
 {
 public:
-	SuziSmooth();
-protected:
+	SuziSmooth();:
 	void Render();
 };

@@ -21,8 +21,8 @@ public:
 	Scene(std::shared_ptr<Camera> camera, int width = 800, int height = 600);
 	~Scene();
 	bool Initialize();
-	bool CanDraw();
-	void Draw();
+	bool CanRender();
+	void Render();
 	void AddObject(Object * object);
 	void ChangeViewPort(int width, int height);
 

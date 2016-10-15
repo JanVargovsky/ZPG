@@ -115,7 +115,7 @@ void Application::Run()
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	while (GetScene()->CanDraw())
+	while (GetScene()->CanRender())
 	{
 		// update other events like input handling
 		glfwPollEvents();
@@ -124,7 +124,7 @@ void Application::Run()
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		GetScene()->Draw();
+		GetScene()->Render();
 	}
 }
 

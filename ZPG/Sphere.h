@@ -5,6 +5,5 @@ class Sphere : public ModelBase
 {
 public:
 	Sphere();
-protected:
 	void Render();
 };
