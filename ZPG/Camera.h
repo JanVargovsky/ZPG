@@ -24,7 +24,7 @@ private:
 	const float SENSITIVITY = 0.05f;
 	const float MOVE_STEP = 0.5f;
 
-	const float MAX_PITCH = 89.9f;
+	const float MAX_PITCH = 89.999f;
 	const float MIN_PITCH = -MAX_PITCH;
 
 	glm::vec3 eye;
