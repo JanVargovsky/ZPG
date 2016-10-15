@@ -32,8 +32,8 @@ void Camera::Rotate(int x, int y)
 	//target.y = sin(v);
 	//target.z = cos(v) * cos(h);
 
-	target.x = (mouseX + x) * ROTATE_STEP;
-	target.y = -(mouseY + y) * ROTATE_STEP;
+	target.x = -(mouseX + x) * ROTATE_STEP;
+	target.z = +(mouseY + y) * ROTATE_STEP;
 
 	viewMatrix.reset();
 }
@@ -43,10 +43,10 @@ void Camera::Move(CameraMove move)
 	switch (move)
 	{
 	case Forward:
-		position.y -= MOVE_STEP;
+		position.z -= MOVE_STEP;
 		break;
 	case Back:
-		position.y += MOVE_STEP;
+		position.z += MOVE_STEP;
 		break;
 	case Left:
 		position.x -= MOVE_STEP;
@@ -55,7 +55,6 @@ void Camera::Move(CameraMove move)
 		position.x += MOVE_STEP;
 		break;
 	}
-
 	viewMatrix.reset();
 }
 
@@ -64,9 +63,11 @@ void Camera::Move(CameraZoom zoom)
 	switch (zoom)
 	{
 	case In:
-		position.z += MOVE_STEP;
+		position.y += MOVE_STEP;
+		break;
 	case Out:
-		position.z -= MOVE_STEP;
+		position.y -= MOVE_STEP;
+		break;
 	}
 	viewMatrix.reset();
 }

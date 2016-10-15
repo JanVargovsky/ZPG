@@ -97,6 +97,15 @@
     <ClCompile Include="SuziSmooth.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObjectFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -174,6 +183,21 @@
     </ClInclude>
     <ClInclude Include="SuziSmooth.h">
       <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ManagerBase.h">
+      <Filter>Common\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryBase.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObjectFactory.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraFactory.h">
+      <Filter>Common\Factory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

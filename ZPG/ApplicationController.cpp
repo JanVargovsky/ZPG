@@ -56,7 +56,7 @@ void ApplicationController::OnMouseScroll(GLFWwindow * window, double xoffset, d
 {
 	if (IsCameraZoom(yoffset))
 		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraZoom(yoffset));
-	cout << "xoffset: " << xoffset << "yoffset: " << yoffset << endl;
+	cout << "xoffset: " << xoffset << " yoffset: " << yoffset << endl;
 }
 
 bool ApplicationController::IsCameraMove(int key)

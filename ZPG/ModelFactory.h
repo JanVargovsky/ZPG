@@ -1,5 +1,6 @@
 #pragma once
 #include "ModelBase.h"
+#include "FactoryBase.h"
 
 #include <memory>
 
@@ -12,7 +13,7 @@ enum ModelType
 	SuziSmoothModel,
 };
 
-class ModelFactory
+class ModelFactory : public FactoryBase<ModelType, std::shared_ptr<ModelBase>>
 {
 public:
 	std::shared_ptr<ModelBase> Create(ModelType modelType);

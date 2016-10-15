@@ -2,6 +2,8 @@
 #include "Program.h"
 #include "ModelBase.h"
 #include "ModelManager.h"
+#include "SceneObjectFactory.h"
+#include "CameraFactory.h"
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -20,13 +22,10 @@ Application& Application::GetInstance()
 }
 
 Application::Application()
-	: Application(new Scene(new Camera(vec3(0), radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f)), new ApplicationController())
 {
-}
-
-Application::Application(Scene * scene, ApplicationController * controller)
-	: scene(scene), controller(controller)
-{
+	controller = new ApplicationController;
+	CameraFactory cameraFactory;
+	scene = new Scene(cameraFactory.Create(CameraType::Normal));
 	initialized = false;
 }
 
@@ -85,6 +84,10 @@ bool Application::Initialize()
 	// get version info
 	PrintVersions();
 
+	SceneObjectFactory sceneObjectFactory;
+	for (auto obj : sceneObjectFactory.GetObjects(SceneType::FourBalls))
+		scene->AddObject(obj);
+
 	initialized = true;
 	return true;
 }
@@ -95,61 +98,6 @@ void Application::Run()
 	{
 		cerr << "Trying to run uninitialized application" << endl;
 		return;
-	}
-
-	shared_ptr<Program> program = make_shared<Program>("Shaders/VertexShader.vert", "Shaders/FragmentShader.frag");
-	auto triangleModel = ModelManager::Get(TriangleModel);
-	auto squareModel = ModelManager::Get(SquareModel);
-	auto sphereModel = ModelManager::Get(SphereModel);
-	auto suziFlatModel = ModelManager::Get(SuziFlatModel);
-	auto suziSmoothModel = ModelManager::Get(SuziSmoothModel);
-
-	scene->GetCamera()->Set(program.get());
-	scene->AddObject(new Object(program, squareModel));
-
-	auto sphereObject = new Object(program, sphereModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
-	sphereObject->GetTransform().SetPosition(vec3(3, 0, 3));
-	scene->AddObject(sphereObject);
-
-	auto suziFlatObject = new Object(program, suziFlatModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * 50.f); });
-	suziFlatObject->GetTransform().SetPosition(vec3(0, 3, 3));
-	scene->AddObject(suziFlatObject);
-
-	auto suziSmoothObject = new Object(program, suziSmoothModel, [](Object &o) {o.GetTransform().SetAngle(glfwGetTime() * -50.f); });
-	suziSmoothObject->GetTransform().SetPosition(vec3(3, 3, 0));
-	scene->AddObject(suziSmoothObject);
-
-	vec3 axis[3] = { vec3(0,0,1),vec3(0,1,0), vec3(1,0,0) };
-	float x = -1.5f;
-	for (size_t i = 0; i < 3; i++)
-	{
-		auto scaleObject = new Object(program, triangleModel, [i](Object & o)
-		{
-			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
-		});
-		scaleObject->GetTransform().SetPosition(vec3(x, 1.3, 0));
-		scene->AddObject(scaleObject);
-
-		auto angleObject = new Object(program, triangleModel, [](Object & o)
-		{
-			o.GetTransform().SetAngle(glfwGetTime() * 50.f);
-		});
-		angleObject->GetTransform().SetPosition(vec3(x, 0, 0));
-		angleObject->GetTransform().SetScale(0.5f);
-		angleObject->GetTransform().SetAxis(axis[i]);
-		scene->AddObject(angleObject);
-
-		auto positionObject = new Object(program, triangleModel, [i](Object & o)
-		{
-			o.GetTransform().SetPosition(vec3(sin(glfwGetTime()) + i - 1, -1.3, 0));
-			o.GetTransform().SetScale(abs(sin(glfwGetTime() + i)) / 3 + 0.1f);
-			o.GetTransform().SetAngle((glfwGetTime() + i) * 50.f);
-
-		});
-		positionObject->GetTransform().SetAxis(axis[i]);
-		scene->AddObject(positionObject);
-
-		x += 1.5f;
 	}
 
 	// Wireframe mode

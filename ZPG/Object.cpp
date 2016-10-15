@@ -38,7 +38,7 @@ void Object::Draw()
 	mat4 modelMatrix = GetTransform().Get();
 	program->Send("model", modelMatrix);
 
-	program->Send("lightPosition", vec3(3, 3, 3));
+	program->Send("lightPosition", vec3(0, 3, 0));
 
 	model->Draw();
 

@@ -12,7 +12,6 @@ private:
 	Application(const Application&) = delete;
 	Application& operator=(const Application&) = delete;
 	Application();
-	Application(Scene *scene, ApplicationController* controller);
 	~Application();
 #pragma endregion
 
