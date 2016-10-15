@@ -5,5 +5,5 @@ class Triangle : public ModelBase
 {
 public:
 	Triangle();
-	void Render();
+	virtual void Render();
 };

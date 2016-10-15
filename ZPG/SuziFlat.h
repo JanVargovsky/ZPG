@@ -5,5 +5,5 @@ class SuziFlat : public ModelBase
 {
 public:
 	SuziFlat();
-	void Render();
+	virtual void Render();
 };

@@ -5,5 +5,5 @@ class Sphere : public ModelBase
 {
 public:
 	Sphere();
-	void Render();
+	virtual void Render();
 };

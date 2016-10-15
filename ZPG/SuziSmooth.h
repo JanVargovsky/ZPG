@@ -4,6 +4,6 @@
 class SuziSmooth : public ModelBase
 {
 public:
-	SuziSmooth();:
-	void Render();
+	SuziSmooth();
+	virtual void Render();
 };

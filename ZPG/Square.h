@@ -5,5 +5,5 @@ class Square : public ModelBase
 {
 public:
 	Square();
-	void Render();
+	virtual void Render();
 };
