@@ -54,12 +54,11 @@ void Scene::Draw()
 		// TODO: Register event to camera OnCameraMove event in the object, so it calls its Set method
 		// TODO: Add 4 balls to scene and lighting in the middle of them
 
-		// Object -> Model
-		// Object has transformation and model draws
-		// Model has VAO and other stuff
-
 		camera->Set(object->GetShaderProgram().get());
-		object->Draw();
+
+		object->PreRender();
+		object->Render();
+		object->PostRender();
 	}
 
 	// put the stuff we’ve been drawing onto the display

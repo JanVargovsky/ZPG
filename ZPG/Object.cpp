@@ -20,11 +20,11 @@ Object::Object(shared_ptr<Program> program, shared_ptr<ModelBase> model, functio
 {
 }
 
-Object::~Object()
+void Object::PreRender()
 {
 }
 
-void Object::Draw()
+void Object::Render()
 {
 	if (program == nullptr)
 		return;
@@ -43,6 +43,10 @@ void Object::Draw()
 	model->Draw();
 
 	program->Unuse();
+}
+
+void Object::PostRender()
+{
 }
 
 Transform & Object::GetTransform()

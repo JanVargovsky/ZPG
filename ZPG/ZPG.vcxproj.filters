@@ -196,5 +196,6 @@
     <ClInclude Include="ModelManager.h">
       <Filter>Common\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="IRenderable.h" />
   </ItemGroup>
 </Project>

@@ -180,6 +180,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="CameraFactory.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="FactoryBase.h" />
+    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="ManagerBase.h" />
     <ClInclude Include="ModelBase.h" />
     <ClInclude Include="ModelFactory.h" />

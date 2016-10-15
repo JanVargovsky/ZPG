@@ -1,4 +1,5 @@
 #pragma once
+#include "IRenderable.h"
 #include "Program.h"
 #include "Transform.h"
 #include "VBO.h"
@@ -10,7 +11,7 @@
 #include <functional>
 #include <memory>
 
-class Object
+class Object : public IRenderable
 {
 private:
 	std::shared_ptr<Program> program;
@@ -21,9 +22,10 @@ private:
 public:
 	Object(std::shared_ptr<Program> program, std::shared_ptr<ModelBase> model);
 	Object(std::shared_ptr<Program> program, std::shared_ptr<ModelBase> model, std::function<void(Object &)> update);
-	~Object();
 
-	void Draw();
+	virtual void PreRender();
+	virtual void Render();
+	virtual void PostRender();
 
 	Transform & GetTransform();
 
