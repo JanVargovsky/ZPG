@@ -102,16 +102,28 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 	auto positions = {
 		vec3(T, 0, T),
 		vec3(-T, 0, T),
-		vec3(T, 0, -T),
 		vec3(-T, 0, -T),
+		vec3(T, 0, -T),
 		vec3(0, -T, 0)
 	};
 
+	int i = 0;
 	for (auto position : positions)
 	{
-		auto obj = new Object(program, sphereModel);
+		Object* obj;
+
+		if (i < 4)
+			obj = new Object(program, sphereModel, [i](Object &o) {
+			auto position = o.GetTransform().GetPosition();
+			position.y = sin(glfwGetTime() + i);
+			o.GetTransform().SetPosition(position);
+		});
+		else
+			obj = new Object(program, sphereModel);
+
 		obj->GetTransform().SetPosition(position);
 		result.push_back(obj);
+		i++;
 	}
 
 	return result;
