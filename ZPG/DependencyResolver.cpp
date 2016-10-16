@@ -16,9 +16,9 @@ DependencyResolver & DependencyResolver::GetInstance()
 	return instance;
 }
 
-DependencyResolver::DependencyResolver()
+DependencyResolver::~DependencyResolver()
 {
-
+	// TODO: delete pointers inside container
 }
 
 void DependencyResolver::Initialize()

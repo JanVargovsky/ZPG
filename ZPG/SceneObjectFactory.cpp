@@ -98,32 +98,40 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 
 	auto sphereModel = modelManager->Get(SphereModel);
 
-	const float T = 1.5f;
+	const float T = 2.f;
 	auto positions = {
-		vec3(T, 0, T),
-		vec3(-T, 0, T),
-		vec3(-T, 0, -T),
-		vec3(T, 0, -T),
-		vec3(0, -T, 0)
+		// 4
+		//vec3(T, 0, T),
+		//vec3(-T, 0, T),
+		//vec3(-T, 0, -T),
+		//vec3(T, 0, -T),
+
+		// 8
+		vec3(T, 0, 0), // right 
+		vec3(T, 0, T), // top right
+		vec3(0, 0, T), // top 
+		vec3(-T, 0, T), // top left
+		vec3(-T, 0, 0), // left
+		vec3(-T, 0, -T), // bottom left
+		vec3(0, 0, -T), // bottom
+		vec3(T, 0, -T), // bottom right
 	};
 
-	int i = 0;
+	float delay = 0;
 	for (auto position : positions)
 	{
-		Object* obj;
-
-		if (i < 4)
-			obj = new Object(program, sphereModel, [i](Object &o) {
+		Object* obj = new Object(program, sphereModel
+			,[delay](Object &o) {
 			auto position = o.GetTransform().GetPosition();
-			position.y = sin(glfwGetTime() + i);
+			position.y = sin(glfwGetTime() + delay);
 			o.GetTransform().SetPosition(position);
-		});
-		else
-			obj = new Object(program, sphereModel);
+		}
+		);
 
+		//position.y = delay;
 		obj->GetTransform().SetPosition(position);
 		result.push_back(obj);
-		i++;
+		delay += 0.7f;
 	}
 
 	return result;

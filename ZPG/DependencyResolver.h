@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <typeindex>
 #include <typeinfo>
+#include <memory>
 
 class DependencyResolver
 {
@@ -14,10 +15,13 @@ public:
 private:
 	DependencyResolver(const DependencyResolver&) = delete;
 	DependencyResolver& operator=(const DependencyResolver&) = delete;
-	DependencyResolver();
+	DependencyResolver() = default;
+
 #pragma endregion
 
 public:
+	~DependencyResolver();
+
 	std::unordered_map<std::type_index, boost::any> container;
 
 	void Initialize();

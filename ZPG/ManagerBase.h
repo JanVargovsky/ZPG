@@ -12,12 +12,22 @@ private:
 
 public:
 	ManagerBase(Factory *factory);
+	virtual ~ManagerBase();
+
 	TValue* Get(TKey key);
 };
 
 template<typename TKey, typename TValue, typename Factory>
 inline ManagerBase<TKey, TValue, Factory>::ManagerBase(Factory *factory)
 	:factory(factory)
+{
+	for (auto &item : items)
+		delete item.second;
+	items.clear();
+}
+
+template<typename TKey, typename TValue, typename Factory>
+inline ManagerBase<TKey, TValue, Factory>::~ManagerBase()
 {
 }
 
