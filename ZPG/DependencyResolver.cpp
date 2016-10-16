@@ -21,7 +21,7 @@ DependencyResolver::DependencyResolver()
 
 }
 
-void DependencyResolver::Register()
+void DependencyResolver::Initialize()
 {
 	container[typeid(ShaderLoader*)] = new ShaderLoader;
 	container[typeid(CameraFactory*)] = new CameraFactory;

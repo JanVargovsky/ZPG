@@ -3,7 +3,7 @@
 
 int main()
 {
-	DependencyResolver::GetInstance().Register();
+	DependencyResolver::GetInstance().Initialize();
 
 	if (!Application::GetInstance().Initialize())
 		exit(EXIT_FAILURE);

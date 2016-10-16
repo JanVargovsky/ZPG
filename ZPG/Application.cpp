@@ -30,8 +30,6 @@ Application::Application()
 	auto camera = DependencyResolver::GetInstance().Resolve<CameraFactory*>()->Create(CameraType::Normal);
 	scene = new Scene(camera);
 
-	//scenes.push_back({ SceneType::Trash, shared_ptr<Scene>(new Scene(camera)) });
-	//scenes.push_back({ SceneType::FourBalls, shared_ptr<Scene>(new Scene(camera)) });
 	initialized = false;
 }
 

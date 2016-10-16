@@ -12,7 +12,7 @@ class Scene
 {
 private:
 	GLFWwindow* window;
-	std::shared_ptr<Camera> camera;
+	Camera* camera;
 	int width, height;
 	bool initialized;
 	std::vector<std::unique_ptr<Object>> objects;
@@ -27,7 +27,7 @@ public:
 	void ChangeViewPort(int width, int height);
 
 	inline GLFWwindow* GetWindow() { return window; }
-	inline Camera* GetCamera() { return camera.get(); }
+	inline Camera* GetCamera() { return camera; }
 	int GetWidth() { return width; }
 	int GetHeight() { return height; }
 

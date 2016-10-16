@@ -5,7 +5,6 @@
 #include <typeindex>
 #include <typeinfo>
 
-// God class...
 class DependencyResolver
 {
 #pragma region Singleton
@@ -21,7 +20,7 @@ private:
 public:
 	std::unordered_map<std::type_index, boost::any> container;
 
-	void Register();
+	void Initialize();
 public:
 	template <typename T>
 	T Resolve();
