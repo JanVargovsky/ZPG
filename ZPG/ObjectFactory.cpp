@@ -4,7 +4,7 @@
 
 using namespace std;
 
-shared_ptr<Object> ObjectFactory::Create(ObjectType key)
+Object* ObjectFactory::Create(ObjectType key)
 {
 	throw exception("NIY");
 }

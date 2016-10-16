@@ -7,8 +7,8 @@ enum CameraType
 	Normal,
 };
 
-class CameraFactory : public FactoryBase<CameraType, std::shared_ptr<Camera>>
+class CameraFactory : public FactoryBase<CameraType, Camera*>
 {
 public:
-	std::shared_ptr<Camera> Create(CameraType cameraType) override;
+	virtual Camera* Create(CameraType cameraType) override;
 };

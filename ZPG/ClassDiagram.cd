@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="ShaderLoader">
-    <Position X="15.75" Y="9.75" Width="4.75" />
+    <Position X="15.75" Y="7.25" Width="4.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>ShaderLoader.h</FileName>
@@ -9,15 +9,8 @@
   </Class>
   <Class Name="Application">
     <Position X="0.5" Y="0.5" Width="3.25" />
-    <NestedTypes>
-      <Struct Name="Application::NamedScene" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Application.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Struct>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAQkAAAAAAIEABAACAAAACAAgBAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAABAAAQEAAAAAAIEABAACAAAACAAgBAAAAAI=</HashCode>
       <FileName>Application.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -25,21 +18,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ApplicationController">
-    <Position X="0.5" Y="5.5" Width="5.5" />
+    <Position X="0.5" Y="5.25" Width="5.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAyAAAgAAAIUAAAACBAAAQBAAAAAAAAAAAA=</HashCode>
       <FileName>ApplicationController.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Camera">
-    <Position X="10.25" Y="0.5" Width="4.5" />
+    <Position X="8.25" Y="0.5" Width="4.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAQaEABABQIAAwEkAAECAAAkgAAAQAAoAEAAA=</HashCode>
       <FileName>Camera.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Object">
-    <Position X="0.75" Y="11.25" Width="6.75" />
+    <Position X="34" Y="5.25" Width="6.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAABAAAAAAAAEAEAAABABAAAOAAE=</HashCode>
       <FileName>Object.h</FileName>
@@ -49,28 +42,28 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Scene">
-    <Position X="5.75" Y="0.5" Width="4" />
+    <Position X="4" Y="0.5" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAhAQAQQAwAAAIABARQAAAAAIBBAAAECAAAA=</HashCode>
       <FileName>Scene.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Transform">
-    <Position X="9" Y="9.25" Width="4" />
+    <Position X="41.25" Y="0.5" Width="4" />
     <TypeIdentifier>
       <HashCode>UAAEAAAAADAAAQBAAAEAICQCAAgEAgAAIAAAAgBAQAA=</HashCode>
       <FileName>Transform.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Program">
-    <Position X="16" Y="6" Width="4.25" />
+    <Position X="16" Y="3.5" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAAAAQAACAAAAgAAAEAAACAAgAAEAAAAAAABAAAAAEE=</HashCode>
       <FileName>Program.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Shader">
-    <Position X="16" Y="11.25" Width="4" />
+    <Position X="16" Y="8.75" Width="4" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAAAAEAAkAAAAAgAABAAAABAAAAEAAAAA=</HashCode>
       <FileName>Shader.h</FileName>
@@ -119,14 +112,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ModelFactory">
-    <Position X="28.75" Y="16" Width="4" />
+    <Position X="29" Y="14.5" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>ModelFactory.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ModelBase">
-    <Position X="26" Y="7.25" Width="1.75" />
+    <Position X="31" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAIAIAAAIAEAAAAAAAAAAAAAAAEAAABAAAAACAAA=</HashCode>
       <FileName>ModelBase.h</FileName>
@@ -137,80 +130,87 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Sphere">
-    <Position X="25" Y="10.25" Width="1.5" />
+    <Position X="25.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Sphere.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Square">
-    <Position X="23.25" Y="10.25" Width="1.5" />
+    <Position X="23.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAgAAAAAAA=</HashCode>
       <FileName>Square.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Triangle">
-    <Position X="21.5" Y="10.25" Width="1.5" />
+    <Position X="22" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Triangle.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CameraFactory">
-    <Position X="20.75" Y="16" Width="3.75" />
+    <Position X="20.75" Y="14.5" Width="3.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>CameraFactory.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FactoryBase&lt;TKey, TValue&gt;">
-    <Position X="27.25" Y="12.75" Width="2.25" />
+    <Position X="27.5" Y="11.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>FactoryBase.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ObjectFactory">
-    <Position X="25" Y="16" Width="3.25" />
+    <Position X="25.25" Y="14.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>ObjectFactory.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ModelManager">
-    <Position X="25" Y="19.25" Width="3.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ModelManager.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="SuziFlat">
-    <Position X="28.75" Y="10.25" Width="1.5" />
+    <Position X="29.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>SuziFlat.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SuziSmooth">
-    <Position X="26.75" Y="10.25" Width="1.5" />
+    <Position X="27.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAA=</HashCode>
       <FileName>SuziSmooth.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SceneObjectFactory">
-    <Position X="33" Y="16" Width="3.25" />
+    <Position X="33.25" Y="14.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAgEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAAAAAAIAAAQAAAAgEAAAAAAAAAAAAA=</HashCode>
       <FileName>SceneObjectFactory.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ManagerBase&lt;TKey, TValue, Factory&gt;">
-    <Position X="27" Y="22" Width="3.5" />
+    <Position X="26.5" Y="18.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAABAAAgAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ManagerBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DependencyResolver">
+    <Position X="13" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAACAAAAAAAAAAAAABAABCAAAAAAgAAAAAAA=</HashCode>
+      <FileName>DependencyResolver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IRenderable">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAEAAABAAAAACAAA=</HashCode>
+      <FileName>IRenderable.h</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="CameraMove">
@@ -221,7 +221,7 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="ShaderType">
-    <Position X="13.5" Y="11.5" Width="1.5" />
+    <Position X="13.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Shader.h</FileName>
@@ -249,31 +249,24 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="ModelType">
-    <Position X="28.75" Y="17.5" Width="1.5" />
+    <Position X="29" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAgQAAAAIAAAAACAAAAAA=</HashCode>
       <FileName>ModelFactory.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="CameraType">
-    <Position X="20.75" Y="17.5" Width="1.5" />
+    <Position X="20.75" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CameraFactory.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ObjectType">
-    <Position X="25" Y="17.5" Width="1.5" />
+    <Position X="25.25" Y="16" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAgAAgAAAAAAAAAAAABAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>ObjectFactory.h</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="SceneType">
-    <Position X="33" Y="17.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SceneObjectFactory.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

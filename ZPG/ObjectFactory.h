@@ -2,8 +2,6 @@
 #include "FactoryBase.h"
 #include "Object.h"
 
-#include <memory>
-
 enum ObjectType
 {
 	TriangleObject,
@@ -13,9 +11,9 @@ enum ObjectType
 	SuziSmoothObject,
 };
 
-class ObjectFactory : public FactoryBase<ObjectType, std::shared_ptr<Object>>
+class ObjectFactory : public FactoryBase<ObjectType, Object*>
 {
 public:
-	virtual std::shared_ptr<Object> Create(ObjectType key) override;
+	virtual Object* Create(ObjectType key) override;
 };
 

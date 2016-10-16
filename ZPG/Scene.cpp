@@ -12,7 +12,7 @@
 using namespace std;
 using namespace glm;
 
-Scene::Scene(shared_ptr<Camera> camera, int width, int height)
+Scene::Scene(Camera *camera, int width, int height)
 	:camera(camera), width(width), height(height)
 {
 	window = nullptr;
@@ -54,7 +54,7 @@ void Scene::Render()
 		// TODO: Register event to camera OnCameraMove event in the object, so it calls its Set method
 		// TODO: Add 4 balls to scene and lighting in the middle of them
 
-		camera->Set(object->GetShaderProgram().get());
+		camera->Set(object->GetShaderProgram());
 
 		object->PreRender();
 		object->Render();

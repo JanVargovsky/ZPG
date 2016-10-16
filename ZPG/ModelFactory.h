@@ -2,8 +2,6 @@
 #include "ModelBase.h"
 #include "FactoryBase.h"
 
-#include <memory>
-
 enum ModelType
 {
 	TriangleModel,
@@ -13,9 +11,9 @@ enum ModelType
 	SuziSmoothModel,
 };
 
-class ModelFactory : public FactoryBase<ModelType, std::shared_ptr<ModelBase>>
+class ModelFactory : public FactoryBase<ModelType, ModelBase*>
 {
 public:
-	std::shared_ptr<ModelBase> Create(ModelType modelType) override;
+	virtual ModelBase* Create(ModelType modelType) override;
 };
 

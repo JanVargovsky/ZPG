@@ -30,7 +30,8 @@ vector<Object*> SceneObjectFactory::PrepareTrashScene()
 {
 	vector<Object*> result;
 
-	shared_ptr<Program> program = make_shared<Program>("Shaders/Simple.vert", "Shaders/Simple.frag");
+	// TODO: Fix memory leak
+	Program *program = new Program("Shaders/Simple.vert", "Shaders/Simple.frag");
 
 	auto triangleModel = modelManager->Get(TriangleModel);
 	auto squareModel = modelManager->Get(SquareModel);
@@ -92,7 +93,8 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 {
 	vector<Object*> result;
 
-	auto program = make_shared<Program>("Shaders/Lambert.vert", "Shaders/Lambert.frag");
+	// TODO: Fix memory leak
+	Program *program = new Program("Shaders/Lambert.vert", "Shaders/Lambert.frag");
 
 	auto sphereModel = modelManager->Get(SphereModel);
 

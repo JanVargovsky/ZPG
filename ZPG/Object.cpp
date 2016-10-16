@@ -10,12 +10,12 @@
 using namespace std;
 using namespace glm;
 
-Object::Object(shared_ptr<Program> program, shared_ptr<ModelBase> model)
-	:Object(program, model, nullptr)
+Object::Object(Program * program, ModelBase * model)
+	: Object(program, model, nullptr)
 {
 }
 
-Object::Object(shared_ptr<Program> program, shared_ptr<ModelBase> model, function<void(Object &)> update)
+Object::Object(Program * program, ModelBase * model, std::function<void(Object&)> update)
 	: program(program), model(model), update(update)
 {
 }

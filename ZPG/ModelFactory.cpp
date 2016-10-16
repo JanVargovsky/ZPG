@@ -8,21 +8,30 @@
 
 using namespace std;
 
-shared_ptr<ModelBase> ModelFactory::Create(ModelType modelType)
+ModelBase* ModelFactory::Create(ModelType modelType)
 {
+	ModelBase * model;
+
 	switch (modelType)
 	{
 	case TriangleModel:
-		return shared_ptr<ModelBase>(new Triangle);
+		model = new Triangle;
+		break;
 	case SquareModel:
-		return shared_ptr<ModelBase>(new Square);
+		model = new Square;
+		break;
 	case SphereModel:
-		return shared_ptr<ModelBase>(new Sphere);
+		model = new Sphere;
+		break;
 	case SuziFlatModel:
-		return shared_ptr<ModelBase>(new SuziFlat);
+		model = new SuziFlat;
+		break;
 	case SuziSmoothModel:
-		return shared_ptr<ModelBase>(new SuziSmooth);
+		return new SuziSmooth;
+		break;
 	default:
 		throw exception("not implemented ModelType");
 	}
+
+	return model;
 }

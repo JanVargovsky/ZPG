@@ -26,10 +26,11 @@ Application::Application()
 	controller = new ApplicationController;
 	CameraFactory cameraFactory;
 
-	currentScene = 0;
-	auto camera = cameraFactory.Create(CameraType::Normal);
+	//currentScene = 0;
+	auto camera = DependencyResolver::GetInstance().Resolve<CameraFactory*>()->Create(CameraType::Normal);
+	scene = new Scene(camera);
 
-	scenes.push_back({ SceneType::Trash, shared_ptr<Scene>(new Scene(camera)) });
+	//scenes.push_back({ SceneType::Trash, shared_ptr<Scene>(new Scene(camera)) });
 	//scenes.push_back({ SceneType::FourBalls, shared_ptr<Scene>(new Scene(camera)) });
 	initialized = false;
 }
@@ -51,13 +52,10 @@ bool Application::Initialize()
 		return false;
 	}
 
-	for (auto scene : scenes)
+	if (!scene->Initialize())
 	{
-		if (!scene.Scene->Initialize())
-		{
-			cerr << "Failed to initialize scene" << endl;
-			return false;
-		}
+		cerr << "Failed to initialize scene" << endl;
+		return false;
 	}
 
 	auto window = GetScene()->GetWindow();

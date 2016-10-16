@@ -18,7 +18,7 @@ private:
 	std::vector<std::unique_ptr<Object>> objects;
 
 public:
-	Scene(std::shared_ptr<Camera> camera, int width = 800, int height = 600);
+	Scene(Camera *camera, int width = 800, int height = 600);
 	~Scene();
 	bool Initialize();
 	bool CanRender();

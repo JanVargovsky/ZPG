@@ -6,4 +6,3 @@ class FactoryBase
 public:
 	virtual TValue Create(TKey key) = 0;
 };
-
