@@ -1,4 +1,5 @@
 #include "SceneObjectFactory.h"
+#include "DependencyResolver.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -6,6 +7,11 @@
 using namespace std;
 using namespace glm;
 
+
+SceneObjectFactory::SceneObjectFactory(ModelManager * modelManager)
+	:modelManager(modelManager)
+{
+}
 
 vector<Object*> SceneObjectFactory::Create(SceneType sceneType)
 {
@@ -25,11 +31,12 @@ vector<Object*> SceneObjectFactory::PrepareTrashScene()
 	vector<Object*> result;
 
 	shared_ptr<Program> program = make_shared<Program>("Shaders/Simple.vert", "Shaders/Simple.frag");
-	auto triangleModel = ModelManager::Get(TriangleModel);
-	auto squareModel = ModelManager::Get(SquareModel);
-	auto sphereModel = ModelManager::Get(SphereModel);
-	auto suziFlatModel = ModelManager::Get(SuziFlatModel);
-	auto suziSmoothModel = ModelManager::Get(SuziSmoothModel);
+
+	auto triangleModel = modelManager->Get(TriangleModel);
+	auto squareModel = modelManager->Get(SquareModel);
+	auto sphereModel = modelManager->Get(SphereModel);
+	auto suziFlatModel = modelManager->Get(SuziFlatModel);
+	auto suziSmoothModel = modelManager->Get(SuziSmoothModel);
 
 	result.push_back(new Object(program, squareModel));
 
@@ -86,7 +93,8 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 	vector<Object*> result;
 
 	auto program = make_shared<Program>("Shaders/Lambert.vert", "Shaders/Lambert.frag");
-	auto sphereModel = ModelManager::Get(SphereModel);
+
+	auto sphereModel = modelManager->Get(SphereModel);
 
 	const float T = 1.5f;
 	auto positions = {

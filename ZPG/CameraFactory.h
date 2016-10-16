@@ -12,4 +12,3 @@ class CameraFactory : public FactoryBase<CameraType, std::shared_ptr<Camera>>
 public:
 	std::shared_ptr<Camera> Create(CameraType cameraType) override;
 };
-

@@ -96,9 +96,9 @@ bool Application::Initialize()
 	// get version info
 	PrintVersions();
 
-	SceneObjectFactory sceneObjectFactory;
-	//auto objects = sceneObjectFactory.Create(SceneType::Trash);
-	auto objects = sceneObjectFactory.Create(SceneType::FourBalls);
+	auto sceneObjectFactory = DependencyResolver::GetInstance().Resolve<SceneObjectFactory*>();
+	//auto objects = sceneObjectFactory->Create(SceneType::Trash);
+	auto objects = sceneObjectFactory->Create(SceneType::FourBalls);
 
 	for (auto obj : objects)
 		GetScene()->AddObject(obj);

@@ -142,6 +142,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="BufferBase.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraFactory.cpp" />
+    <ClCompile Include="DependencyResolver.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="ModelBase.cpp" />
     <ClCompile Include="ModelFactory.cpp" />
@@ -180,6 +181,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="BufferBase.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraFactory.h" />
+    <ClInclude Include="DependencyResolver.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="IRenderable.h" />

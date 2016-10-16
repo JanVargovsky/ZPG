@@ -7,15 +7,19 @@ template <typename TKey, typename TValue, typename Factory>
 class ManagerBase
 {
 private:
-	static std::unordered_map<TKey, std::shared_ptr<TValue>> items;
-	static Factory factory;
-
-protected:
-	ManagerBase() = default;
+	std::unordered_map<TKey, std::shared_ptr<TValue>> items;
+	Factory factory;
 
 public:
-	static std::shared_ptr<TValue> Get(TKey key);
+	ManagerBase(Factory factory);
+	std::shared_ptr<TValue> Get(TKey key);
 };
+
+template<typename TKey, typename TValue, typename Factory>
+inline ManagerBase<TKey, TValue, Factory>::ManagerBase(Factory factory)
+	:factory(factory)
+{
+}
 
 template<typename TKey, typename TValue, typename Factory>
 std::shared_ptr<TValue> ManagerBase<TKey, TValue, Factory>::Get(TKey key)
@@ -24,7 +28,7 @@ std::shared_ptr<TValue> ManagerBase<TKey, TValue, Factory>::Get(TKey key)
 	auto valueIt = items.find(key);
 	if (valueIt == items.end())
 	{
-		result = factory.Create(key);
+		result = factory->Create(key);
 		items.insert({ key, result });
 	}
 	else

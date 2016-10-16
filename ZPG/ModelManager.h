@@ -3,9 +3,13 @@
 #include "ModelBase.h"
 #include "ModelFactory.h"
 
-class ModelManager : public ManagerBase<ModelType, ModelBase, ModelFactory>
-{
-};
+typedef ManagerBase<ModelType, ModelBase, ModelFactory*> ModelManager;
 
-ModelFactory ModelManager::factory;
-std::unordered_map<ModelType, std::shared_ptr<ModelBase>> ModelManager::items;
+//class ModelManager : public ManagerBase<ModelType, ModelBase, std::shared_ptr<ModelFactory>>
+//{
+//public:
+//	ModelManager(std::shared_ptr<ModelFactory> factory)
+//		: ManagerBase(factory)
+//	{
+//	}
+//};

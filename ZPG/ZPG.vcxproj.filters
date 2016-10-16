@@ -28,6 +28,9 @@
     <Filter Include="Common\Factory">
       <UniqueIdentifier>{3dd3164d-10e7-4b00-a13f-5314e22e80e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IoC">
+      <UniqueIdentifier>{78d42ab5-024f-4e48-9439-ed21c6c3689f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -102,6 +105,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="DependencyResolver.cpp">
+      <Filter>IoC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,14 +202,17 @@
     <ClInclude Include="SceneObjectFactory.h">
       <Filter>Common\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>Common\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="IRenderable.h">
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DependencyResolver.h">
+      <Filter>IoC</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Common\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

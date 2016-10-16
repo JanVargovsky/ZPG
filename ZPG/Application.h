@@ -1,4 +1,5 @@
 #pragma once
+#include "DependencyResolver.h"
 #include "ApplicationController.h"
 #include "Scene.h"
 

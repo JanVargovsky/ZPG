@@ -1,4 +1,5 @@
 #include "Program.h"
+#include "DependencyResolver.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -10,9 +11,9 @@ using namespace glm;
 Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
 	:program(-1)
 {
-	ShaderLoader shaderLoader;
-	unique_ptr<Shader> vertex = shaderLoader.CreateShader(vertexPath, ShaderType::Vertex);
-	unique_ptr<Shader> fragment = shaderLoader.CreateShader(fragmentPath, ShaderType::Fragment);
+	ShaderLoader *shaderLoader = DependencyResolver::GetInstance().Resolve<ShaderLoader*>();
+	unique_ptr<Shader> vertex = shaderLoader->CreateShader(vertexPath, ShaderType::Vertex);
+	unique_ptr<Shader> fragment = shaderLoader->CreateShader(fragmentPath, ShaderType::Fragment);
 
 	shaders.push_back(move(vertex));
 	shaders.push_back(move(fragment));
