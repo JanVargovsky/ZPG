@@ -7,7 +7,7 @@ using namespace std;
 using namespace glm;
 
 
-vector<Object*> SceneObjectFactory::GetObjects(SceneType sceneType)
+vector<Object*> SceneObjectFactory::Create(SceneType sceneType)
 {
 	switch (sceneType)
 	{

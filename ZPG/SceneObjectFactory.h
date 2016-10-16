@@ -10,10 +10,10 @@ enum SceneType
 	FourBalls,
 };
 
-class SceneObjectFactory
+class SceneObjectFactory : public FactoryBase<SceneType, std::vector<Object*>>
 {
 public:
-	std::vector<Object*> GetObjects(SceneType sceneType);
+	std::vector<Object*> Create(SceneType sceneType) override;
 
 private:
 	std::vector<Object*> PrepareTrashScene();
