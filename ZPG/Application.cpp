@@ -24,9 +24,7 @@ Application& Application::GetInstance()
 Application::Application()
 {
 	controller = new ApplicationController;
-	CameraFactory cameraFactory;
 
-	//currentScene = 0;
 	auto camera = DependencyResolver::GetInstance().Resolve<CameraFactory*>()->Create(CameraType::Normal);
 	scene = new Scene(camera);
 

@@ -18,14 +18,14 @@ DependencyResolver & DependencyResolver::GetInstance()
 
 DependencyResolver::~DependencyResolver()
 {
-	// TODO: delete pointers inside container
+	container.clear();
 }
 
 void DependencyResolver::Initialize()
 {
-	container[typeid(ShaderLoader*)] = new ShaderLoader;
-	container[typeid(CameraFactory*)] = new CameraFactory;
-	container[typeid(ModelFactory*)] = new ModelFactory;
-	container[typeid(ModelManager*)] = new ModelManager(Resolve<ModelFactory*>());
-	container[typeid(SceneObjectFactory*)] = new SceneObjectFactory(Resolve<ModelManager*>());
+	Register(new ShaderLoader);
+	Register(new CameraFactory);
+	Register(new ModelFactory);
+	Register(new ModelManager(Resolve<ModelFactory*>()));
+	Register(new SceneObjectFactory(Resolve<ModelManager*>()));
 }

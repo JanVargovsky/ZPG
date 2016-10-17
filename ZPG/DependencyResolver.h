@@ -5,6 +5,10 @@
 #include <typeindex>
 #include <typeinfo>
 #include <memory>
+#include <functional>
+
+using deleter_t = std::function<void(void *)>;
+using unique_void_ptr = std::unique_ptr<void, deleter_t>;
 
 class DependencyResolver
 {
@@ -16,30 +20,47 @@ private:
 	DependencyResolver(const DependencyResolver&) = delete;
 	DependencyResolver& operator=(const DependencyResolver&) = delete;
 	DependencyResolver() = default;
-
 #pragma endregion
+
+private:
+	std::unordered_map<std::type_index, unique_void_ptr> container;
 
 public:
 	~DependencyResolver();
 
-	std::unordered_map<std::type_index, boost::any> container;
-
 	void Initialize();
-public:
+
+	template<typename T>
+	auto Register(T *t) -> void;
+
 	template <typename T>
-	T Resolve();
+	auto Resolve() -> T;
 };
 
 template<typename T>
-inline T DependencyResolver::Resolve()
+auto deleter(void const * data) -> void
 {
-	auto item = container[typeid(T)];
+	T const * p = static_cast<T const*>(data);
+	printf("deleting %s\n", typeid(T).name());
+	delete p;
+}
 
-	if (item.empty())
+template<typename T>
+inline auto DependencyResolver::Register(T * t) -> void
+{
+	container[typeid(t)] = unique_void_ptr(t, &deleter<T>);
+}
+
+template<typename T>
+inline auto DependencyResolver::Resolve() -> T
+{
+	auto item = container.find(typeid(T));
+
+	if (item == container.end())
 	{
 		std::string message = "not defined type: " + string(typeid(T).name());
 		throw exception(message.c_str());
 	}
 
-	return boost::any_cast<T>(item);
+	return static_cast<T>(item->second.get());
 }
