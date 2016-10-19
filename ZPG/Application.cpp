@@ -81,6 +81,9 @@ bool Application::Initialize()
 		return false;
 	}
 
+	// Wireframe mode
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 	// Disable cursor
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -108,9 +111,6 @@ void Application::Run()
 		cerr << "Trying to run uninitialized application" << endl;
 		return;
 	}
-
-	// Wireframe mode
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	while (GetScene()->CanRender())
 	{

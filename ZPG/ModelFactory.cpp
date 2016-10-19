@@ -27,7 +27,7 @@ ModelBase* ModelFactory::Create(ModelType modelType)
 		model = new SuziFlat;
 		break;
 	case SuziSmoothModel:
-		return new SuziSmooth;
+		model = new SuziSmooth;
 		break;
 	default:
 		throw exception("not implemented ModelType");

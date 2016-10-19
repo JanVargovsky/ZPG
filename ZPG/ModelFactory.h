@@ -16,4 +16,3 @@ class ModelFactory : public FactoryBase<ModelType, ModelBase*>
 public:
 	virtual ModelBase* Create(ModelType modelType) override;
 };
-
