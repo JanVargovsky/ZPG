@@ -122,10 +122,10 @@
     <None Include="Shaders\Simple.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\Lambert.vert">
+    <None Include="Shaders\Phong.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\Lambert.frag">
+    <None Include="Shaders\Phong.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

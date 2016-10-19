@@ -1,0 +1,42 @@
+#version 330 core
+in vec3 ourColor;
+in vec4 worldPosition;
+in vec3 worldNormal;
+
+out vec4 color;
+
+uniform vec3 lightPosition;
+uniform vec3 cameraPosition;
+
+void main()
+{
+	// TODO: Rename this filename to Phong
+	// Intenzita paprsku L
+	const float I_L = 1;
+
+	// Intenzita okolniho svetla
+	const float I_A = 1;
+	// Koeficient odrazu okolniho svetla
+	const float R_A = 1;
+
+	// Koeficient zrcadloveho odrazu
+	const float R_S = 1;
+	// Ostrost zrcadloveho odrazu
+	const float h = 20;
+
+	vec3 L = normalize(vec3(0) - worldPosition.xyz);
+	vec3 R = reflect(-L, worldNormal.xyz);
+	vec3 V = normalize(cameraPosition - worldPosition.xyz);
+
+	float dotProductLN = max(dot(L, worldNormal), 0.0f);
+	float dotProductVR = max(dot(V, R), 0);
+
+	vec3 diffuse = I_L * ourColor * vec3(dotProductLN);
+	vec3 ambient =  I_A * vec3(0.3f);
+	vec3 specular = I_L * R_S * vec3(pow(dotProductVR, h));
+
+	//color = vec4(diffuse, 1.0);
+	//color = vec4(ambient, 1.0);
+	//color = vec4(specular, 1.0);
+	color = vec4(diffuse + ambient + specular, 1.0);
+};

@@ -94,7 +94,7 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 	vector<Object*> result;
 
 	// TODO: Fix memory leak
-	Program *program = new Program("Shaders/Lambert.vert", "Shaders/Lambert.frag");
+	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
 
 	auto sphereModel = modelManager->Get(SphereModel);
 
@@ -117,7 +117,7 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 		//vec3(T, 0, -T), // bottom right
 	};
 
-	bool animate = false;
+	bool animate = true;
 	float delay = 0;
 	for (auto position : positions)
 	{
@@ -127,7 +127,7 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 			obj = new Object(program, sphereModel
 				, [delay](Object &o) {
 				auto position = o.GetTransform().GetPosition();
-				position.y = sin(glfwGetTime() + delay);
+				position.y = 2 * sin(glfwGetTime() + delay);
 				o.GetTransform().SetPosition(position);
 			});
 		}
@@ -137,7 +137,7 @@ vector<Object*> SceneObjectFactory::PrepareFourBallsScene()
 		//position.y = delay;
 		obj->GetTransform().SetPosition(position);
 		result.push_back(obj);
-		delay += 0.7f;
+		delay += 1.2f;
 	}
 
 	return result;

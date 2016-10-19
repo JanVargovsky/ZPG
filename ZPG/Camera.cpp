@@ -39,6 +39,8 @@ void Camera::Set(const Program * program)
 	program->Send("view", GetViewMatrix());
 	program->Send("projection", GetProjectionMatrix());
 
+	program->Send("cameraPosition", eye);
+
 	program->Unuse();
 }
 
