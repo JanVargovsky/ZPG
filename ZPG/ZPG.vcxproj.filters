@@ -34,6 +34,15 @@
     <Filter Include="Models">
       <UniqueIdentifier>{6784f567-dea8-4a08-848b-11bf4a9ddd3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\Light">
+      <UniqueIdentifier>{1db82d46-63be-4b7c-a6cf-63b139ed3ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Light">
+      <UniqueIdentifier>{3704e87b-2481-4c7d-8086-4a39a49c6fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Builder">
+      <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -76,9 +85,6 @@
     <ClCompile Include="ArrayBase.cpp">
       <Filter>Common\BufferObject\Base</Filter>
     </ClCompile>
-    <ClCompile Include="ModelBase.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
     <ClCompile Include="Triangle.cpp">
       <Filter>Render\Model</Filter>
     </ClCompile>
@@ -111,6 +117,24 @@
     </ClCompile>
     <ClCompile Include="DependencyResolver.cpp">
       <Filter>IoC</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightBase.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Phong.cpp">
+      <Filter>Common\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelBase.cpp">
+      <Filter>Render\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="FourSpheresSceneBuilder.cpp">
+      <Filter>Common\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBuilder.cpp">
+      <Filter>Common\Builder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,9 +193,6 @@
     <ClInclude Include="ArrayBase.h">
       <Filter>Common\BufferObject\Base</Filter>
     </ClInclude>
-    <ClInclude Include="ModelBase.h">
-      <Filter>Render</Filter>
-    </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Render\Model</Filter>
     </ClInclude>
@@ -216,6 +237,24 @@
     </ClInclude>
     <ClInclude Include="ModelManager.h">
       <Filter>Common\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightBase.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Phong.h">
+      <Filter>Common\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelBase.h">
+      <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBuilder.h">
+      <Filter>Common\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="FourSpheresSceneBuilder.h">
+      <Filter>Common\Builder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

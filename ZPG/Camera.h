@@ -41,13 +41,17 @@ private:
 
 	boost::optional<glm::mat4> viewMatrix;
 	boost::optional<glm::mat4> projectionMatrix;
+
+	std::vector<std::function<void(Camera*)>> onCameraMove;
 public:
 	Camera(int width, int height, float fov, float aspect, float near, float far);
 
-	void Set(const Program * program);
+	void Set(Program * program);
 	void Rotate(int x, int y);
 	void Move(CameraMove move, bool fast);
 	void Move(CameraZoom zoom);
+
+	void OnCameraMove(std::function<void(Camera*)> callback);
 
 private:
 	glm::mat4 CalculateViewMatrix();
@@ -55,5 +59,7 @@ private:
 	glm::mat4 CalculateProjectionMatrix();
 	glm::mat4 GetProjectionMatrix();
 	glm::vec3 CalculateTarget();
+
+	void FireOnCameraMove();
 };
 

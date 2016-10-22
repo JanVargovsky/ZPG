@@ -31,4 +31,3 @@ public:
 
 	inline Program* GetShaderProgram() { return program; }
 };
-

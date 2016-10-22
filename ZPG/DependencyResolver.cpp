@@ -5,6 +5,7 @@
 #include "ModelFactory.h"
 #include "SceneObjectFactory.h"
 #include "ModelManager.h"
+#include "FourSpheresSceneBuilder.h"
 
 #include <memory>
 
@@ -28,4 +29,7 @@ void DependencyResolver::Initialize()
 	Register(new ModelFactory);
 	Register(new ModelManager(Resolve<ModelFactory*>()));
 	Register(new SceneObjectFactory(Resolve<ModelManager*>()));
+
+	// CurrentScene
+	Register<SceneBuilder>(new FourSpheresSceneBuilder);
 }

@@ -24,6 +24,8 @@ Scene::~Scene()
 		glfwDestroyWindow(window);
 
 	objects.clear();
+	shaders.clear();
+	lights.clear();
 }
 
 bool Scene::Initialize()
@@ -36,6 +38,10 @@ bool Scene::Initialize()
 	}
 	glfwSetWindowPos(window, 1000, 100);
 
+	camera->OnCameraMove([this](Camera* camera)
+	{
+		this->SetCamera(camera);
+	});
 	ChangeViewPort();
 
 	return true;
@@ -48,15 +54,11 @@ bool Scene::CanRender()
 
 void Scene::Render()
 {
-	for (auto & object : objects)
+	for (auto &object : objects)
 	{
-		// TODO: Add event to OnCameraMove()
-		// TODO: Register event to camera OnCameraMove event in the object, so it calls its Set method
-		// TODO: Add 4 balls to scene and lighting in the middle of them
-
-		camera->Set(object->GetShaderProgram());
-
 		object->PreRender();
+		//for (auto &light : lights)
+		//	light->Send(object->GetShaderProgram());
 		object->Render();
 		object->PostRender();
 	}
@@ -65,11 +67,28 @@ void Scene::Render()
 	glfwSwapBuffers(window);
 }
 
-void Scene::AddObject(Object * object)
+void Scene::Add(Object * object)
 {
-	unique_ptr<Object> objectPtr(object);
+	unique_ptr<Object> ptr(object);
+	objects.push_back(move(ptr));
+}
 
-	objects.push_back(move(objectPtr));
+void Scene::Add(Program * shader)
+{
+	unique_ptr<Program> ptr(shader);
+	shaders.push_back(move(ptr));
+}
+
+void Scene::Add(LightBase * light)
+{
+	unique_ptr<LightBase> ptr(light);
+	lights.push_back(move(ptr));
+}
+
+void Scene::Add(ModelBase * model)
+{
+	unique_ptr<ModelBase> ptr(model);
+	models.push_back(move(ptr));
 }
 
 void Scene::ChangeViewPort()
@@ -77,9 +96,20 @@ void Scene::ChangeViewPort()
 	glViewport(0, 0, width, height);
 }
 
+void Scene::SetCamera(Camera * camera)
+{
+	for (auto & shader : shaders)
+		camera->Set(shader.get());
+}
+
 void Scene::ChangeViewPort(int width, int height)
 {
 	this->width = width;
 	this->height = height;
 	ChangeViewPort();
+}
+
+void Scene::SetCamera()
+{
+	SetCamera(camera);
 }

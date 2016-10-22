@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include <memory>
 #include <functional>
+#include <cstring>
 
 using deleter_t = std::function<void(void *)>;
 using unique_void_ptr = std::unique_ptr<void, deleter_t>;
@@ -58,8 +59,8 @@ inline auto DependencyResolver::Resolve() -> T
 
 	if (item == container.end())
 	{
-		std::string message = "not defined type: " + string(typeid(T).name());
-		throw exception(message.c_str());
+		std::string message = "not defined type: " + std::string(typeid(T).name());
+		throw std::exception(message.c_str());
 	}
 
 	return static_cast<T>(item->second.get());

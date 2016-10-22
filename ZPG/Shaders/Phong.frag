@@ -1,6 +1,6 @@
 #version 330 core
 in vec3 ourColor;
-in vec4 worldPosition;
+in vec3 worldPosition;
 in vec3 worldNormal;
 
 out vec4 color;
@@ -15,18 +15,18 @@ void main()
 	const float I_L = 1;
 
 	// Intenzita okolniho svetla
-	const float I_A = 1;
+	const float I_A = 0.5;
 	// Koeficient odrazu okolniho svetla
 	const float R_A = 1;
 
 	// Koeficient zrcadloveho odrazu
-	const float R_S = 1;
+	const float R_S = 10;
 	// Ostrost zrcadloveho odrazu
 	const float h = 20;
 
-	vec3 L = normalize(vec3(0) - worldPosition.xyz);
-	vec3 R = reflect(-L, worldNormal.xyz);
-	vec3 V = normalize(cameraPosition - worldPosition.xyz);
+	vec3 L = normalize(lightPosition - worldPosition);
+	vec3 R = reflect(-L, worldNormal);
+	vec3 V = normalize(cameraPosition - worldPosition);
 
 	float dotProductLN = max(dot(L, worldNormal), 0.0f);
 	float dotProductVR = max(dot(V, R), 0);
@@ -39,4 +39,6 @@ void main()
 	//color = vec4(ambient, 1.0);
 	//color = vec4(specular, 1.0);
 	color = vec4(diffuse + ambient + specular, 1.0);
+	//color = vec4(diffuse + ambient + specular, 1.0);
+	//color = vec4(ourColor, 1);
 };

@@ -21,42 +21,40 @@ void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scanco
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
-	printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
+	//printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
 }
 
 void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 {
-	cout << "Cursor change x: " << x << " y: " << y << endl;
+	//cout << "Cursor change x: " << x << " y: " << y << endl;
 }
 
 void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button, int action, int mode)
 {
-	if (action == GLFW_PRESS)
-		cout << "button: " << button << " "
-		"action: " << action << " "
-		"mode: " << mode << endl;
+	//if (action == GLFW_PRESS)
+	//	cout << "button: " << button << " action: " << action << " mode: " << mode << endl;
 }
 
 void ApplicationController::OnWindowFocus(GLFWwindow * window, int focused)
 {
-	cout << "Window focus " << focused << endl;
+	//cout << "Window focus " << focused << endl;
 }
 
 void ApplicationController::OnWindowIconify(GLFWwindow * window, int iconified)
 {
-	cout << "Window iconify " << iconified << endl;
+	//cout << "Window iconify " << iconified << endl;
 }
 
 void ApplicationController::OnWindowSize(GLFWwindow * window, int width, int height)
 {
-	cout << "Window size width: " << width << " height: " << height << endl;
+	//cout << "Window size width: " << width << " height: " << height << endl;
 }
 
 void ApplicationController::OnMouseScroll(GLFWwindow * window, double xoffset, double yoffset)
 {
 	if (IsCameraZoom(yoffset))
 		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraZoom(yoffset));
-	cout << "xoffset: " << xoffset << " yoffset: " << yoffset << endl;
+	//cout << "xoffset: " << xoffset << " yoffset: " << yoffset << endl;
 }
 
 bool ApplicationController::IsCameraMove(int key)

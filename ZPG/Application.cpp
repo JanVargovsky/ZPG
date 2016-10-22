@@ -4,6 +4,7 @@
 #include "ModelManager.h"
 #include "SceneObjectFactory.h"
 #include "CameraFactory.h"
+#include "SceneBuilder.h"
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -81,6 +82,10 @@ bool Application::Initialize()
 		return false;
 	}
 
+	//glFrontFace(GL_CCW);
+	//glCullFace(GL_BACK);
+	//glEnable(GL_CULL_FACE);
+
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -93,12 +98,9 @@ bool Application::Initialize()
 	// get version info
 	PrintVersions();
 
-	auto sceneObjectFactory = DependencyResolver::GetInstance().Resolve<SceneObjectFactory*>();
-	//auto objects = sceneObjectFactory->Create(SceneType::Trash);
-	auto objects = sceneObjectFactory->Create(SceneType::FourBalls);
-
-	for (auto obj : objects)
-		GetScene()->AddObject(obj);
+	DependencyResolver::GetInstance().Resolve<SceneBuilder*>()
+		->BuildObjects(scene)
+		->BuildLights(scene);
 
 	initialized = true;
 	return true;
@@ -111,6 +113,8 @@ void Application::Run()
 		cerr << "Trying to run uninitialized application" << endl;
 		return;
 	}
+
+	GetScene()->SetCamera();
 
 	while (GetScene()->CanRender())
 	{

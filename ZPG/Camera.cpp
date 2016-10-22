@@ -9,7 +9,7 @@
 using namespace std;
 using namespace glm;
 
-Camera::Camera(int width, int height, float fov, float aspect, float near, float farFuckVS)
+Camera::Camera(int width, int height, float fov, float aspect, float near, float far)
 	: fov(fov), aspect(aspect), near(near), far(far),
 	up(vec3(0.f, 1.f, 0.f))
 {
@@ -19,20 +19,11 @@ Camera::Camera(int width, int height, float fov, float aspect, float near, float
 	yaw = 0.f;
 	pitch = MIN_PITCH;
 
-	eye = vec3(0.0f, 10.0f, 0.0f);
+	eye = vec3(0.0f, 8.0f, 0.0f);
 	target = CalculateTarget();
 }
 
-std::ostream& operator<<(std::ostream& os, const vec3 &v) {
-	os << "[" <<
-		v.x << "," <<
-		v.y << "," <<
-		v.z <<
-		"]";
-	return os;
-}
-
-void Camera::Set(const Program * program)
+void Camera::Set(Program * program)
 {
 	program->Use();
 
@@ -60,6 +51,7 @@ void Camera::Rotate(int x, int y)
 	target = CalculateTarget();
 
 	viewMatrix.reset();
+	FireOnCameraMove();
 }
 
 void Camera::Move(CameraMove move, bool fast)
@@ -76,6 +68,7 @@ void Camera::Move(CameraMove move, bool fast)
 		eye += normalize(cross(target, up)) * STEP;
 
 	viewMatrix.reset();
+	FireOnCameraMove();
 }
 
 void Camera::Move(CameraZoom zoom)
@@ -90,6 +83,12 @@ void Camera::Move(CameraZoom zoom)
 		break;
 	}
 	viewMatrix.reset();
+	FireOnCameraMove();
+}
+
+void Camera::OnCameraMove(std::function<void(Camera*)> callback)
+{
+	onCameraMove.push_back(callback);
 }
 
 mat4 Camera::CalculateViewMatrix()
@@ -107,10 +106,6 @@ mat4 Camera::GetViewMatrix()
 
 mat4 Camera::CalculateProjectionMatrix()
 {
-	// TODO: Use ratio width/height instead of 4/3
-	//45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	//return perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f);
-
 	return perspective(fov, aspect, near, far);
 }
 
@@ -124,9 +119,15 @@ mat4 Camera::GetProjectionMatrix()
 
 vec3 Camera::CalculateTarget()
 {
-	return  normalize(vec3(
+	return normalize(vec3(
 		cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
 		sin(glm::radians(pitch)),
 		sin(glm::radians(yaw)) * cos(glm::radians(pitch))
 	));
+}
+
+void Camera::FireOnCameraMove()
+{
+	for (auto &notify : onCameraMove)
+		notify(this);
 }
