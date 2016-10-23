@@ -3,7 +3,6 @@
 #include "ModelBase.h"
 #include "ModelManager.h"
 #include "SceneObjectFactory.h"
-#include "CameraFactory.h"
 #include "SceneBuilder.h"
 
 #include <glm/vec3.hpp>
@@ -25,9 +24,7 @@ Application& Application::GetInstance()
 Application::Application()
 {
 	controller = new ApplicationController;
-
-	auto camera = DependencyResolver::GetInstance().Resolve<CameraFactory*>()->Create(CameraType::Normal);
-	scene = new Scene(camera);
+	scene = new Scene(new Camera(800, 600, radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f));
 
 	initialized = false;
 }
