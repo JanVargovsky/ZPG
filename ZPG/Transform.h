@@ -3,18 +3,18 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <boost/optional.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 class Transform
 {
 private:
 	glm::vec3 position;
-	float angle;
-	glm::vec3 axis;
-	float scale;
+	glm::vec3 scale;
+	glm::quat rotation;
 	boost::optional<glm::mat4> matrix;
 
 public:
-	Transform(glm::vec3 position = glm::vec3(0), float angle = 0, glm::vec3 axis = glm::vec3(0, 1, 0), float scale = 1);
+	Transform(glm::vec3 position = glm::vec3(0), glm::vec3 scale = glm::vec3(1), glm::vec3 rotation = glm::vec3(0));
 
 	glm::mat4 Get();
 
@@ -25,73 +25,67 @@ public:
 		return position;
 	}
 
-	inline void SetPosition(glm::vec3 &value)
+	inline void SetPosition(const glm::vec3 &value)
 	{
-		matrix.reset();
 		position = value;
+		matrix.reset();
 	}
 
-	inline void AddPosition(glm::vec3 &value)
+	inline void AddPosition(const glm::vec3 &value)
 	{
-		matrix.reset();
 		position += value;
+		matrix.reset();
 	}
+
+	/// Rotate around point by angle and axis
+	void AddPosition(const glm::vec3 &point, const float angle, const glm::vec3 &axis);
 
 #pragma endregion
 
-#pragma region Angle
+#pragma region Rotation
 
-	inline float GetAngle() const
+	inline glm::quat GetRotation() const
 	{
-		return angle;
+		return rotation;
 	}
 
-	inline void SetAngle(float value)
+	inline void SetRotation(const glm::quat &value)
 	{
+		rotation = value;
 		matrix.reset();
-		angle = value;
 	}
 
-	inline void AddAngle(float value)
+	inline void SetRotation(float angle, const glm::vec3 &axis)
 	{
+		rotation = glm::rotate(glm::quat(), glm::radians(angle), axis);
 		matrix.reset();
-		angle += value;
 	}
 
-#pragma endregion
-
-#pragma region Axis
-
-	inline glm::vec3 GetAxis() const
+	inline void AddRotation(float angle, const glm::vec3 &axis)
 	{
-		return axis;
-	}
-
-	inline void SetAxis(glm::vec3 &value)
-	{
+		rotation = glm::rotate(rotation, glm::radians(angle), axis);
 		matrix.reset();
-		axis = value;
 	}
 
 #pragma endregion
 
 #pragma region Scale
 
-	inline float GetScale() const
+	inline glm::vec3 GetScale() const
 	{
 		return scale;
 	}
 
-	void SetScale(float value)
+	void SetScale(const glm::vec3 value)
 	{
-		matrix.reset();
 		scale = value;
+		matrix.reset();
 	}
 
-	inline void AddScale(float value)
+	inline void AddScale(const glm::vec3 value)
 	{
-		matrix.reset();
 		scale += value;
+		matrix.reset();
 	}
 
 #pragma endregion

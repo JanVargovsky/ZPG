@@ -2,11 +2,8 @@
 #include "Program.h"
 #include "ModelBase.h"
 #include "ModelManager.h"
-#include "SceneObjectFactory.h"
 #include "SceneBuilder.h"
 
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
@@ -136,8 +133,4 @@ void Application::PrintVersions()
 	int major, minor, revision;
 	glfwGetVersion(&major, &minor, &revision);
 	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
-
-	GLint nrAttributes;
-	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-	cout << "Maximum nr of vertex attributes supported: " << nrAttributes << endl;
 }

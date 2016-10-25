@@ -1,21 +1,16 @@
 #include "LightBase.h"
 
 LightBase::LightBase(glm::vec3 position)
-	:position(position)
 {
+	transform.SetPosition(position);
 }
 
 void LightBase::Send(Program * program)
 {
-	program->Send("lightPosition", position);
+	program->Send("lightPosition", transform.GetPosition());
 }
 
-inline glm::vec3 LightBase::GetPosition()
+inline Transform & LightBase::GetTransform()
 {
-	return position;
-}
-
-inline void LightBase::SetPosition(glm::vec3 value)
-{
-	position = value;
+	return transform;
 }

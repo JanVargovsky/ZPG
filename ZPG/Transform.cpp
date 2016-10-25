@@ -4,8 +4,8 @@
 
 using namespace glm;
 
-Transform::Transform(glm::vec3 position, float angle, glm::vec3 axis, float scale)
-	: position(position), angle(angle), axis(axis), scale(scale)
+Transform::Transform(glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
+	:position(position), scale(scale), rotation(rotation)
 {
 }
 
@@ -17,11 +17,35 @@ mat4 Transform::Get()
 	return matrix.get();
 }
 
+void Transform::AddPosition(const glm::vec3 & point, const float angle, const glm::vec3 & axis)
+{
+	// current position in circle's system
+	vec3 currentPoint = position - point;
+
+	// radians
+	float currentAngle = atan2(currentPoint.z, currentPoint.x);
+
+	float r = distance(position, point);
+	vec3 newPosition = vec3(
+		cos(currentAngle +  radians(angle)),
+		0,
+		sin(currentAngle + radians(angle))
+	) * r;
+
+	vec3 offset = (newPosition - currentPoint);
+
+	position += offset;
+
+	matrix.reset();
+}
+
 void Transform::CalculateMatrix()
 {
-	matrix = mat4();
+	auto result = mat4();
 
-	matrix = translate(matrix.get(), position);
-	matrix = rotate(matrix.get(), radians(angle), axis);
-	matrix = glm::scale(matrix.get(), vec3(scale));
+	result = translate(result, position);
+	result *= mat4_cast(rotation);
+	result = glm::scale(result, vec3(scale));
+
+	matrix = result;
 }

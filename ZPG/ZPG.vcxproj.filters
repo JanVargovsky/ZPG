@@ -103,9 +103,6 @@
     <ClCompile Include="ModelFactory.cpp">
       <Filter>Common\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="SceneObjectFactory.cpp">
-      <Filter>Common\Factory</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -209,9 +206,6 @@
       <Filter>Common\Factory</Filter>
     </ClInclude>
     <ClInclude Include="ModelFactory.h">
-      <Filter>Common\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneObjectFactory.h">
       <Filter>Common\Factory</Filter>
     </ClInclude>
     <ClInclude Include="IRenderable.h">

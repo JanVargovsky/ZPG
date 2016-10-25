@@ -26,7 +26,6 @@ void Object::PreRender()
 	model->PreRender();
 
 	program->Send("model", GetTransform().Get());
-	program->Send("lightPosition", vec3(0, 0, 0));
 
 	if (update != nullptr)
 		update(*this);

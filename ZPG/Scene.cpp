@@ -57,8 +57,8 @@ void Scene::Render()
 	for (auto &object : objects)
 	{
 		object->PreRender();
-		//for (auto &light : lights)
-		//	light->Send(object->GetShaderProgram());
+		for (auto &light : lights)
+			light->Send(object->GetShaderProgram());
 		object->Render();
 		object->PostRender();
 	}

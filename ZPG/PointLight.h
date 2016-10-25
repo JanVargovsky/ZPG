@@ -8,4 +8,6 @@ private:
 
 public:
 	PointLight(glm::vec3 position, Phong phong);
+
+	virtual void Send(Program * program) override;
 };
