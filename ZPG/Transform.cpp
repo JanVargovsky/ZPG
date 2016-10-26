@@ -19,22 +19,29 @@ mat4 Transform::Get()
 
 void Transform::AddPosition(const glm::vec3 & point, const float angle, const glm::vec3 & axis)
 {
-	// current position in circle's system
-	vec3 currentPoint = position - point;
+	mat4 transform;
+	transform = translate(transform, point);
+	transform = rotate(transform, radians(angle), axis);
+	transform = translate(transform, -point);
 
-	// radians
-	float currentAngle = atan2(currentPoint.z, currentPoint.x);
+	position = vec3(transform * vec4(position, 1));
 
-	float r = distance(position, point);
-	vec3 newPosition = vec3(
-		cos(currentAngle +  radians(angle)),
-		0,
-		sin(currentAngle + radians(angle))
-	) * r;
+	//// current position in circle's system
+	//vec3 currentPoint = position - point;
 
-	vec3 offset = (newPosition - currentPoint);
+	//// radians
+	//float currentAngle = atan2(currentPoint.z, currentPoint.x);
 
-	position += offset;
+	//float r = distance(position, point);
+	//vec3 newPosition = vec3(
+	//	cos(currentAngle + radians(angle)),
+	//	0,
+	//	sin(currentAngle + radians(angle))
+	//) * r;
+
+	//vec3 offset = (newPosition - currentPoint);
+
+	//position += offset;
 
 	matrix.reset();
 }

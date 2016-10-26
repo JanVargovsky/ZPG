@@ -10,7 +10,7 @@ void LightBase::Send(Program * program)
 	program->Send("lightPosition", transform.GetPosition());
 }
 
-inline Transform & LightBase::GetTransform()
+Transform & LightBase::GetTransform()
 {
 	return transform;
 }

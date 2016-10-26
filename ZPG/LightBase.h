@@ -1,11 +1,12 @@
 #pragma once
+#include "Updatable.h"
 #include "Phong.h"
 #include "Transform.h"
 #include "Program.h"
 
 #include "glm/vec3.hpp"
 
-class LightBase
+class LightBase : public Updatable
 {
 private:
 	Transform transform;
@@ -15,5 +16,5 @@ public:
 
 	virtual void Send(Program * program);
 
-	inline Transform & GetTransform();
+	Transform & GetTransform();
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "IRenderable.h"
+#include "Updatable.h"
 #include "Program.h"
 #include "Transform.h"
 #include "VBO.h"
@@ -11,17 +12,15 @@
 #include <functional>
 #include <memory>
 
-class Object : public IRenderable
+class Object : public Updatable, public IRenderable
 {
 private:
 	Program *program;
 	ModelBase *model;
 	Transform transform;
-
-	std::function<void(Object &)> update;
+	boost::optional<glm::vec3> color;
 public:
 	Object(Program *program, ModelBase *model);
-	Object(Program *program, ModelBase *model, std::function<void(Object &)> update);
 
 	virtual void PreRender();
 	virtual void Render();
@@ -30,4 +29,8 @@ public:
 	Transform & GetTransform();
 
 	inline Program* GetShaderProgram() { return program; }
+
+	void SetColor(glm::vec3 c) {
+		color = c;
+	}
 };

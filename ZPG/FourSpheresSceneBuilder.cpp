@@ -1,5 +1,6 @@
 #include "FourSpheresSceneBuilder.h"
 #include "PointLight.h"
+#include "ColorUtils.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -10,66 +11,57 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 {
 	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
 	scene->Add(program);
-	//auto sphereModel = modelManager->Get(SphereModel);
-	auto sphereModel = modelManager->Get(SuziFlatModel);
+	auto sphereModel = modelManager->Get(SphereModel);
+	//auto sphereModel = modelManager->Get(SuziFlatModel);
 	scene->Add(sphereModel);
 
 	const float T = 2.f;
 	auto positions = {
 		// 4
-		vec3(T, 0, 0), // right 
-		vec3(0, 0, T), // top 
-		vec3(-T, 0, 0), // left
-		vec3(0, 0, -T), // bottom
+		//vec3(T, 0, 0), // right 
+		//vec3(0, 0, T), // top 
+		//vec3(-T, 0, 0), // left
+		//vec3(0, 0, -T), // bottom
 
 		// 8
-		//vec3(T, 0, 0), // right 
-		//vec3(T, 0, T), // top right
-		//vec3(0, 0, T), // top 
-		//vec3(-T, 0, T), // top left
-		//vec3(-T, 0, 0), // left
-		//vec3(-T, 0, -T), // bottom left
-		//vec3(0, 0, -T), // bottom
-		//vec3(T, 0, -T), // bottom right
+		vec3(T, 0, 0), // right 
+		vec3(T, 0, T), // top right
+		vec3(0, 0, T), // top 
+		vec3(-T, 0, T), // top left
+		vec3(-T, 0, 0), // left
+		vec3(-T, 0, -T), // bottom left
+		vec3(0, 0, -T), // bottom
+		vec3(T, 0, -T), // bottom right
 
 		//vec3(0, T, 0), // top
 		//vec3(0, -T, 0), // bottom
 	};
 
 	bool animate = true;
-	float delay = 0;
 	for (auto position : positions)
 	{
-		Object* obj;
+		auto obj = new Object(program, sphereModel);
 		if (animate)
-		{
-			obj = new Object(program, sphereModel
-				, [delay](Object &o) {
-				// up and down
-				auto &transform = o.GetTransform();
-				//auto position = transform.GetPosition();
-				//position.y = 2 * sin(glfwGetTime() + delay);
-				//o.GetTransform().SetPosition(position);
+			obj->RegisterOnUpdate([obj]() {
+			auto &transform = obj->GetTransform();
+			const vec3 axis = vec3(0, 0, 1);
+			const vec3 center = vec3(3, 0, 2);
+			const float angle = 1;
+			transform.AddPosition(center, angle, axis);
+		});
 
-				//vec3 vecToCenter = cross(vec3() - transform.GetPosition(), vec3(0, 1, 0));
-				//transform.AddRotation(1, vecToCenter);
-				const vec3 axis = vec3(0, 1, 0);
-				const vec3 center = vec3(0, 0, 0);
-				const float angle = 0.3f;
-				transform.AddPosition(center, angle, axis);
-				transform.AddRotation(angle, axis);
-			});
-		}
-		else
-			obj = new Object(program, sphereModel);
+		obj->SetColor(ColorUtils::GetColor(0x7f, 0x2f, 0xff));
+		obj->Update();
 
 		auto &transform = obj->GetTransform();
 		transform.SetPosition(position);
-		vec3 vecToCenter = cross(vec3() - transform.GetPosition(), vec3(0, 1, 0));
 
 		scene->Add(obj);
-		delay += 1.2f;
 	}
+
+	auto obj = new Object(program, sphereModel);
+	obj->SetColor(ColorUtils::GetColor(0x80, 0xff, 0x0));
+	scene->Add(obj);
 
 	return this;
 }
@@ -77,12 +69,17 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 SceneBuilder * FourSpheresSceneBuilder::BuildLights(Scene * scene)
 {
 	Phong phong = Phong(vec3());
-	vec3 position = vec3(0,0,0);
+	vec3 position = vec3(0, 2, 0);
 
-	scene->Add(new PointLight(position, phong));
-
-	//position = vec3(5, 0, 5);
-	//scene->Add(new PointLight(position, phong));
+	auto pointLight = new PointLight(position, phong);
+	//pointLight->RegisterOnUpdate([pointLight]() {
+	//	auto & transform = pointLight->GetTransform();
+	//	const auto center = vec3(0, 0, 0);
+	//	const auto axis = vec3(1, 1, 0);
+	//	transform.AddPosition(center, 1, axis);
+	//});
+	pointLight->Update();
+	scene->Add(pointLight);
 
 	return this;
 }

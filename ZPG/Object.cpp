@@ -11,12 +11,7 @@ using namespace std;
 using namespace glm;
 
 Object::Object(Program * program, ModelBase * model)
-	: Object(program, model, nullptr)
-{
-}
-
-Object::Object(Program * program, ModelBase * model, std::function<void(Object&)> update)
-	: program(program), model(model), update(update)
+	: program(program), model(model)
 {
 }
 
@@ -26,9 +21,7 @@ void Object::PreRender()
 	model->PreRender();
 
 	program->Send("model", GetTransform().Get());
-
-	if (update != nullptr)
-		update(*this);
+	program->Send("color", color.get());
 }
 
 void Object::Render()

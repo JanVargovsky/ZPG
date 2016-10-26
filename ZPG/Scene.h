@@ -43,4 +43,5 @@ public:
 
 private:
 	void ChangeViewPort();
+	void Update();
 };

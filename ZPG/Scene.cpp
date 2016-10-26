@@ -54,6 +54,8 @@ bool Scene::CanRender()
 
 void Scene::Render()
 {
+	Update();
+
 	for (auto &object : objects)
 	{
 		object->PreRender();
@@ -94,6 +96,15 @@ void Scene::Add(ModelBase * model)
 void Scene::ChangeViewPort()
 {
 	glViewport(0, 0, width, height);
+}
+
+void Scene::Update()
+{
+	for (auto &light : lights)
+		light->Update();
+
+	for (auto &object : objects)
+		object->Update();
 }
 
 void Scene::SetCamera(Camera * camera)

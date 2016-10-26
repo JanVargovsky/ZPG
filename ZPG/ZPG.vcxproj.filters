@@ -43,6 +43,9 @@
     <Filter Include="Common\Builder">
       <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Helpers">
+      <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -126,6 +129,12 @@
     </ClCompile>
     <ClCompile Include="SceneBuilder.cpp">
       <Filter>Common\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorUtils.cpp">
+      <Filter>Common\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Updatable.cpp">
+      <Filter>Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -237,6 +246,12 @@
     </ClInclude>
     <ClInclude Include="FourSpheresSceneBuilder.h">
       <Filter>Common\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorUtils.h">
+      <Filter>Common\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Updatable.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
