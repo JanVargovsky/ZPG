@@ -1,6 +1,6 @@
 #pragma once
-#include "Program.h"
 
+#include <vector>
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 #include <boost/optional.hpp>
@@ -46,7 +46,11 @@ private:
 public:
 	Camera(int width, int height, float fov, float aspect, float near, float far);
 
-	void Set(Program * program);
+	glm::mat4 GetView();
+	glm::mat4 GetProjection();
+	glm::vec3 GetEye();
+
+	//void Set(Program * program);
 	void Rotate(int x, int y);
 	void Move(CameraMove move, bool fast);
 	void Move(CameraZoom zoom);
@@ -55,9 +59,7 @@ public:
 
 private:
 	glm::mat4 CalculateViewMatrix();
-	glm::mat4 GetViewMatrix();
 	glm::mat4 CalculateProjectionMatrix();
-	glm::mat4 GetProjectionMatrix();
 	glm::vec3 CalculateTarget();
 
 	void FireOnCameraMove();

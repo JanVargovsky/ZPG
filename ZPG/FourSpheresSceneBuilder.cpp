@@ -69,15 +69,15 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 SceneBuilder * FourSpheresSceneBuilder::BuildLights(Scene * scene)
 {
 	Phong phong = Phong(vec3());
-	vec3 position = vec3(0, 2, 0);
+	vec3 position = vec3(0.3, 2, 0);
 
 	auto pointLight = new PointLight(position, phong);
-	//pointLight->RegisterOnUpdate([pointLight]() {
-	//	auto & transform = pointLight->GetTransform();
-	//	const auto center = vec3(0, 0, 0);
-	//	const auto axis = vec3(1, 1, 0);
-	//	transform.AddPosition(center, 1, axis);
-	//});
+	pointLight->RegisterOnUpdate([pointLight]() {
+		auto & transform = pointLight->GetTransform();
+		const auto center = vec3(0, 0, 0);
+		const auto axis = vec3(0, 1, 0);
+		transform.AddPosition(center, 4, axis);
+	});
 	pointLight->Update();
 	scene->Add(pointLight);
 

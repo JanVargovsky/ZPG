@@ -23,16 +23,25 @@ Camera::Camera(int width, int height, float fov, float aspect, float near, float
 	target = CalculateTarget();
 }
 
-void Camera::Set(Program * program)
+glm::mat4 Camera::GetView()
 {
-	program->Use();
+	if (!viewMatrix)
+		viewMatrix = CalculateViewMatrix();
 
-	program->Send("view", GetViewMatrix());
-	program->Send("projection", GetProjectionMatrix());
+	return viewMatrix.get();
+}
 
-	program->Send("cameraPosition", eye);
+glm::mat4 Camera::GetProjection()
+{
+	if (!projectionMatrix)
+		projectionMatrix = CalculateProjectionMatrix();
 
-	program->Unuse();
+	return projectionMatrix.get();
+}
+
+glm::vec3 Camera::GetEye()
+{
+	return eye;
 }
 
 void Camera::Rotate(int x, int y)
@@ -96,25 +105,9 @@ mat4 Camera::CalculateViewMatrix()
 	return lookAt(eye, eye + target, up);
 }
 
-mat4 Camera::GetViewMatrix()
-{
-	if (!viewMatrix)
-		viewMatrix = CalculateViewMatrix();
-
-	return viewMatrix.get();
-}
-
 mat4 Camera::CalculateProjectionMatrix()
 {
 	return perspective(fov, aspect, near, far);
-}
-
-mat4 Camera::GetProjectionMatrix()
-{
-	if (!projectionMatrix)
-		projectionMatrix = CalculateProjectionMatrix();
-
-	return projectionMatrix.get();
 }
 
 vec3 Camera::CalculateTarget()

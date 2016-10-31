@@ -109,8 +109,17 @@ void Scene::Update()
 
 void Scene::SetCamera(Camera * camera)
 {
-	for (auto & shader : shaders)
-		camera->Set(shader.get());
+	for (auto & program : shaders)
+	{
+		program->Use();
+
+		program->Send("view", camera->GetView());
+		program->Send("projection", camera->GetProjection());
+
+		program->Send("cameraPosition", camera->GetEye());
+
+		program->Unuse();
+	}
 }
 
 void Scene::ChangeViewPort(int width, int height)
