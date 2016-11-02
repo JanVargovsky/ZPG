@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "ErrorChecker.h"
+#include "ColorUtils.h"
 
 #include <GLFW/glfw3.h>  
 #include <glm/vec3.hpp>
@@ -94,7 +95,7 @@ void Scene::ChangeColor(int id)
 	if (obj == nullptr)
 		return;
 
-	obj->SetColor(vec3(0.3));
+	obj->SetColor(ColorUtils::GetRandomColor());
 }
 
 void Scene::Add(Program * shader)

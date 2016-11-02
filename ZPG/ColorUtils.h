@@ -5,5 +5,5 @@ class ColorUtils
 {
 public:
 	static glm::vec3 GetColor(int r, int g, int b);
+	static glm::vec3 GetRandomColor();
 };
-

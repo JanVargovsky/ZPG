@@ -10,3 +10,12 @@ glm::vec3 ColorUtils::GetColor(int r, int g, int b)
 		b / 255.f
 	);
 }
+
+glm::vec3 ColorUtils::GetRandomColor()
+{
+	return ColorUtils::GetColor(
+		rand() % 256,
+		rand() % 256,
+		rand() % 256
+	);
+}
