@@ -14,7 +14,7 @@ using namespace std;
 using namespace glm;
 
 Scene::Scene(Camera *camera, int width, int height)
-	:camera(camera), width(width), height(height)
+	:camera(camera), size(Size<int>(width, height))
 {
 	window = nullptr;
 }
@@ -31,7 +31,7 @@ Scene::~Scene()
 
 bool Scene::Initialize()
 {
-	window = glfwCreateWindow(width, height, "ZPG", nullptr, nullptr);
+	window = glfwCreateWindow(size.GetWidth(), size.GetHeight(), "ZPG", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		cerr << "Failed to create GLFW window" << endl;
@@ -57,14 +57,12 @@ void Scene::Render()
 {
 	Update();
 
-
 	for (auto &object : objects)
 	{
 		object->PreRender();
 
 		auto shader = object->GetShaderProgram();
 		shader->Send("pointLightCount", pointLights.size());
-
 		for (int i = 0; i < pointLights.size(); i++)
 			pointLights[i]->Send(shader, i);
 
@@ -80,6 +78,23 @@ void Scene::Add(Object * object)
 {
 	unique_ptr<Object> ptr(object);
 	objects.push_back(move(ptr));
+}
+
+void Scene::ChangeColor(int id)
+{
+	Object *obj = nullptr;
+
+	for (auto &o : objects)
+		if (o.get()->GetId() == id)
+		{
+			obj = o.get();
+			break;
+		}
+
+	if (obj == nullptr)
+		return;
+
+	obj->SetColor(vec3(0.3));
 }
 
 void Scene::Add(Program * shader)
@@ -102,7 +117,7 @@ void Scene::Add(ModelBase * model)
 
 void Scene::ChangeViewPort()
 {
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, size.GetWidth(), size.GetHeight());
 }
 
 void Scene::Update()
@@ -131,8 +146,7 @@ void Scene::SetCamera(Camera * camera)
 
 void Scene::ChangeViewPort(int width, int height)
 {
-	this->width = width;
-	this->height = height;
+	this->size = Size<int>(width, height);
 	ChangeViewPort();
 }
 

@@ -191,6 +191,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FourSpheresSceneBuilder.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="Size.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="LightBase.h" />
     <ClInclude Include="ManagerBase.h" />

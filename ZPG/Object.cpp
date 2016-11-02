@@ -13,6 +13,8 @@ using namespace glm;
 Object::Object(Program * program, ModelBase * model)
 	: program(program), model(model)
 {
+	static int id = 0;
+	this->id = id++;
 }
 
 void Object::PreRender()
@@ -21,7 +23,10 @@ void Object::PreRender()
 	model->PreRender();
 
 	program->Send("model", GetTransform().Get());
-	program->Send("color", color.get());
+	if (color.is_initialized())
+		program->Send("color", color.get());
+
+	glStencilFunc(GL_ALWAYS, id, 0xFF);
 }
 
 void Object::Render()

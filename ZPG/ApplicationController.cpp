@@ -31,8 +31,27 @@ void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 
 void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button, int action, int mode)
 {
-	//if (action == GLFW_PRESS)
-	//	cout << "button: " << button << " action: " << action << " mode: " << mode << endl;
+	if (action == GLFW_PRESS)
+	{
+		GLbyte color[4];
+		GLfloat depth;
+		GLuint index;
+
+		auto size = Application::GetInstance().GetScene()->GetSize();
+
+		auto x = size.GetWidth() / 2;
+		auto y = size.GetHeight() / 2;
+		glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+		glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+		glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+
+		printf("Clicked on pixel %d, %d, color % 02hhx % 02hhx % 02hhx % 02hhx, depth %f, stencil index %u\n",
+			x, y, color[0], color[1], color[2], color[3], depth, index);
+
+		Application::GetInstance().GetScene()->ChangeColor(index);
+
+		//	cout << "button: " << button << " action: " << action << " mode: " << mode << endl;
+	}
 }
 
 void ApplicationController::OnWindowFocus(GLFWwindow * window, int focused)

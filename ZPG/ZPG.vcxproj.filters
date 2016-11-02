@@ -31,9 +31,6 @@
     <Filter Include="IoC">
       <UniqueIdentifier>{78d42ab5-024f-4e48-9439-ed21c6c3689f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Models">
-      <UniqueIdentifier>{6784f567-dea8-4a08-848b-11bf4a9ddd3a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Render\Light">
       <UniqueIdentifier>{1db82d46-63be-4b7c-a6cf-63b139ed3ac0}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="OpenGL">
       <UniqueIdentifier>{8eadb393-f16e-4df7-acf3-ae7c815d8f42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{2fd2cbc9-2135-49d8-af2d-0b1409269d4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +258,9 @@
     </ClInclude>
     <ClInclude Include="ErrorChecker.h">
       <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Size.h">
+      <Filter>System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "PointLight.h"
 #include "Camera.h"
+#include "Size.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -14,7 +15,7 @@ class Scene
 private:
 	GLFWwindow* window;
 	Camera* camera;
-	int width, height;
+	Size<int> size;
 	bool initialized;
 	std::vector<std::unique_ptr<Object>> objects;
 	std::vector<std::unique_ptr<Program>> shaders;
@@ -28,6 +29,7 @@ public:
 	bool CanRender();
 	void Render();
 	void Add(Object * object);
+	void ChangeColor(int id);
 	void Add(Program * shader);
 	void Add(PointLight * light);
 	void Add(ModelBase * model);
@@ -38,8 +40,7 @@ public:
 
 	inline GLFWwindow* GetWindow() { return window; }
 	inline Camera* GetCamera() { return camera; }
-	int GetWidth() { return width; }
-	int GetHeight() { return height; }
+	inline Size<int> GetSize() { return size; }
 
 private:
 	void ChangeViewPort();

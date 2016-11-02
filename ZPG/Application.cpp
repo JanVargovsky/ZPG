@@ -89,6 +89,10 @@ bool Application::Initialize()
 	// Render by distance
 	glEnable(GL_DEPTH_TEST);
 
+	// Enable stencil buffer
+	glEnable(GL_STENCIL_TEST);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
 	// get version info
 	PrintVersions();
 

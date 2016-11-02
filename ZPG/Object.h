@@ -15,6 +15,7 @@
 class Object : public Updatable, public IRenderable
 {
 private:
+	int id;
 	Program *program;
 	ModelBase *model;
 	Transform transform;
@@ -29,6 +30,7 @@ public:
 	Transform & GetTransform();
 
 	inline Program* GetShaderProgram() { return program; }
+	inline int GetId() { return id; }
 
 	void SetColor(glm::vec3 c) {
 		color = c;
