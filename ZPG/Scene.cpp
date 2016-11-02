@@ -71,6 +71,7 @@ void Scene::Render()
 		object->PostRender();
 	}
 
+	RenderCursor();
 	// put the stuff we’ve been drawing onto the display
 	glfwSwapBuffers(window);
 }
@@ -128,6 +129,24 @@ void Scene::Update()
 
 	for (auto &object : objects)
 		object->Update();
+}
+
+void Scene::RenderCursor()
+{
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+
+	const float CURSOR_SIZE = 0.03;
+	glBegin(GL_LINES);
+		glVertex2f(-CURSOR_SIZE, -CURSOR_SIZE);
+		glVertex2f(CURSOR_SIZE, CURSOR_SIZE);
+	glEnd();
+
+	glBegin(GL_LINES);
+		glVertex2f(-CURSOR_SIZE, CURSOR_SIZE);
+		glVertex2f(CURSOR_SIZE, -CURSOR_SIZE);
+	glEnd();
+
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 }
 
 void Scene::SetCamera(Camera * camera)

@@ -45,4 +45,5 @@ public:
 private:
 	void ChangeViewPort();
 	void Update();
+	void RenderCursor();
 };
