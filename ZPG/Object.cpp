@@ -13,7 +13,7 @@ using namespace glm;
 Object::Object(Program * program, ModelBase * model)
 	: program(program), model(model)
 {
-	static int id = 0;
+	static int id = 1;
 	this->id = id++;
 }
 
