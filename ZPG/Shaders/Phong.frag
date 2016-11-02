@@ -1,43 +1,52 @@
 #version 330 core
+
+struct PointLight {
+	vec3 position;
+	//float attenuation;
+};
+
 in vec3 worldPosition;
 in vec3 worldNormal;
 
 out vec4 outColor;
 
 uniform vec3 color;
-
-uniform vec3 lightPosition;
 uniform vec3 cameraPosition;
+
+// Lights
+uniform PointLight pointLights[4];
+uniform int pointLightCount = 0;
+
+vec3 calcPointLight()
+{
+	const float I_L = 0.3;
+	const float I_A = 1;
+	const float R_A = 0.3;
+	const float R_S = 10;
+	const float h = 20;
+
+	vec3 V = normalize(cameraPosition - worldPosition);
+
+	vec3 ambient = I_A * R_A * color;
+	vec3 diffuse = vec3(0);
+	vec3 specular = vec3(0);
+
+	for (int i = 0; i < pointLightCount; i++)
+	{
+		vec3 L = normalize(pointLights[i].position - worldPosition);
+		vec3 R = reflect(-L, worldNormal);
+
+		float dotProductLN = max(dot(L, worldNormal), 0.0f);
+		float dotProductVR = max(dot(V, R), 0);
+
+		diffuse += (I_L * vec3(dotProductLN));
+		specular += (I_L * R_S * vec3(pow(dotProductVR, h)));
+	}
+	return (ambient + diffuse + specular);
+}
 
 void main()
 {
-	// Intenzita paprsku L
-	const float I_L = 1;
-
-	// Intenzita okolniho svetla
-	const float I_A = 1;
-	// Koeficient odrazu okolniho svetla
-	const float R_A = 0.3;
-
-	// Koeficient zrcadloveho odrazu
-	const float R_S = 10;
-	// Ostrost zrcadloveho odrazu
-	const float h = 20;
-
-	vec3 L = normalize(lightPosition - worldPosition);
-	vec3 R = reflect(-L, worldNormal);
-	vec3 V = normalize(cameraPosition - worldPosition);
-
-	float dotProductLN = max(dot(L, worldNormal), 0.0f);
-	float dotProductVR = max(dot(V, R), 0);
-
-	vec3 diffuse = I_L * color * vec3(dotProductLN);
-	vec3 ambient =  I_A * R_A * color;
-	vec3 specular = I_L * R_S * vec3(pow(dotProductVR, h));
-
-	//outColor = vec4(diffuse, 1.0);
-	//outColor = vec4(ambient, 1.0);
-	//outColor = vec4(specular, 1.0);
-	outColor = vec4(diffuse + ambient + specular, 1.0);
-	//outColor = vec4(color, 1);
+	//outColor = vec4(color, 1.0);
+	outColor = vec4(calcPointLight(), 1.0);
 };

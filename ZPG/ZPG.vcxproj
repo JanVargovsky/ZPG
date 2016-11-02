@@ -187,6 +187,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="ColorUtils.h" />
     <ClInclude Include="DependencyResolver.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="ErrorChecker.h" />
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FourSpheresSceneBuilder.h" />
     <ClInclude Include="IRenderable.h" />

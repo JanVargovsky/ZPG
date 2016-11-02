@@ -46,6 +46,9 @@
     <Filter Include="Common\Helpers">
       <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OpenGL">
+      <UniqueIdentifier>{8eadb393-f16e-4df7-acf3-ae7c815d8f42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -252,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="Updatable.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorChecker.h">
+      <Filter>OpenGL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

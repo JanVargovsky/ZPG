@@ -14,7 +14,7 @@ private:
 public:
 	LightBase(glm::vec3 position);
 
-	virtual void Send(Program * program);
+	virtual void Send(Program * program, int index) = 0;
 
 	Transform & GetTransform();
 };

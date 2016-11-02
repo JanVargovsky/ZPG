@@ -1,5 +1,6 @@
 #include "Program.h"
 #include "DependencyResolver.h"
+#include "ErrorChecker.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -81,10 +82,22 @@ void Program::Send(const GLchar * name, mat4 & value) const
 {
 	GLuint location = glGetUniformLocation(program, name);
 	glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(value));
+
+	ErrorChecker::CheckOpenGLError();
 }
 
 void Program::Send(const GLchar * name, glm::vec3 & value) const
 {
 	GLuint location = glGetUniformLocation(program, name);
 	glUniform3fv(location, 1, value_ptr(value));
+
+	ErrorChecker::CheckOpenGLError();
+}
+
+void Program::Send(const GLchar * name, int value) const
+{
+	GLuint location = glGetUniformLocation(program, name);
+	glUniform1i(location, value);
+
+	ErrorChecker::CheckOpenGLError();
 }

@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "ErrorChecker.h"
 
 #include <GLFW/glfw3.h>  
 #include <glm/vec3.hpp>
@@ -25,7 +26,7 @@ Scene::~Scene()
 
 	objects.clear();
 	shaders.clear();
-	lights.clear();
+	pointLights.clear();
 }
 
 bool Scene::Initialize()
@@ -56,11 +57,17 @@ void Scene::Render()
 {
 	Update();
 
+
 	for (auto &object : objects)
 	{
 		object->PreRender();
-		for (auto &light : lights)
-			light->Send(object->GetShaderProgram());
+
+		auto shader = object->GetShaderProgram();
+		shader->Send("pointLightCount", pointLights.size());
+
+		for (int i = 0; i < pointLights.size(); i++)
+			pointLights[i]->Send(shader, i);
+
 		object->Render();
 		object->PostRender();
 	}
@@ -81,10 +88,10 @@ void Scene::Add(Program * shader)
 	shaders.push_back(move(ptr));
 }
 
-void Scene::Add(LightBase * light)
+void Scene::Add(PointLight * light)
 {
-	unique_ptr<LightBase> ptr(light);
-	lights.push_back(move(ptr));
+	unique_ptr<PointLight> ptr(light);
+	pointLights.push_back(move(ptr));
 }
 
 void Scene::Add(ModelBase * model)
@@ -100,7 +107,7 @@ void Scene::ChangeViewPort()
 
 void Scene::Update()
 {
-	for (auto &light : lights)
+	for (auto &light : pointLights)
 		light->Update();
 
 	for (auto &object : objects)

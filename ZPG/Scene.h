@@ -1,7 +1,7 @@
 #pragma once
 #include "Program.h"
 #include "Object.h"
-#include "LightBase.h"
+#include "PointLight.h"
 #include "Camera.h"
 
 #include <GL/glew.h>
@@ -18,7 +18,7 @@ private:
 	bool initialized;
 	std::vector<std::unique_ptr<Object>> objects;
 	std::vector<std::unique_ptr<Program>> shaders;
-	std::vector<std::unique_ptr<LightBase>> lights;
+	std::vector<std::unique_ptr<PointLight>> pointLights;
 	std::vector<std::unique_ptr<ModelBase>> models;
 
 public:
@@ -29,7 +29,7 @@ public:
 	void Render();
 	void Add(Object * object);
 	void Add(Program * shader);
-	void Add(LightBase * light);
+	void Add(PointLight * light);
 	void Add(ModelBase * model);
 
 	void ChangeViewPort(int width, int height);
