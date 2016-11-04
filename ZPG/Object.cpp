@@ -1,7 +1,6 @@
 #include "Object.h"
 
-#include <GLFW/glfw3.h>  
-
+#include <GLFW/glfw3.h>
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -10,7 +9,7 @@
 using namespace std;
 using namespace glm;
 
-Object::Object(Program * program, ModelBase * model)
+Object::Object(Program * program, StaticModelBase * model)
 	: program(program), model(model)
 {
 	static int id = 1;

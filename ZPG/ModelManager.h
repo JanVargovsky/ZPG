@@ -1,6 +1,6 @@
 #pragma once
 #include "ManagerBase.h"
-#include "ModelBase.h"
+#include "StaticModelBase.h"
 #include "ModelFactory.h"
 
-typedef ManagerBase<ModelType, ModelBase, ModelFactory> ModelManager;
+typedef ManagerBase<ModelType, StaticModelBase, ModelFactory> ModelManager;

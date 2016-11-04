@@ -17,10 +17,10 @@ private:
 	Camera* camera;
 	Size<int> size;
 	bool initialized;
-	std::vector<std::unique_ptr<Object>> objects;
-	std::vector<std::unique_ptr<Program>> shaders;
-	std::vector<std::unique_ptr<PointLight>> pointLights;
-	std::vector<std::unique_ptr<ModelBase>> models;
+	std::vector<Object*> objects;
+	std::vector<Program*> shaders;
+	std::vector<PointLight*> pointLights;
+	std::vector<StaticModelBase*> models;
 
 public:
 	Scene(Camera *camera, int width = 800, int height = 600);
@@ -29,21 +29,26 @@ public:
 	bool CanRender();
 	void Render();
 	void Add(Object * object);
-	void ChangeColor(int id);
 	void Add(Program * shader);
 	void Add(PointLight * light);
-	void Add(ModelBase * model);
+	void Add(StaticModelBase * model);
 
 	void ChangeViewPort(int width, int height);
 	void SetCamera();
 	void SetCamera(Camera * camera);
 
+	// Actions
+	void ChangeColor(int id);
+	void SpawnObject(glm::vec3 position);
+
 	inline GLFWwindow* GetWindow() { return window; }
 	inline Camera* GetCamera() { return camera; }
 	inline Size<int> GetSize() { return size; }
+	inline glm::vec4 GetViewPort() { return glm::vec4(0, 0, size.GetWidth(), size.GetHeight()); };
 
 private:
 	void ChangeViewPort();
 	void Update();
 	void RenderCursor();
+	Object* FindObjectById(int id);
 };

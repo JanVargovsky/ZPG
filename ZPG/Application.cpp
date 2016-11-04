@@ -1,7 +1,5 @@
 #include "Application.h"
 #include "Program.h"
-#include "ModelBase.h"
-#include "ModelManager.h"
 #include "SceneBuilder.h"
 
 #include <glm/gtc/matrix_transform.hpp>

@@ -49,6 +49,9 @@
     <Filter Include="System">
       <UniqueIdentifier>{2fd2cbc9-2135-49d8-af2d-0b1409269d4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\Model\Static">
+      <UniqueIdentifier>{7e4a8318-8d65-408c-8f67-f214ce311027}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -91,21 +94,6 @@
     <ClCompile Include="ArrayBase.cpp">
       <Filter>Common\BufferObject\Base</Filter>
     </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>Render\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Square.cpp">
-      <Filter>Render\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Render\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="SuziFlat.cpp">
-      <Filter>Render\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="SuziSmooth.cpp">
-      <Filter>Render\Model</Filter>
-    </ClCompile>
     <ClCompile Include="ModelFactory.cpp">
       <Filter>Common\Factory</Filter>
     </ClCompile>
@@ -124,9 +112,6 @@
     <ClCompile Include="Phong.cpp">
       <Filter>Common\Light</Filter>
     </ClCompile>
-    <ClCompile Include="ModelBase.cpp">
-      <Filter>Render\Model</Filter>
-    </ClCompile>
     <ClCompile Include="FourSpheresSceneBuilder.cpp">
       <Filter>Common\Builder</Filter>
     </ClCompile>
@@ -138,6 +123,30 @@
     </ClCompile>
     <ClCompile Include="Updatable.cpp">
       <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Render\Model\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Square.cpp">
+      <Filter>Render\Model\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="SuziFlat.cpp">
+      <Filter>Render\Model\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="SuziSmooth.cpp">
+      <Filter>Render\Model\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Render\Model\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Render\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Render\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticModelBase.cpp">
+      <Filter>Render\Model\Static</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,21 +205,6 @@
     <ClInclude Include="ArrayBase.h">
       <Filter>Common\BufferObject\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
-      <Filter>Render\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Square.h">
-      <Filter>Render\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Render\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="SuziFlat.h">
-      <Filter>Render\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="SuziSmooth.h">
-      <Filter>Render\Model</Filter>
-    </ClInclude>
     <ClInclude Include="ManagerBase.h">
       <Filter>Common\Manager</Filter>
     </ClInclude>
@@ -241,9 +235,6 @@
     <ClInclude Include="Phong.h">
       <Filter>Common\Light</Filter>
     </ClInclude>
-    <ClInclude Include="ModelBase.h">
-      <Filter>Render\Model</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBuilder.h">
       <Filter>Common\Builder</Filter>
     </ClInclude>
@@ -261,6 +252,30 @@
     </ClInclude>
     <ClInclude Include="Size.h">
       <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="SuziFlat.h">
+      <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="SuziSmooth.h">
+      <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Render\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticModelBase.h">
+      <Filter>Render\Model\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

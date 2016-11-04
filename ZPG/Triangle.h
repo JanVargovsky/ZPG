@@ -1,7 +1,7 @@
 #pragma once
-#include "ModelBase.h"
+#include "StaticModelBase.h"
 
-class Triangle : public ModelBase
+class Triangle : public StaticModelBase
 {
 public:
 	Triangle();

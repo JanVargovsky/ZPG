@@ -1,7 +1,7 @@
 #pragma once
-#include "ModelBase.h"
+#include "StaticModelBase.h"
 
-class Sphere : public ModelBase
+class Sphere : public StaticModelBase
 {
 public:
 	Sphere();

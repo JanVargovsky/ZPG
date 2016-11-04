@@ -145,9 +145,11 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="DependencyResolver.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FourSpheresSceneBuilder.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Updatable.cpp" />
     <ClCompile Include="LightBase.cpp" />
-    <ClCompile Include="ModelBase.cpp" />
+    <ClCompile Include="StaticModelBase.cpp" />
     <ClCompile Include="ModelFactory.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Phong.cpp" />
@@ -191,11 +193,13 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FourSpheresSceneBuilder.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Size.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="LightBase.h" />
     <ClInclude Include="ManagerBase.h" />
-    <ClInclude Include="ModelBase.h" />
+    <ClInclude Include="StaticModelBase.h" />
     <ClInclude Include="ModelFactory.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Object.h" />

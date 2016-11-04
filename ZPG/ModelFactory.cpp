@@ -8,9 +8,9 @@
 
 using namespace std;
 
-ModelBase* ModelFactory::Create(ModelType modelType)
+StaticModelBase* ModelFactory::Create(ModelType modelType)
 {
-	ModelBase * model;
+	StaticModelBase * model;
 
 	switch (modelType)
 	{

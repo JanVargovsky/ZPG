@@ -78,20 +78,12 @@ void Scene::Render()
 
 void Scene::Add(Object * object)
 {
-	unique_ptr<Object> ptr(object);
-	objects.push_back(move(ptr));
+	objects.push_back(object);
 }
 
 void Scene::ChangeColor(int id)
 {
-	Object *obj = nullptr;
-
-	for (auto &o : objects)
-		if (o.get()->GetId() == id)
-		{
-			obj = o.get();
-			break;
-		}
+	Object *obj = FindObjectById(id);
 
 	if (obj == nullptr)
 		return;
@@ -99,22 +91,29 @@ void Scene::ChangeColor(int id)
 	obj->SetColor(ColorUtils::GetRandomColor());
 }
 
+void Scene::SpawnObject(glm::vec3 position)
+{
+	auto obj = new Object(shaders[0], objects[0]->GetModel());
+
+	obj->GetTransform().SetPosition(position);
+	obj->SetColor(ColorUtils::GetRandomColor());
+
+	Add(obj);
+}
+
 void Scene::Add(Program * shader)
 {
-	unique_ptr<Program> ptr(shader);
-	shaders.push_back(move(ptr));
+	shaders.push_back(shader);
 }
 
 void Scene::Add(PointLight * light)
 {
-	unique_ptr<PointLight> ptr(light);
-	pointLights.push_back(move(ptr));
+	pointLights.push_back(light);
 }
 
-void Scene::Add(ModelBase * model)
+void Scene::Add(StaticModelBase * model)
 {
-	unique_ptr<ModelBase> ptr(model);
-	models.push_back(move(ptr));
+	models.push_back(model);
 }
 
 void Scene::ChangeViewPort()
@@ -133,20 +132,34 @@ void Scene::Update()
 
 void Scene::RenderCursor()
 {
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_DEPTH_TEST);
 
 	const float CURSOR_SIZE = 0.03;
+	glColor3f(0, 0, 0);
+	glLineWidth(3);
 	glBegin(GL_LINES);
-		glVertex2f(-CURSOR_SIZE, -CURSOR_SIZE);
-		glVertex2f(CURSOR_SIZE, CURSOR_SIZE);
+
+	glVertex2f(0, -CURSOR_SIZE);
+	glVertex2f(0, CURSOR_SIZE);
 	glEnd();
 
 	glBegin(GL_LINES);
-		glVertex2f(-CURSOR_SIZE, CURSOR_SIZE);
-		glVertex2f(CURSOR_SIZE, -CURSOR_SIZE);
+	glVertex2f(-CURSOR_SIZE, 0);
+	glVertex2f(CURSOR_SIZE, 0);
 	glEnd();
 
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+	glEnable(GL_STENCIL_TEST);
+	glEnable(GL_DEPTH_TEST);
+}
+
+Object * Scene::FindObjectById(int id)
+{
+	for (auto &o : objects)
+		if (o->GetId() == id)
+			return o;
+
+	return nullptr;
 }
 
 void Scene::SetCamera(Camera * camera)

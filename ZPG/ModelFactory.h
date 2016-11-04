@@ -1,5 +1,5 @@
 #pragma once
-#include "ModelBase.h"
+#include "StaticModelBase.h"
 #include "FactoryBase.h"
 
 enum ModelType
@@ -11,8 +11,8 @@ enum ModelType
 	SuziSmoothModel,
 };
 
-class ModelFactory : public FactoryBase<ModelType, ModelBase*>
+class ModelFactory : public FactoryBase<ModelType, StaticModelBase*>
 {
 public:
-	virtual ModelBase* Create(ModelType modelType) override;
+	virtual StaticModelBase* Create(ModelType modelType) override;
 };

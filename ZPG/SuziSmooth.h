@@ -1,7 +1,7 @@
 #pragma once
-#include "ModelBase.h"
+#include "StaticModelBase.h"
 
-class SuziSmooth : public ModelBase
+class SuziSmooth : public StaticModelBase
 {
 public:
 	SuziSmooth();

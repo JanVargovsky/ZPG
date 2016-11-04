@@ -8,14 +8,13 @@
 
 #include <memory>
 
-class ModelBase : public IRenderable
+class StaticModelBase : public IRenderable
 {
 protected:
 	VBO vbo;
 	VAO vao;
-	boost::optional<EBO> ebo;
 
-	ModelBase() = default;
+	StaticModelBase() = default;
 
 public:
 	virtual void PreRender();

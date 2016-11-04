@@ -1,9 +1,12 @@
 #include "ApplicationController.h"
 #include "Application.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include <iostream>
 
 using namespace std;
+using namespace glm;
 
 void ApplicationController::OnError(int error, const char * description)
 {
@@ -19,13 +22,34 @@ void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scanco
 	if ((action == GLFW_PRESS || action == GLFW_REPEAT) && IsCameraMove(key))
 		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraMove(key), mods == GLFW_MOD_SHIFT);
 
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	if ((action == GLFW_PRESS || action == GLFW_REPEAT) && key == GLFW_KEY_SPACE)
+	{
+		auto direction = mods == GLFW_MOD_SHIFT ? CameraZoom::Out : CameraZoom::In;
+		Application::GetInstance().GetScene()->GetCamera()->Move(direction);
+	}
+		
 	//printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
 }
 
 void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 {
+	auto size = Application::GetInstance().GetScene()->GetSize();
+	auto xx = size.GetWidth() / 2;
+	auto yy = size.GetHeight() / 2;
+	GLfloat z;
+	glReadPixels(xx, yy, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+
+	auto screenPosition = vec3(xx, yy, z);
+	auto view = Application::GetInstance().GetScene()->GetCamera()->GetView();
+	auto projection = Application::GetInstance().GetScene()->GetCamera()->GetProjection();
+	auto viewPort = Application::GetInstance().GetScene()->GetViewPort();
+	auto position = unProject(screenPosition, view, projection, viewPort);
+
+	printf("object at x=%f, y=%f, z=%f\n", position.x, position.y, position.z);
+
 	//cout << "Cursor change x: " << x << " y: " << y << endl;
 }
 
@@ -33,24 +57,46 @@ void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button,
 {
 	if (action == GLFW_PRESS)
 	{
-		GLbyte color[4];
-		GLfloat depth;
-		GLuint index;
+		if (button == GLFW_MOUSE_BUTTON_1)
+		{
+			GLbyte color[4];
+			GLfloat depth;
+			GLuint index;
 
-		auto size = Application::GetInstance().GetScene()->GetSize();
+			auto size = Application::GetInstance().GetScene()->GetSize();
 
-		auto x = size.GetWidth() / 2;
-		auto y = size.GetHeight() / 2;
-		glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
-		glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-		glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+			auto x = size.GetWidth() / 2;
+			auto y = size.GetHeight() / 2;
+			glReadPixels(x, y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+			glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+			glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
 
-		printf("Clicked on pixel %d, %d, color % 02hhx % 02hhx % 02hhx % 02hhx, depth %f, stencil index %u\n",
-			x, y, color[0], color[1], color[2], color[3], depth, index);
+			printf("Clicked on pixel %d, %d, color % 02hhx % 02hhx % 02hhx % 02hhx, depth %f, stencil index %u\n",
+				x, y, color[0], color[1], color[2], color[3], depth, index);
 
-		Application::GetInstance().GetScene()->ChangeColor(index);
+			Application::GetInstance().GetScene()->ChangeColor(index);
+		}
+		else if (button == GLFW_MOUSE_BUTTON_2)
+		{
+			auto size = Application::GetInstance().GetScene()->GetSize();
+			auto x = size.GetWidth() / 2;
+			auto y = size.GetHeight() / 2;
+			GLfloat z;
+			glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
 
-		//	cout << "button: " << button << " action: " << action << " mode: " << mode << endl;
+			auto screenPosition = vec3(x, y, z);
+			auto view = Application::GetInstance().GetScene()->GetCamera()->GetView();
+			auto projection = Application::GetInstance().GetScene()->GetCamera()->GetProjection();
+			auto viewPort = Application::GetInstance().GetScene()->GetViewPort();
+			auto position = unProject(screenPosition, view, projection, viewPort);
+
+
+			//position.y = 0;
+
+			Application::GetInstance().GetScene()->SpawnObject(position);
+
+			printf("spawning object at x=%f, y=%f, z=%f\n", position.x, position.y, position.z);
+		}
 	}
 }
 
