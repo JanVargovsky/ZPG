@@ -1,4 +1,6 @@
 #pragma once
+#include "Logger.h"
+
 #include <GL/glew.h>
 
 #include <iostream>
@@ -11,9 +13,8 @@ public:
 		GLenum err;
 		while ((err = glGetError()) != GL_NO_ERROR)
 		{
-			auto message = glewGetErrorString(err);
-			std::cerr << "[E] Open GL error: " << message << std::endl;
+			std::string message = (char*)glewGetErrorString(err);
+			Logger::Error(message);
 		}
 	}
 };
-

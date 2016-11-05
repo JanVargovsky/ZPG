@@ -2909,10 +2909,10 @@ SuziFlat::SuziFlat()
 		-0.773438 , -0.140625 , -0.125000 , -0.007891 , -0.915403 , -0.402462,
 	};
 
-	vbo.BindData(sizeof(suziFlat), suziFlat);
 	vao.Bind();
 	{
 		vbo.Bind();
+		vbo.BindData(suziFlat, sizeof(suziFlat));
 
 		// Position
 		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 6 * sizeof(suziFlat[0]), (GLvoid*)0);

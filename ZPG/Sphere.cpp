@@ -1,4 +1,5 @@
 #include "Sphere.h"
+#include "ErrorChecker.h"
 
 Sphere::Sphere()
 {
@@ -2885,19 +2886,19 @@ Sphere::Sphere()
 		-0.555570 , -0.831470 , 0.000000 , -0.559771 , -0.828639 , 0.000000
 	};
 
-	vbo.BindData(sizeof(sphere), sphere);
+	ErrorChecker::CheckOpenGLError();
 	vao.Bind();
 	{
 		vbo.Bind();
+		vbo.BindData(sphere, sizeof(sphere));
 
 		// Position
 		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 6 * sizeof(sphere[0]), (GLvoid*)0);
 		// Normal
 		vao.SetAttribute(1, 3, AttributeType::Float, GL_FALSE, 6 * sizeof(sphere[0]), (GLvoid*)(3 * sizeof(sphere[0])));
-
-		vbo.Unbind();
 	}
 	vao.Unbind();
+	ErrorChecker::CheckOpenGLError();
 }
 
 void Sphere::Render()

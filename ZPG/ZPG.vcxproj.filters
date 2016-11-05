@@ -10,15 +10,6 @@
     <Filter Include="Render">
       <UniqueIdentifier>{5d33a32c-f617-454e-8d76-de36fc964d3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Shader">
-      <UniqueIdentifier>{b69e759f-45ad-4c1e-8d3e-9ec50511a03d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common\BufferObject">
-      <UniqueIdentifier>{57d2f2fc-5f77-4ea9-9cd0-912147a505e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common\BufferObject\Base">
-      <UniqueIdentifier>{96a09dc7-b62a-4e18-b517-5a66c008971c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Render\Model">
       <UniqueIdentifier>{473c3d49-e164-4a37-83f5-3a9be0cb01d0}</UniqueIdentifier>
     </Filter>
@@ -40,9 +31,6 @@
     <Filter Include="Common\Builder">
       <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Helpers">
-      <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
-    </Filter>
     <Filter Include="OpenGL">
       <UniqueIdentifier>{8eadb393-f16e-4df7-acf3-ae7c815d8f42}</UniqueIdentifier>
     </Filter>
@@ -52,16 +40,37 @@
     <Filter Include="Render\Model\Static">
       <UniqueIdentifier>{7e4a8318-8d65-408c-8f67-f214ce311027}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{e849c03d-cc89-4072-ab13-6084c5ecf851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\StickFigure">
+      <UniqueIdentifier>{8c434e84-2d8a-4d9f-9f2c-726225192e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Helpers">
+      <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\BufferObject">
+      <UniqueIdentifier>{57d2f2fc-5f77-4ea9-9cd0-912147a505e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\BufferObject\Base">
+      <UniqueIdentifier>{96a09dc7-b62a-4e18-b517-5a66c008971c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Tree">
+      <UniqueIdentifier>{4f3abfce-e9e3-4e14-bada-58a5d92945cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\Shader">
+      <UniqueIdentifier>{b69e759f-45ad-4c1e-8d3e-9ec50511a03d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
-      <Filter>Common\Shader</Filter>
+      <Filter>OpenGL\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Common\Shader</Filter>
+      <Filter>OpenGL\Shader</Filter>
     </ClCompile>
     <ClCompile Include="ShaderLoader.cpp">
-      <Filter>Common\Shader</Filter>
+      <Filter>OpenGL\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Common</Filter>
@@ -80,22 +89,19 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="VAO.cpp">
-      <Filter>Common\BufferObject</Filter>
+      <Filter>OpenGL\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="VBO.cpp">
-      <Filter>Common\BufferObject</Filter>
+      <Filter>OpenGL\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="EBO.cpp">
-      <Filter>Common\BufferObject</Filter>
+      <Filter>OpenGL\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="BufferBase.cpp">
-      <Filter>Common\BufferObject\Base</Filter>
+      <Filter>OpenGL\BufferObject\Base</Filter>
     </ClCompile>
     <ClCompile Include="ArrayBase.cpp">
-      <Filter>Common\BufferObject\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelFactory.cpp">
-      <Filter>Common\Factory</Filter>
+      <Filter>OpenGL\BufferObject\Base</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Common</Filter>
@@ -119,7 +125,7 @@
       <Filter>Common\Builder</Filter>
     </ClCompile>
     <ClCompile Include="ColorUtils.cpp">
-      <Filter>Common\Helpers</Filter>
+      <Filter>System\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Updatable.cpp">
       <Filter>Render</Filter>
@@ -148,6 +154,15 @@
     <ClCompile Include="StaticModelBase.cpp">
       <Filter>Render\Model\Static</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticModelFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelFactory.cpp">
+      <Filter>Common\Factory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -164,16 +179,22 @@
     <None Include="Shaders\Phong.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Models\Tree\Tree.obj">
+      <Filter>Models\Tree</Filter>
+    </None>
+    <None Include="Models\StickFigure\Stick_Figure_by_Swp.OBJ">
+      <Filter>Models\StickFigure</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderLoader.h">
-      <Filter>Common\Shader</Filter>
+      <Filter>OpenGL\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>Common\Shader</Filter>
+      <Filter>OpenGL\Shader</Filter>
     </ClInclude>
     <ClInclude Include="Program.h">
-      <Filter>Common\Shader</Filter>
+      <Filter>OpenGL\Shader</Filter>
     </ClInclude>
     <ClInclude Include="ApplicationController.h">
       <Filter>Common</Filter>
@@ -191,27 +212,24 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="VBO.h">
-      <Filter>Common\BufferObject</Filter>
+      <Filter>OpenGL\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="VAO.h">
-      <Filter>Common\BufferObject</Filter>
+      <Filter>OpenGL\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="EBO.h">
-      <Filter>Common\BufferObject</Filter>
+      <Filter>OpenGL\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="BufferBase.h">
-      <Filter>Common\BufferObject\Base</Filter>
+      <Filter>OpenGL\BufferObject\Base</Filter>
     </ClInclude>
     <ClInclude Include="ArrayBase.h">
-      <Filter>Common\BufferObject\Base</Filter>
+      <Filter>OpenGL\BufferObject\Base</Filter>
     </ClInclude>
     <ClInclude Include="ManagerBase.h">
       <Filter>Common\Manager</Filter>
     </ClInclude>
     <ClInclude Include="FactoryBase.h">
-      <Filter>Common\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelFactory.h">
       <Filter>Common\Factory</Filter>
     </ClInclude>
     <ClInclude Include="IRenderable.h">
@@ -222,9 +240,6 @@
     </ClInclude>
     <ClInclude Include="DependencyResolver.h">
       <Filter>IoC</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
-      <Filter>Common\Manager</Filter>
     </ClInclude>
     <ClInclude Include="PointLight.h">
       <Filter>Render\Light</Filter>
@@ -242,7 +257,7 @@
       <Filter>Common\Builder</Filter>
     </ClInclude>
     <ClInclude Include="ColorUtils.h">
-      <Filter>Common\Helpers</Filter>
+      <Filter>System\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Updatable.h">
       <Filter>Render</Filter>
@@ -276,6 +291,21 @@
     </ClInclude>
     <ClInclude Include="StaticModelBase.h">
       <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticModelFactory.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticModelManager.h">
+      <Filter>Common\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelFactory.h">
+      <Filter>Common\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager.h">
+      <Filter>Common\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

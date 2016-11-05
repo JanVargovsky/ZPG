@@ -1,5 +1,6 @@
 #include "ApplicationController.h"
 #include "Application.h"
+#include "Logger.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -10,7 +11,7 @@ using namespace glm;
 
 void ApplicationController::OnError(int error, const char * description)
 {
-	cerr << "ERROR: " << description << endl;
+	Logger::Error(description);
 }
 
 void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scancode, int action, int mods)
@@ -30,7 +31,7 @@ void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scanco
 		auto direction = mods == GLFW_MOD_SHIFT ? CameraZoom::Out : CameraZoom::In;
 		Application::GetInstance().GetScene()->GetCamera()->Move(direction);
 	}
-		
+
 	//printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
 }
 
@@ -48,9 +49,7 @@ void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 	auto viewPort = Application::GetInstance().GetScene()->GetViewPort();
 	auto position = unProject(screenPosition, view, projection, viewPort);
 
-	printf("object at x=%f, y=%f, z=%f\n", position.x, position.y, position.z);
-
-	//cout << "Cursor change x: " << x << " y: " << y << endl;
+	Logger::Information("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
 }
 
 void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button, int action, int mode)
@@ -71,8 +70,12 @@ void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button,
 			glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
 			glReadPixels(x, y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
 
-			printf("Clicked on pixel %d, %d, color % 02hhx % 02hhx % 02hhx % 02hhx, depth %f, stencil index %u\n",
-				x, y, color[0], color[1], color[2], color[3], depth, index);
+			//printf("Clicked on pixel %d, %d, color % 02hhx % 02hhx % 02hhx % 02hhx, depth %f, stencil index %u\n",
+			//	x, y, color[0], color[1], color[2], color[3], depth, index);
+
+			Logger::Information("Clicked on pixel " + to_string(x) + ", " + to_string(y) +
+				", color " + to_string((int)color[0]) + " " + to_string((int)color[1]) + " " + to_string((int)color[2]) + " " + to_string((int)color[3]) +
+				", depth " + to_string(depth) + ", stencil index " + to_string(index));
 
 			Application::GetInstance().GetScene()->ChangeColor(index);
 		}
@@ -94,8 +97,7 @@ void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button,
 			//position.y = 0;
 
 			Application::GetInstance().GetScene()->SpawnObject(position);
-
-			printf("spawning object at x=%f, y=%f, z=%f\n", position.x, position.y, position.z);
+			Logger::Information("spawning object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
 		}
 	}
 }

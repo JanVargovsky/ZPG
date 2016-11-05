@@ -9,10 +9,10 @@ Triangle::Triangle()
 		0.0f,  1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f,  1.0f, 0.0f,	// top
 	};
 
-	vbo.BindData(sizeof(vertices), vertices);
 	vao.Bind();
 	{
 		vbo.Bind();
+		vbo.BindData(vertices, sizeof(vertices));
 
 		// Position
 		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 9 * sizeof(vertices[0]), (GLvoid*)(0 * sizeof(vertices[0])));

@@ -20,7 +20,6 @@ private:
 	std::vector<Object*> objects;
 	std::vector<Program*> shaders;
 	std::vector<PointLight*> pointLights;
-	std::vector<StaticModelBase*> models;
 
 public:
 	Scene(Camera *camera, int width = 800, int height = 600);
@@ -31,7 +30,6 @@ public:
 	void Add(Object * object);
 	void Add(Program * shader);
 	void Add(PointLight * light);
-	void Add(StaticModelBase * model);
 
 	void ChangeViewPort(int width, int height);
 	void SetCamera();

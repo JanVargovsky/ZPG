@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Program.h"
 #include "SceneBuilder.h"
+#include "ErrorChecker.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -37,13 +38,13 @@ bool Application::Initialize()
 	glfwSetErrorCallback([](int error, const char * description) { Application::GetInstance().GetController()->OnError(error, description); });
 
 	if (!glfwInit()) {
-		cerr << "Failed to start GLFW" << endl;
+		Logger::Error("Failed to start GLFW");
 		return false;
 	}
 
 	if (!scene->Initialize())
 	{
-		cerr << "Failed to initialize scene" << endl;
+		Logger::Error("Failed to initialize scene");
 		return false;
 	}
 
@@ -70,7 +71,7 @@ bool Application::Initialize()
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 	{
-		cerr << "Failed to initializate GLEW" << endl;
+		Logger::Error("Failed to initializate GLEW");
 		return false;
 	}
 
@@ -98,7 +99,10 @@ bool Application::Initialize()
 		->BuildObjects(scene)
 		->BuildLights(scene);
 
+
 	initialized = true;
+
+	ErrorChecker::CheckOpenGLError();
 	return true;
 }
 
@@ -106,13 +110,13 @@ void Application::Run()
 {
 	if (!initialized)
 	{
-		cerr << "Trying to run uninitialized application" << endl;
+		Logger::Error("Trying to run uninitialized application");
 		return;
 	}
 
-	GetScene()->SetCamera();
+	scene->SetCamera();
 
-	while (GetScene()->CanRender())
+	while (scene->CanRender())
 	{
 		// update other events like input handling
 		glfwPollEvents();
@@ -121,7 +125,8 @@ void Application::Run()
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-		GetScene()->Render();
+		scene->Render();
+		ErrorChecker::CheckOpenGLError();
 	}
 }
 

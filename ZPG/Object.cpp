@@ -9,17 +9,27 @@
 using namespace std;
 using namespace glm;
 
-Object::Object(Program * program, StaticModelBase * model)
+Object::Object(Program * program, Model * model)
 	: program(program), model(model)
 {
 	static int id = 1;
 	this->id = id++;
 }
 
+Object::Object(Program * program, StaticModelBase * model)
+	: program(program), staticModel(model)
+{
+	static int id = 50;
+	this->id = id++;
+}
+
 void Object::PreRender()
 {
 	program->Use();
-	model->PreRender();
+	if (model != nullptr)
+		model->PreRender();
+	else
+		staticModel->PreRender();
 
 	program->Send("model", GetTransform().Get());
 	if (color.is_initialized())
@@ -30,12 +40,18 @@ void Object::PreRender()
 
 void Object::Render()
 {
-	model->Render();
+	if (model != nullptr)
+		model->Render();
+	else
+		staticModel->Render();
 }
 
 void Object::PostRender()
 {
-	model->PostRender();
+	if (model != nullptr)
+		model->PostRender();
+	else
+		staticModel->PostRender();
 	program->Unuse();
 }
 

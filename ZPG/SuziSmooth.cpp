@@ -2909,10 +2909,10 @@ SuziSmooth::SuziSmooth()
 		-0.773438 , -0.140625 , -0.125000 , 0.021424 , -0.683279 , 0.729820,
 	};
 
-	vbo.BindData(sizeof(suziSmooth), suziSmooth);
 	vao.Bind();
 	{
 		vbo.Bind();
+		vbo.BindData(suziSmooth, sizeof(suziSmooth));
 
 		// Position
 		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, 6 * sizeof(suziSmooth[0]), (GLvoid*)0);

@@ -145,12 +145,14 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="DependencyResolver.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FourSpheresSceneBuilder.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelFactory.cpp" />
     <ClCompile Include="Updatable.cpp" />
     <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="StaticModelBase.cpp" />
-    <ClCompile Include="ModelFactory.cpp" />
+    <ClCompile Include="StaticModelFactory.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Phong.cpp" />
     <ClCompile Include="PointLight.cpp" />
@@ -193,15 +195,18 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="FactoryBase.h" />
     <ClInclude Include="FourSpheresSceneBuilder.h" />
     <ClInclude Include="IRenderable.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelFactory.h" />
+    <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Size.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="LightBase.h" />
     <ClInclude Include="ManagerBase.h" />
     <ClInclude Include="StaticModelBase.h" />
-    <ClInclude Include="ModelFactory.h" />
-    <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="StaticModelFactory.h" />
+    <ClInclude Include="StaticModelManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Phong.h" />
     <ClInclude Include="PointLight.h" />
@@ -218,6 +223,14 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\StickFigure\Stick_Figure_by_Swp.OBJ">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Models\Tree\Tree.obj">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

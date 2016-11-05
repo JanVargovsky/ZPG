@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "ErrorChecker.h"
 #include "ColorUtils.h"
+#include "DependencyResolver.h"
+#include "ModelManager.h"
 
 #include <GLFW/glfw3.h>  
 #include <glm/vec3.hpp>
@@ -93,7 +95,8 @@ void Scene::ChangeColor(int id)
 
 void Scene::SpawnObject(glm::vec3 position)
 {
-	auto obj = new Object(shaders[0], objects[0]->GetModel());
+	auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
+	auto obj = new Object(shaders[0], modelManager->Get(ModelType::Tree));
 
 	obj->GetTransform().SetPosition(position);
 	obj->SetColor(ColorUtils::GetRandomColor());
@@ -109,11 +112,6 @@ void Scene::Add(Program * shader)
 void Scene::Add(PointLight * light)
 {
 	pointLights.push_back(light);
-}
-
-void Scene::Add(StaticModelBase * model)
-{
-	models.push_back(model);
 }
 
 void Scene::ChangeViewPort()

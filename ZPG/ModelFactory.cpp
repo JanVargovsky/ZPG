@@ -1,37 +1,23 @@
 #include "ModelFactory.h"
 
-#include "Triangle.h"
-#include "Square.h"
-#include "Sphere.h"
-#include "SuziFlat.h"
-#include "SuziSmooth.h"
-
 using namespace std;
 
-StaticModelBase* ModelFactory::Create(ModelType modelType)
+Model * ModelFactory::Create(ModelType modelType)
 {
-	StaticModelBase * model;
+	string path = GetPath(modelType);
+	Model *model = new Model(path);
+	return model;
+}
 
+std::string ModelFactory::GetPath(ModelType modelType)
+{
 	switch (modelType)
 	{
-	case TriangleModel:
-		model = new Triangle;
-		break;
-	case SquareModel:
-		model = new Square;
-		break;
-	case SphereModel:
-		model = new Sphere;
-		break;
-	case SuziFlatModel:
-		model = new SuziFlat;
-		break;
-	case SuziSmoothModel:
-		model = new SuziSmooth;
-		break;
+	case StickFigure:
+		return "Models/StickFigure/Stick_Figure_by_Swp.OBJ";
+	case Tree:
+		return "Models/Tree/Tree.obj";
 	default:
-		throw exception("not implemented ModelType");
+		throw exception("Unknown model");
 	}
-
-	return model;
 }

@@ -13,13 +13,14 @@ Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
 	:program(-1)
 {
 	ShaderLoader *shaderLoader = DependencyResolver::GetInstance().Resolve<ShaderLoader*>();
-	unique_ptr<Shader> vertex = shaderLoader->CreateShader(vertexPath, ShaderType::Vertex);
-	unique_ptr<Shader> fragment = shaderLoader->CreateShader(fragmentPath, ShaderType::Fragment);
+	unique_ptr<Shader> vertex = shaderLoader->CreateShader(vertexPath, ShaderType_Vertex);
+	unique_ptr<Shader> fragment = shaderLoader->CreateShader(fragmentPath, ShaderType_Fragment);
 
 	shaders.push_back(move(vertex));
 	shaders.push_back(move(fragment));
 
 	Compile();
+	ErrorChecker::CheckOpenGLError();
 }
 
 Program::~Program()
@@ -81,23 +82,23 @@ GLint Program::GetCurrentProgram() const
 void Program::Send(const GLchar * name, mat4 & value) const
 {
 	GLuint location = glGetUniformLocation(program, name);
+	ErrorChecker::CheckOpenGLError();
 	glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(value));
-
 	ErrorChecker::CheckOpenGLError();
 }
 
 void Program::Send(const GLchar * name, glm::vec3 & value) const
 {
 	GLuint location = glGetUniformLocation(program, name);
+	ErrorChecker::CheckOpenGLError();
 	glUniform3fv(location, 1, value_ptr(value));
-
 	ErrorChecker::CheckOpenGLError();
 }
 
 void Program::Send(const GLchar * name, int value) const
 {
 	GLuint location = glGetUniformLocation(program, name);
+	ErrorChecker::CheckOpenGLError();
 	glUniform1i(location, value);
-
 	ErrorChecker::CheckOpenGLError();
 }

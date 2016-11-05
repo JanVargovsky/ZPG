@@ -28,7 +28,7 @@ public:
 	void Bind();
 	void Unbind();
 
-	void BindData(GLsizeiptr size, const void *data);
+	void BindData(const void * data, GLsizeiptr size);
 
 private:
 	void Generate();

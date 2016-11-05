@@ -38,9 +38,9 @@ string Shader::ToString(const ShaderType type) const
 {
 	switch (type)
 	{
-	case Vertex:
+	case ShaderType_Vertex:
 		return "Vertex";
-	case Fragment:
+	case ShaderType_Fragment:
 		return "Fragment";
 	default:
 		return "Unknown";

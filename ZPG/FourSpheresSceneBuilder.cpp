@@ -1,6 +1,7 @@
 #include "FourSpheresSceneBuilder.h"
 #include "PointLight.h"
 #include "ColorUtils.h"
+#include "ErrorChecker.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -11,9 +12,10 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 {
 	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
 	scene->Add(program);
-	auto sphereModel = modelManager->Get(SphereModel);
-	//auto sphereModel = modelManager->Get(SuziFlatModel);
-	scene->Add(sphereModel);
+	ErrorChecker::CheckOpenGLError();
+	auto sphereModel = staticModelManager->Get(SphereModel);
+	ErrorChecker::CheckOpenGLError();
+	//scene->Add(sphereModel);
 
 	const float T = 2.f;
 	auto positions = {
@@ -58,9 +60,18 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 
 		scene->Add(obj);
 	}
+	ErrorChecker::CheckOpenGLError();
 
-	auto obj = new Object(program, sphereModel);
-	obj->SetColor(ColorUtils::GetColor(0x80, 0xff, 0x0));
+	//auto obj = new Object(program, sphereModel);
+	//obj->SetColor(ColorUtils::GetColor(0x80, 0xff, 0x0));
+	//scene->Add(obj);
+
+	auto stickFigureModel = modelManager->Get(ModelType::StickFigure);
+	ErrorChecker::CheckOpenGLError();
+	auto obj = new Object(program, stickFigureModel);
+	ErrorChecker::CheckOpenGLError();
+	obj->GetTransform().SetPosition(vec3(-3, 0, -3));
+	obj->SetColor(vec3(0.5f, 0.5f, 0.5f));
 	scene->Add(obj);
 
 	return this;

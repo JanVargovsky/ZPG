@@ -1,18 +1,16 @@
 #pragma once
-#include "StaticModelBase.h"
 #include "FactoryBase.h"
+#include "Model.h"
 
-enum ModelType
-{
-	TriangleModel,
-	SquareModel,
-	SphereModel,
-	SuziFlatModel,
-	SuziSmoothModel,
+enum ModelType {
+	StickFigure,
+	Tree
 };
 
-class ModelFactory : public FactoryBase<ModelType, StaticModelBase*>
+class ModelFactory : public FactoryBase<ModelType, Model*> 
 {
 public:
-	virtual StaticModelBase* Create(ModelType modelType) override;
+	virtual Model* Create(ModelType modelType) override;
+private:
+	std::string GetPath(ModelType modelType);
 };
