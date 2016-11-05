@@ -26,9 +26,11 @@ void Logger::Warning(std::string message)
 
 void Logger::Write(LogType logType, std::string message)
 {
+#if DEBUG
 	cerr << "[" << ToString(logType) << "] "
 		<< message
 		<< endl;
+#endif
 }
 
 char Logger::ToString(LogType const & logType)

@@ -12,14 +12,14 @@ using namespace glm;
 Object::Object(Program * program, Model * model)
 	: program(program), model(model)
 {
-	static int id = 1;
+	static int id = 10;
 	this->id = id++;
 }
 
 Object::Object(Program * program, StaticModelBase * model)
 	: program(program), staticModel(model)
 {
-	static int id = 50;
+	static int id = 1;
 	this->id = id++;
 }
 

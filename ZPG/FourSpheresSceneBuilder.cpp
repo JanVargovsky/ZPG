@@ -12,10 +12,7 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 {
 	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
 	scene->Add(program);
-	ErrorChecker::CheckOpenGLError();
 	auto sphereModel = staticModelManager->Get(SphereModel);
-	ErrorChecker::CheckOpenGLError();
-	//scene->Add(sphereModel);
 
 	const float T = 2.f;
 	auto positions = {
@@ -60,19 +57,38 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 
 		scene->Add(obj);
 	}
-	ErrorChecker::CheckOpenGLError();
-
-	//auto obj = new Object(program, sphereModel);
-	//obj->SetColor(ColorUtils::GetColor(0x80, 0xff, 0x0));
-	//scene->Add(obj);
 
 	auto stickFigureModel = modelManager->Get(ModelType::StickFigure);
-	ErrorChecker::CheckOpenGLError();
 	auto obj = new Object(program, stickFigureModel);
-	ErrorChecker::CheckOpenGLError();
-	obj->GetTransform().SetPosition(vec3(-3, 0, -3));
+	obj->GetTransform().SetPosition(vec3(-3, 4, -3));
+	obj->GetTransform().SetScale(vec3(2));
 	obj->SetColor(vec3(0.5f, 0.5f, 0.5f));
 	scene->Add(obj);
+
+	auto floorObject = new Object(program, staticModelManager->Get(StaticModelType::SquareModel));
+	floorObject->SetColor(ColorUtils::GetRandomColor());
+	auto &transform = floorObject->GetTransform();
+	transform.SetPosition(vec3(0, 0, 0));
+	transform.SetScale(vec3(100));
+	scene->Add(floorObject);
+
+
+	auto treeModel = modelManager->Get(ModelType::Tree);
+	for (int x = -20; x <= 20; x += 5)
+		for (int z = -20; z <= 20; z += 5)
+		{
+			auto tree = new Object(program, treeModel);
+			float angle = ((float)(rand() % 30) / 10) + 1;
+			if (rand() % 2 == 0)
+				angle *= -1;
+			tree->RegisterOnUpdate([tree, angle]() {
+				tree->GetTransform().AddRotation(angle, vec3(0, 1, 0));
+			});
+			tree->SetColor(ColorUtils::GetRandomColor());
+			auto &t = tree->GetTransform();
+			t.SetPosition(vec3(x, 0, z));
+			scene->Add(tree);
+		}
 
 	return this;
 }
