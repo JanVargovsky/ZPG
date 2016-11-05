@@ -60,6 +60,9 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 
 	auto stickFigureModel = modelManager->Get(ModelType::StickFigure);
 	auto obj = new Object(program, stickFigureModel);
+	obj->RegisterOnUpdate([obj]() {
+		obj->GetTransform().AddRotation(1, vec3(0, 1, 0));
+	});
 	obj->GetTransform().SetPosition(vec3(-3, 4, -3));
 	obj->GetTransform().SetScale(vec3(2));
 	obj->SetColor(vec3(0.5f, 0.5f, 0.5f));
