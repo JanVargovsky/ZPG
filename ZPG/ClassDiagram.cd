@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="*bleh* Static *bleh* stuff">
+    <Position X="23.498" Y="17.722" Height="0.389" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Old stuff, kept just to be backward compatible (StaticModelBase and its childs)">
+    <Position X="26.26" Y="7.17" Height="0.75" Width="1.7" />
+  </Comment>
   <Class Name="ShaderLoader">
-    <Position X="34.25" Y="0.5" Width="4.75" />
+    <Position X="41.25" Y="0.5" Width="4.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>ShaderLoader.h</FileName>
@@ -19,7 +25,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ApplicationController">
-    <Position X="0.5" Y="6.75" Width="5.5" />
+    <Position X="0.5" Y="7.25" Width="5.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAyAAAgAAAIUAAAACBAAAQBAAAAAAAAAAAA=</HashCode>
       <FileName>ApplicationController.h</FileName>
@@ -28,55 +34,49 @@
   <Class Name="Camera">
     <Position X="8.75" Y="0.5" Width="4.5" />
     <TypeIdentifier>
-      <HashCode>AAgCIAAAQaEABABQIAAwEkAAECAAAkgAAAQAAoAMAAA=</HashCode>
+      <HashCode>AAgCIQAAQaEAAABQIAAwEkAAEBAAAkAAAAQBAoAMAAA=</HashCode>
       <FileName>Camera.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Object">
-    <Position X="31.75" Y="5.25" Width="5.25" />
-    <AssociationLine Name="program" Type="Program" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="35.25" Y="5.25" />
-        <Point X="35.25" Y="3.36" />
-        <Point X="39.5" Y="3.36" />
-      </Path>
-    </AssociationLine>
+    <Position X="35.75" Y="6.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAABAAAAAAAAEAEAAABABAAAOAAE=</HashCode>
+      <HashCode>AIAAAAAAAAAAAAAgAABAAAAAAAAEAECAABgBAAIKAgE=</HashCode>
       <FileName>Object.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="program" />
-      <Field Name="model" />
       <Field Name="transform" />
+      <Field Name="staticModel" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Scene">
     <Position X="4.5" Y="0.5" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAhAQAQQAwAACIABAwQIAAAAIBBAAAECIAAA=</HashCode>
+      <HashCode>AAYAAQAAAhCQAwCAgIACIABAwUAAAAEIBBAAAACAAAA=</HashCode>
       <FileName>Scene.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="camera" />
+      <Field Name="size" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Transform">
-    <Position X="29.75" Y="9" Width="4.75" />
+    <Position X="44.25" Y="6.75" Width="4.75" />
     <TypeIdentifier>
       <HashCode>EAAAAAAAACCAAABAAACAICQCAAAEAggAIAAAAgAAQBA=</HashCode>
       <FileName>Transform.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Program">
-    <Position X="39.5" Y="0.5" Width="4.25" />
+    <Position X="36.75" Y="1.25" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAAAAQAACAAAAgAAAEAAACAAgAAEAAAAAAABAAAAAEE=</HashCode>
       <FileName>Program.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Shader">
-    <Position X="39.5" Y="4.25" Width="4" />
+    <Position X="41.25" Y="2" Width="4" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAAAAEAAkAAAAAgAABAAAABAAAAEAAAAA=</HashCode>
       <FileName>Shader.h</FileName>
@@ -125,39 +125,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ModelFactory">
-    <Position X="8.25" Y="9.5" Width="3.25" />
+    <Position X="8.25" Y="9.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAEAAAAAAAAAAAAA=</HashCode>
       <FileName>ModelFactory.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ModelBase">
-    <Position X="28.75" Y="5.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAIAIAAAIAEAAAAAAAAAAAAAAAEAAABAAAAACAAA=</HashCode>
-      <FileName>ModelBase.h</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="vbo" />
-      <Field Name="vao" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="Sphere">
-    <Position X="23.25" Y="8.5" Width="1.5" />
+    <Position X="26" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Sphere.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Square">
-    <Position X="21.5" Y="8.5" Width="1.5" />
+    <Position X="26" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAgAAAAAAA=</HashCode>
       <FileName>Square.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Triangle">
-    <Position X="19.75" Y="8.5" Width="1.5" />
+    <Position X="24.25" Y="12" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Triangle.h</FileName>
@@ -171,21 +160,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="SuziFlat">
-    <Position X="27" Y="8.5" Width="1.5" />
+    <Position X="24.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>SuziFlat.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SuziSmooth">
-    <Position X="25" Y="8.5" Width="1.5" />
+    <Position X="24.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAA=</HashCode>
       <FileName>SuziSmooth.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ManagerBase&lt;TKey, TValue, Factory&gt;">
-    <Position X="14.75" Y="5.75" Width="3" />
+    <Position X="17.5" Y="10.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAABCAAgAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ManagerBase.h</FileName>
@@ -199,38 +188,39 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IRenderable">
-    <Position X="32" Y="1" Width="1.75" />
+    <Position X="32" Y="8.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAEAAABAAAAACAAA=</HashCode>
       <FileName>IRenderable.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Phong">
-    <Position X="26.5" Y="17.5" Width="1.75" />
+    <Position X="38.25" Y="17.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>QAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Phong.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FourSpheresSceneBuilder">
-    <Position X="8.5" Y="15.5" Width="3" />
+    <Position X="13.5" Y="19.5" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FourSpheresSceneBuilder.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SceneBuilder">
-    <Position X="11.5" Y="13.25" Width="3" />
+    <Position X="16.75" Y="17.25" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAQQAAAAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAAAAAAAABAQAAAAAAAAAAAQQAAAAAAAAAAAAAAQAAA=</HashCode>
       <FileName>SceneBuilder.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="modelManager" />
+      <Field Name="staticModelManager" />
     </ShowAsAssociation>
   </Class>
   <Class Name="LightBase">
-    <Position X="31.25" Y="15" Width="2.5" />
+    <Position X="38.75" Y="14.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEBAAAACAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>LightBase.h</FileName>
@@ -240,33 +230,124 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="PointLight">
-    <Position X="29.25" Y="17.5" Width="3" />
+    <Position X="40.75" Y="17.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAIAAACAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAABAAAAIAAACAA=</HashCode>
       <FileName>PointLight.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="phong" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="StaticModelFactory">
+    <Position X="11.5" Y="9.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>StaticModelFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticModelBase" Collapsed="true">
+    <Position X="28.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAEAAAAAAAAAAAAAAAEAAABAAAAACCAA=</HashCode>
+      <FileName>StaticModelBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mesh">
+    <Position X="28.5" Y="12" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAQIAAAAAIAUAAAAAAAAAAAAAQAEAAARAAAAACAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model">
+    <Position X="32.75" Y="11.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAYAAAAACAAAAAAAAAkACABgAQAgCAAA=</HashCode>
+      <FileName>Model.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErrorChecker" Collapsed="true">
+    <Position X="0.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>ErrorChecker.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Updatable">
+    <Position X="38.25" Y="11.25" Width="3.5" />
+    <NestedTypes>
+      <Typedef Name="Updatable::UpdateCallback" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Updatable.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Updatable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Logger">
+    <Position X="24.5" Y="18.25" Width="3.25" />
+    <NestedTypes>
+      <Enum Name="Logger::LogType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Logger.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAIAAAQAEAAAAABAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Size&lt;T&gt;">
+    <Position X="4.25" Y="15.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAQAQAAAAABAAAQAAAAAAAAAAEAAAAQ=</HashCode>
+      <FileName>Size.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorUtils">
+    <Position X="21.75" Y="18.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ColorUtils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Vertex">
+    <Position X="28.5" Y="15.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAgAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mesh.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Typedef Name="ModelManager" Collapsed="true">
-    <Position X="11" Y="11.5" Width="4.75" />
+    <Position X="13.5" Y="14" Width="4.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ModelManager.h</FileName>
     </TypeIdentifier>
   </Typedef>
+  <Typedef Name="StaticModelManager" Collapsed="true">
+    <Position X="19.25" Y="14" Width="6.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StaticModelManager.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
   <Enum Name="CameraMove">
-    <Position X="0.75" Y="10.25" Width="1.5" />
+    <Position X="0.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAEAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAI=</HashCode>
       <FileName>Camera.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ShaderType">
-    <Position X="37.25" Y="5.5" Width="1.5" />
+    <Position X="42" Y="5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Shader.h</FileName>
     </TypeIdentifier>
   </Enum>
@@ -292,17 +373,24 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="ModelType">
-    <Position X="8.25" Y="11" Width="1.5" />
+    <Position X="13.5" Y="15" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAgQAAAAIAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>ModelFactory.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="CameraZoom">
-    <Position X="3" Y="10.25" Width="1.5" />
+    <Position X="3" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>Camera.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StaticModelType">
+    <Position X="23.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAgQAAAAIAAAAACAAAAAA=</HashCode>
+      <FileName>StaticModelFactory.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

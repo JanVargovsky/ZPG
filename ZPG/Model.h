@@ -5,7 +5,7 @@
 
 #include <vector>
 
-class Model : IRenderable
+class Model : public IRenderable
 {
 private:
 	std::vector<Mesh*> meshes;
