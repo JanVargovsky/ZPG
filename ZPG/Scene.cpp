@@ -80,9 +80,10 @@ void Scene::Render()
 	glfwSwapBuffers(window);
 }
 
-void Scene::Add(Object * object)
+Object* Scene::Add(Object *object)
 {
 	objects.push_back(object);
+	return object;
 }
 
 void Scene::ChangeColor(int id)
@@ -111,14 +112,16 @@ void Scene::SetTitle(std::string title)
 	glfwSetWindowTitle(window, title.c_str());
 }
 
-void Scene::Add(Program * shader)
+Program* Scene::Add(Program *shader)
 {
 	shaders.push_back(shader);
+	return shader;
 }
 
-void Scene::Add(PointLight * light)
+PointLight* Scene::Add(PointLight * light)
 {
 	pointLights.push_back(light);
+	return light;
 }
 
 void Scene::ChangeViewPort()

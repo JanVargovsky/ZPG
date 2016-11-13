@@ -10,27 +10,22 @@ using namespace glm;
 
 SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 {
-	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
-	scene->Add(program);
-
+	auto program = scene->Add(new Program("Shaders/Phong.vert", "Shaders/Phong.frag"));
 
 	{
-		auto obj = new Object(program, modelManager->Get(ModelType::FarmHouse));
+		auto obj = scene->Add(new Object(program, modelManager->Get(ModelType::FarmHouse)));
 		auto &transform = obj->GetTransform();
 		const float scale = 0.2f;
 		transform.SetScale(vec3(scale, scale, scale));
-		scene->Add(obj);
 	}
 
 	{
-		Program *program = new Program("Shaders/Simple.vert", "Shaders/Simple.frag");
-		scene->Add(program);
-		auto floorObject = new Object(program, staticModelManager->Get(StaticModelType::SquareModel));
-		floorObject->SetColor(ColorUtils::GetRandomColor());
+		auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
+		auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::SquareModel)));
+		floorObject->SetColor(ColorUtils::GetColor(64,46,35));
 		auto &transform = floorObject->GetTransform();
 		transform.SetPosition(vec3(0, 0, 0));
 		transform.SetScale(vec3(100));
-		scene->Add(floorObject);
 	}
 
 	return this;
@@ -38,11 +33,8 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 {
-	auto pointLight = new PointLight(vec3(5, 5, 5), 1);
-	scene->Add(pointLight);
-
-	auto pointLight2 = new PointLight(vec3(0, 2, 0), 1);
-	scene->Add(pointLight2);
+	auto pointLight = scene->Add(new PointLight(vec3(5, 5, 5), 1));
+	auto pointLight2 = scene->Add(new PointLight(vec3(0, 2, 0), 1));
 
 	return this;
 }

@@ -27,9 +27,9 @@ public:
 	bool Initialize();
 	bool CanRender();
 	void Render();
-	void Add(Object * object);
-	void Add(Program * shader);
-	void Add(PointLight * light);
+	Object* Add(Object *object);
+	Program* Add(Program *shader);
+	PointLight* Add(PointLight *light);
 
 	void ChangeViewPort(int width, int height);
 	void SetCamera();
