@@ -9,7 +9,7 @@
 using namespace std;
 using namespace glm;
 
-Camera::Camera(int width, int height, float fov, float aspect, float near, float far)
+Camera::Camera(float fov, float aspect, float near, float far)
 	: fov(fov), aspect(aspect), near(near), far(far),
 	up(vec3(0.f, 1.f, 0.f))
 {

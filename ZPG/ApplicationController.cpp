@@ -16,23 +16,17 @@ void ApplicationController::OnError(int error, const char * description)
 
 void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
+	keyStates[key] = action != GLFW_RELEASE;
+	this->mods = mods;
+
+	if (keyStates[GLFW_KEY_ESCAPE])
+		glfwSetWindowShouldClose(window, GL_TRUE);
+
 	//GLFW_MOD_SHIFT
 	//GLFW_MOD_CONTROL
 	//GLFW_MOD_ALT
 
-	if ((action == GLFW_PRESS || action == GLFW_REPEAT) && IsCameraMove(key))
-		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraMove(key), mods == GLFW_MOD_SHIFT);
-
-	if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-
-	if ((action == GLFW_PRESS || action == GLFW_REPEAT) && key == GLFW_KEY_SPACE)
-	{
-		auto direction = mods == GLFW_MOD_SHIFT ? CameraZoom::Out : CameraZoom::In;
-		Application::GetInstance().GetScene()->GetCamera()->Move(direction);
-	}
-
-	//printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
+	printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
 }
 
 void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
@@ -49,7 +43,7 @@ void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 	auto viewPort = Application::GetInstance().GetScene()->GetViewPort();
 	auto position = unProject(screenPosition, view, projection, viewPort);
 
-	Logger::Information("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
+	//Logger::Information("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
 }
 
 void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button, int action, int mode)
@@ -122,6 +116,22 @@ void ApplicationController::OnMouseScroll(GLFWwindow * window, double xoffset, d
 	if (IsCameraZoom(yoffset))
 		Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraZoom(yoffset));
 	//cout << "xoffset: " << xoffset << " yoffset: " << yoffset << endl;
+}
+
+void ApplicationController::HandleKeys()
+{
+	const int moveKeys[] = { GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D };
+
+	for (auto key : moveKeys)
+		if (keyStates[key])
+			Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraMove(key), mods == GLFW_MOD_SHIFT);
+
+
+	if (keyStates[GLFW_KEY_SPACE])
+	{
+		auto direction = mods == GLFW_MOD_SHIFT ? CameraZoom::Out : CameraZoom::In;
+		Application::GetInstance().GetScene()->GetCamera()->Move(direction);
+	}
 }
 
 bool ApplicationController::IsCameraMove(int key)

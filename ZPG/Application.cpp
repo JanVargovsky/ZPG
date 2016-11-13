@@ -20,7 +20,9 @@ Application& Application::GetInstance()
 Application::Application()
 {
 	controller = new ApplicationController;
-	scene = new Scene(new Camera(800, 600, radians(45.0f), 4.0f / 3.0f, 0.1f, 1000.0f));
+	const float W = 1366, H = 768;
+	const float ratio = W / H;
+	scene = new Scene(new Camera(radians(45.0f), ratio, 0.1f, 1000.0f), W, H);
 
 	initialized = false;
 }
@@ -125,6 +127,7 @@ void Application::Run()
 		glClearColor(.2f, .3f, .4f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
+		controller->HandleKeys();
 		scene->Render();
 		ErrorChecker::CheckOpenGLError();
 	}

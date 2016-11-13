@@ -98,7 +98,7 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 
 SceneBuilder * FourSpheresSceneBuilder::BuildLights(Scene * scene)
 {
-	auto pointLight = new PointLight(vec3(5, 5, 5), Phong(vec3()), 1);
+	auto pointLight = new PointLight(vec3(5, 5, 5), 1);
 	//pointLight->RegisterOnUpdate([pointLight]() {
 	//	auto & transform = pointLight->GetTransform();
 	//	const auto center = vec3(0, 0, 0);
@@ -108,8 +108,13 @@ SceneBuilder * FourSpheresSceneBuilder::BuildLights(Scene * scene)
 	//pointLight->Update();
 	scene->Add(pointLight);
 
-	auto pointLight2 = new PointLight(vec3(0, 2, 0), Phong(vec3()), 1);
+	auto pointLight2 = new PointLight(vec3(0, 2, 0), 1);
 	scene->Add(pointLight2);
 
+
+	scene->Add(new PointLight(vec3(0, 7, -2), 1));
+	scene->Add(new PointLight(vec3(0, 7, -4), 1));
+	scene->Add(new PointLight(vec3(0, 7, -6), 1));
+	
 	return this;
 }

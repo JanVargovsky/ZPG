@@ -6,7 +6,12 @@
 
 class ApplicationController
 {
+private:
+	bool keyStates[512] = {};
+	int mods;
+
 public:
+
 	void OnError(int error, const char * description);
 	void OnKeyChange(GLFWwindow* window, int key, int scancode, int action, int mods);
 	void OnMouseMove(GLFWwindow *window, double x, double y);
@@ -16,6 +21,7 @@ public:
 	void OnWindowSize(GLFWwindow* window, int width, int height);
 	void OnMouseScroll(GLFWwindow *window, double xoffset, double yoffset);
 
+	void HandleKeys();
 private:
 	bool IsCameraMove(int key);
 	CameraMove ParseToCameraMove(int key);

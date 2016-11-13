@@ -25,12 +25,6 @@
     <Filter Include="Render\Light">
       <UniqueIdentifier>{1db82d46-63be-4b7c-a6cf-63b139ed3ac0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Light">
-      <UniqueIdentifier>{3704e87b-2481-4c7d-8086-4a39a49c6fca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common\Builder">
-      <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="OpenGL">
       <UniqueIdentifier>{8eadb393-f16e-4df7-acf3-ae7c815d8f42}</UniqueIdentifier>
     </Filter>
@@ -40,26 +34,23 @@
     <Filter Include="Render\Model\Static">
       <UniqueIdentifier>{7e4a8318-8d65-408c-8f67-f214ce311027}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Models">
-      <UniqueIdentifier>{e849c03d-cc89-4072-ab13-6084c5ecf851}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Models\StickFigure">
-      <UniqueIdentifier>{8c434e84-2d8a-4d9f-9f2c-726225192e89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Helpers">
-      <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
-    </Filter>
     <Filter Include="OpenGL\BufferObject">
       <UniqueIdentifier>{57d2f2fc-5f77-4ea9-9cd0-912147a505e5}</UniqueIdentifier>
     </Filter>
     <Filter Include="OpenGL\BufferObject\Base">
       <UniqueIdentifier>{96a09dc7-b62a-4e18-b517-5a66c008971c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Models\Tree">
-      <UniqueIdentifier>{4f3abfce-e9e3-4e14-bada-58a5d92945cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="OpenGL\Shader">
       <UniqueIdentifier>{b69e759f-45ad-4c1e-8d3e-9ec50511a03d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\Texture">
+      <UniqueIdentifier>{cba7f566-6d10-4fdd-9d8c-f8aded528273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\SceneBuilder">
+      <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,17 +106,14 @@
     <ClCompile Include="LightBase.cpp">
       <Filter>Render\Light</Filter>
     </ClCompile>
-    <ClCompile Include="Phong.cpp">
-      <Filter>Common\Light</Filter>
-    </ClCompile>
     <ClCompile Include="FourSpheresSceneBuilder.cpp">
-      <Filter>Common\Builder</Filter>
+      <Filter>Common\SceneBuilder</Filter>
     </ClCompile>
     <ClCompile Include="SceneBuilder.cpp">
-      <Filter>Common\Builder</Filter>
+      <Filter>Common\SceneBuilder</Filter>
     </ClCompile>
     <ClCompile Include="ColorUtils.cpp">
-      <Filter>System\Helpers</Filter>
+      <Filter>Helpers</Filter>
     </ClCompile>
     <ClCompile Include="Updatable.cpp">
       <Filter>Render</Filter>
@@ -163,6 +151,15 @@
     <ClCompile Include="ModelFactory.cpp">
       <Filter>Common\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="TestSceneBuilder.cpp">
+      <Filter>Common\SceneBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>OpenGL\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>OpenGL\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -173,17 +170,14 @@
     <None Include="Shaders\Simple.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\Phong.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Shaders\Phong.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Models\Tree\Tree.obj">
-      <Filter>Models\Tree</Filter>
+    <None Include="Shaders\PhongWithoutTexture.frag">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="Models\StickFigure\Stick_Figure_by_Swp.OBJ">
-      <Filter>Models\StickFigure</Filter>
+    <None Include="Shaders\Phong.frag">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -247,17 +241,14 @@
     <ClInclude Include="LightBase.h">
       <Filter>Render\Light</Filter>
     </ClInclude>
-    <ClInclude Include="Phong.h">
-      <Filter>Common\Light</Filter>
-    </ClInclude>
     <ClInclude Include="SceneBuilder.h">
-      <Filter>Common\Builder</Filter>
+      <Filter>Common\SceneBuilder</Filter>
     </ClInclude>
     <ClInclude Include="FourSpheresSceneBuilder.h">
-      <Filter>Common\Builder</Filter>
+      <Filter>Common\SceneBuilder</Filter>
     </ClInclude>
     <ClInclude Include="ColorUtils.h">
-      <Filter>System\Helpers</Filter>
+      <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Updatable.h">
       <Filter>Render</Filter>
@@ -306,6 +297,15 @@
     </ClInclude>
     <ClInclude Include="ModelManager.h">
       <Filter>Common\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneBuilder.h">
+      <Filter>Common\SceneBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>OpenGL\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>OpenGL\Texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

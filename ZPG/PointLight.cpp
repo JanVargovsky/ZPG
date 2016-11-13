@@ -2,8 +2,8 @@
 
 using namespace std;
 
-PointLight::PointLight(glm::vec3 position, Phong phong, float attenuation)
-	:LightBase::LightBase(position), phong(phong), attenuation(attenuation)
+PointLight::PointLight(glm::vec3 position, float attenuation)
+	:LightBase::LightBase(position), attenuation(attenuation)
 {
 }
 

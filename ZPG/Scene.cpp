@@ -40,7 +40,9 @@ bool Scene::Initialize()
 		cerr << "Failed to create GLFW window" << endl;
 		return false;
 	}
-	glfwSetWindowPos(window, 1000, 100);
+#if _DEBUG
+	glfwSetWindowPos(window, 500, 100);
+#endif
 
 	camera->OnCameraMove([this](Camera* camera)
 	{

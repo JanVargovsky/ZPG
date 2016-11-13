@@ -5,6 +5,8 @@
 #include "StaticModelManager.h"
 #include "FourSpheresSceneBuilder.h"
 #include "ModelManager.h"
+#include "TestSceneBuilder.h"
+#include "TextureLoader.h"
 
 #include <memory>
 
@@ -31,6 +33,9 @@ void DependencyResolver::Initialize()
 	Register(new ModelFactory);
 	Register(new ModelManager(Resolve<ModelFactory*>()));
 
+	Register(new TextureLoader);
+
 	// CurrentScene
-	Register<SceneBuilder>(new FourSpheresSceneBuilder);
+	Register<SceneBuilder>(new TestSceneBuilder);
+	//Register<SceneBuilder>(new FourSpheresSceneBuilder);
 }

@@ -44,7 +44,7 @@ private:
 
 	std::vector<std::function<void(Camera*)>> onCameraMove;
 public:
-	Camera(int width, int height, float fov, float aspect, float near, float far);
+	Camera(float fov, float aspect, float near, float far);
 
 	glm::mat4 GetView();
 	glm::mat4 GetProjection();

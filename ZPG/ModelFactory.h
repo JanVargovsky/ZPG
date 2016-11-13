@@ -4,7 +4,8 @@
 
 enum ModelType {
 	StickFigure,
-	Tree
+	Tree,
+	Butterfly
 };
 
 class ModelFactory : public FactoryBase<ModelType, Model*> 

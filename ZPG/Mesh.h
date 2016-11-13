@@ -1,10 +1,12 @@
 #pragma once
 #include "IRenderable.h"
+#include "Texture.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
 
 #include <glm/vec3.hpp>
+#include <glm/vec2.hpp>
 #include <GL/glew.h>
 #include <assimp/vector3.h>
 
@@ -13,9 +15,10 @@
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
+	glm::vec2 TextureCoords;
 
-	Vertex(glm::vec3 position, glm::vec3 normal)
-		: Position(position), Normal(normal)
+	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 textureCoords)
+		: Position(position), Normal(normal), TextureCoords(textureCoords)
 	{
 	}
 };
@@ -25,18 +28,14 @@ class Mesh : public IRenderable
 private:
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
+	std::vector<Texture*> textures;
 
 	VAO vao;
 	VBO vbo;
 	EBO ebo;
 
-	//GLuint 
-		//VAO,
-		//VBO,
-		//EBO;
-
 public:
-	Mesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indices);
+	Mesh(std::vector<Vertex> &vertices, std::vector<GLuint> &indices, std::vector<Texture*> &textures);
 
 	virtual void PreRender() override;
 	virtual void Render() override;

@@ -7,7 +7,6 @@ struct PointLight {
 
 in vec3 worldPosition;
 in vec3 worldNormal;
-in vec2 texCoord;
 
 out vec4 outColor;
 
@@ -18,31 +17,17 @@ uniform vec3 cameraPosition;
 uniform PointLight pointLights[4];
 uniform int pointLightCount = 0;
 
-// Textures
-uniform sampler2D textureDiffuse;
-uniform sampler2D textureSpecular;
-
-// Functions
-vec3 calcPointLight();
-
-void main()
-{
-	//outColor = vec4(color, 1.0);
-	//outColor = vec4(calcPointLight(), 1.0);
-	outColor = texture(textureDiffuse, texCoord) * vec4(calcPointLight(), 1.0);
-};
-
 vec3 calcPointLight()
 {
 	const float I_L = 0.3;
 	const float I_A = 1;
-	const float R_A = 0.5;
+	const float R_A = 0.3;
 	const float R_S = 10;
 	const float h = 20;
 
 	vec3 V = normalize(cameraPosition - worldPosition);
 
-	vec3 ambient = vec3(I_A * R_A);
+	vec3 ambient = I_A * R_A * color;
 	vec3 diffuse = vec3(0);
 	vec3 specular = vec3(0);
 
@@ -59,3 +44,9 @@ vec3 calcPointLight()
 	}
 	return (ambient + diffuse + specular);
 }
+
+void main()
+{
+	//outColor = vec4(color, 1.0);
+	outColor = vec4(calcPointLight(), 1.0);
+};
