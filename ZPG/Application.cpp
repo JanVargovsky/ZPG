@@ -1,12 +1,8 @@
 #include "Application.h"
-#include "Program.h"
 #include "SceneBuilder.h"
 #include "ErrorChecker.h"
 
 #include <glm/gtc/matrix_transform.hpp>
-
-#include <iostream>
-#include <memory>
 
 using namespace std;
 using namespace glm;
@@ -37,7 +33,7 @@ bool Application::Initialize()
 	if (initialized)
 		return true;
 
-	glfwSetErrorCallback([](int error, const char * description) { Application::GetInstance().GetController()->OnError(error, description); });
+	glfwSetErrorCallback([](int error, const char * description) { Logger::Error(description); });
 
 	if (!glfwInit()) {
 		Logger::Error("Failed to start GLFW");
@@ -101,7 +97,6 @@ bool Application::Initialize()
 		->BuildObjects(scene)
 		->BuildLights(scene);
 
-
 	initialized = true;
 
 	ErrorChecker::CheckOpenGLError();
@@ -118,8 +113,18 @@ void Application::Run()
 
 	scene->SetCamera();
 
+	double lastTime = glfwGetTime();
+	int frames = 0;
 	while (scene->CanRender())
 	{
+		frames++;
+		if (glfwGetTime() - lastTime >= 1.)
+		{
+			scene->SetTitle("ZPG (" + to_string(frames) + " fps)");
+			frames = 0;
+			lastTime += 1.0;
+		}
+
 		// update other events like input handling
 		glfwPollEvents();
 

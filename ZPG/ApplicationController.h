@@ -11,8 +11,6 @@ private:
 	int mods;
 
 public:
-
-	void OnError(int error, const char * description);
 	void OnKeyChange(GLFWwindow* window, int key, int scancode, int action, int mods);
 	void OnMouseMove(GLFWwindow *window, double x, double y);
 	void OnMouseButtonChange(GLFWwindow* window, int button, int action, int mode);

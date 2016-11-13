@@ -14,17 +14,12 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 	scene->Add(program);
 
 
-	auto butterflyModel = modelManager->Get(ModelType::Butterfly);
 	{
-		auto butterflyObject = new Object(program, butterflyModel);
-		auto &transform = butterflyObject->GetTransform();
-		butterflyObject->RegisterOnUpdate([&transform]() {
-			//transform.AddRotation(2, vec3(0, 1, 0));
-		});
+		auto obj = new Object(program, modelManager->Get(ModelType::FarmHouse));
+		auto &transform = obj->GetTransform();
 		const float scale = 0.2f;
 		transform.SetScale(vec3(scale, scale, scale));
-		transform.SetPosition(vec3(-15, 0, 15));
-		scene->Add(butterflyObject);
+		scene->Add(obj);
 	}
 
 	{

@@ -9,11 +9,6 @@
 using namespace std;
 using namespace glm;
 
-void ApplicationController::OnError(int error, const char * description)
-{
-	Logger::Error(description);
-}
-
 void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	keyStates[key] = action != GLFW_RELEASE;
@@ -26,7 +21,7 @@ void ApplicationController::OnKeyChange(GLFWwindow * window, int key, int scanco
 	//GLFW_MOD_CONTROL
 	//GLFW_MOD_ALT
 
-	printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
+	//printf("Key press [%d,%d,%d,%d] \n", key, scancode, action, mods);
 }
 
 void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
@@ -43,7 +38,7 @@ void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 	auto viewPort = Application::GetInstance().GetScene()->GetViewPort();
 	auto position = unProject(screenPosition, view, projection, viewPort);
 
-	//Logger::Information("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
+	Logger::Verbose("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
 }
 
 void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button, int action, int mode)
@@ -67,7 +62,7 @@ void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button,
 			//printf("Clicked on pixel %d, %d, color % 02hhx % 02hhx % 02hhx % 02hhx, depth %f, stencil index %u\n",
 			//	x, y, color[0], color[1], color[2], color[3], depth, index);
 
-			Logger::Information("Clicked on pixel " + to_string(x) + ", " + to_string(y) +
+			Logger::Verbose("Clicked on pixel " + to_string(x) + ", " + to_string(y) +
 				", color " + to_string((int)color[0]) + " " + to_string((int)color[1]) + " " + to_string((int)color[2]) + " " + to_string((int)color[3]) +
 				", depth " + to_string(depth) + ", stencil index " + to_string(index));
 
@@ -91,7 +86,7 @@ void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button,
 			//position.y = 0;
 
 			Application::GetInstance().GetScene()->SpawnObject(position);
-			Logger::Information("spawning object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
+			Logger::Verbose("spawning object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
 		}
 	}
 }
@@ -121,11 +116,9 @@ void ApplicationController::OnMouseScroll(GLFWwindow * window, double xoffset, d
 void ApplicationController::HandleKeys()
 {
 	const int moveKeys[] = { GLFW_KEY_W , GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D };
-
 	for (auto key : moveKeys)
 		if (keyStates[key])
 			Application::GetInstance().GetScene()->GetCamera()->Move(ParseToCameraMove(key), mods == GLFW_MOD_SHIFT);
-
 
 	if (keyStates[GLFW_KEY_SPACE])
 	{

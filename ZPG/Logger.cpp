@@ -16,21 +16,23 @@ void Logger::Information(std::string message)
 
 void Logger::Verbose(std::string message)
 {
+#if _DEBUG
 	Write(LogType::LogType_Verbose, message);
+#endif
 }
 
 void Logger::Warning(std::string message)
 {
+
 	Write(LogType::LogType_Warning, message);
 }
 
 void Logger::Write(LogType logType, std::string message)
 {
-#if _DEBUG
 	cerr << "[" << ToString(logType) << "] "
 		<< message
 		<< endl;
-#endif
+
 }
 
 char Logger::ToString(LogType const & logType)

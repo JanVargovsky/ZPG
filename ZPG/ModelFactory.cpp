@@ -19,6 +19,8 @@ std::string ModelFactory::GetPath(ModelType modelType)
 		return "Models/Tree/Tree.obj";
 	case Butterfly:
 		return "Models/Butterfly/Butterfly.obj";
+	case FarmHouse:
+		return "Models/FarmHouse/Farmhouse OBJ.obj";
 	default:
 		throw exception("Unknown model");
 	}

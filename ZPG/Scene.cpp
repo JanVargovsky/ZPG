@@ -106,6 +106,11 @@ void Scene::SpawnObject(glm::vec3 position)
 	Add(obj);
 }
 
+void Scene::SetTitle(std::string title)
+{
+	glfwSetWindowTitle(window, title.c_str());
+}
+
 void Scene::Add(Program * shader)
 {
 	shaders.push_back(shader);

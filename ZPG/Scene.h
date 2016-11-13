@@ -39,6 +39,8 @@ public:
 	void ChangeColor(int id);
 	void SpawnObject(glm::vec3 position);
 
+	void SetTitle(std::string title);
+
 	inline GLFWwindow* GetWindow() { return window; }
 	inline Camera* GetCamera() { return camera; }
 	inline Size<int> GetSize() { return size; }
