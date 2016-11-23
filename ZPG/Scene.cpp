@@ -67,7 +67,7 @@ void Scene::Render()
 		object->PreRender();
 
 		auto shader = object->GetShaderProgram();
-		shader->Send("pointLightCount", pointLights.size());
+		shader->Send("pointLightCount", (int)pointLights.size());
 		for (int i = 0; i < pointLights.size(); i++)
 			pointLights[i]->Send(shader, i);
 

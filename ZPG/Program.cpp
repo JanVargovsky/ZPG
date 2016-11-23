@@ -102,3 +102,11 @@ void Program::Send(const GLchar * name, int value) const
 	glUniform1i(location, value);
 	ErrorChecker::CheckOpenGLError();
 }
+
+void Program::Send(const GLchar * name, float value) const
+{
+	GLuint location = glGetUniformLocation(program, name);
+	ErrorChecker::CheckOpenGLError();
+	glUniform1f(location, value);
+	ErrorChecker::CheckOpenGLError();
+}

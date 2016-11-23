@@ -52,6 +52,9 @@
     <Filter Include="Helpers">
       <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\Sky">
+      <UniqueIdentifier>{13b35d97-11a4-4efd-9064-15908a7a63df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -159,6 +162,15 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>OpenGL\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>Render\Sky</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyDome.cpp">
+      <Filter>Render\Sky</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +318,18 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>OpenGL\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Render\Sky</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Render\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Sky.h">
+      <Filter>Render\Sky</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDome.h">
+      <Filter>Render\Sky</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -147,12 +147,15 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColorUtils.cpp" />
     <ClCompile Include="DependencyResolver.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FourSpheresSceneBuilder.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelFactory.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SkyDome.cpp" />
     <ClCompile Include="TestSceneBuilder.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
@@ -197,6 +200,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorUtils.h" />
     <ClInclude Include="DependencyResolver.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ErrorChecker.h" />
     <ClInclude Include="FactoryBase.h" />
@@ -208,6 +212,9 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="ModelFactory.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Size.h" />
+    <ClInclude Include="Sky.h" />
+    <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SkyDome.h" />
     <ClInclude Include="TestSceneBuilder.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />

@@ -38,3 +38,8 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 	return this;
 }
+
+SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
+{
+	return this;
+}

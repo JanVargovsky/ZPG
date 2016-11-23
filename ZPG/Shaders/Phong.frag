@@ -2,7 +2,13 @@
 
 struct PointLight {
 	vec3 position;
-	//float attenuation;
+	float attenuation;
+};
+
+struct DirectionalLight {
+	vec3 position;
+	float attenuation;
+	vec3 direction;
 };
 
 in vec3 worldPosition;
@@ -17,6 +23,9 @@ uniform vec3 cameraPosition;
 // Lights
 uniform PointLight pointLights[4];
 uniform int pointLightCount = 0;
+
+uniform DirectionalLight directionalLights[2];
+uniform int directionalLightCount = 0;
 
 // Textures
 uniform sampler2D textureDiffuse;

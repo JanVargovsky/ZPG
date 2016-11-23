@@ -93,9 +93,12 @@ bool Application::Initialize()
 	// get version info
 	PrintVersions();
 
-	DependencyResolver::GetInstance().Resolve<SceneBuilder*>()
-		->BuildObjects(scene)
-		->BuildLights(scene);
+	//DependencyResolver::GetInstance().Resolve<SceneBuilder*>()
+	//	->BuildSky(scene)
+	//	->BuildObjects(scene)
+	//	->BuildLights(scene);
+
+	DependencyResolver::GetInstance().Resolve<SceneBuilder*>()->BuildAll(scene);
 
 	initialized = true;
 

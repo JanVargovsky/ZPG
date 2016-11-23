@@ -11,9 +11,10 @@ class LightBase : public Updatable
 private:
 	Transform transform;
 
-public:
-	LightBase(glm::vec3 position);
+protected:
+	LightBase() = default;
 
+public:
 	virtual void Send(Program * program, int index) = 0;
 
 	Transform & GetTransform();

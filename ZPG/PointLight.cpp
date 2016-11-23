@@ -3,13 +3,19 @@
 using namespace std;
 
 PointLight::PointLight(glm::vec3 position, float attenuation)
-	:LightBase::LightBase(position), attenuation(attenuation)
+	: attenuation(attenuation)
 {
+	GetTransform().SetPosition(position);
 }
 
 void PointLight::Send(Program * program, int index)
 {
-	string pointsArrayName = "pointLights";
-	program->Send((pointsArrayName + "[" + to_string(index) + "].position").c_str(), GetTransform().GetPosition());
-	//program->Send((pointsArrayName + "[" + to_string(index) + "].attenuation").c_str(), attenuation);
+	const string pointsArrayName = "pointLights";
+	Send(pointsArrayName, program, index);
+}
+
+void PointLight::Send(std::string name, Program * program, int index)
+{
+	program->Send((name + "[" + to_string(index) + "].position").c_str(), GetTransform().GetPosition());
+	program->Send((name + "[" + to_string(index) + "].attenuation").c_str(), attenuation);
 }

@@ -24,6 +24,7 @@ public:
 	void Send(const GLchar* name, glm::mat4 & value) const;
 	void Send(const GLchar* name, glm::vec3 & value) const;
 	void Send(const GLchar* name, int value) const;
+	void Send(const GLchar* name, float value) const;
 
 private:
 	bool CheckProgram(const int program) const;

@@ -13,4 +13,7 @@ protected:
 public:
 	virtual SceneBuilder* BuildObjects(Scene * scene) = 0;
 	virtual SceneBuilder* BuildLights(Scene * scene) = 0;
+	virtual SceneBuilder* BuildSky(Scene * scene) = 0;
+
+	void BuildAll(Scene * scene);
 };

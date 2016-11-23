@@ -118,3 +118,8 @@ SceneBuilder * FourSpheresSceneBuilder::BuildLights(Scene * scene)
 	
 	return this;
 }
+
+SceneBuilder * FourSpheresSceneBuilder::BuildSky(Scene * scene)
+{
+	return this;
+}
