@@ -62,14 +62,11 @@ void Scene::Render()
 {
 	Update();
 
-	for (auto &object : objects)
+	for (auto object : objects)
 	{
 		object->PreRender();
 
-		auto shader = object->GetShaderProgram();
-		shader->Send("pointLightCount", (int)pointLights.size());
-		for (int i = 0; i < pointLights.size(); i++)
-			pointLights[i]->Send(shader, i);
+		SetLights(object);
 
 		object->Render();
 		object->PostRender();
@@ -99,7 +96,7 @@ void Scene::ChangeColor(int id)
 void Scene::SpawnObject(glm::vec3 position)
 {
 	auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
-	auto obj = new Object(shaders[0], modelManager->Get(ModelType::Tree));
+	auto obj = new Object(shaders[0], modelManager->Get(ModelType::LowPolyTree));
 
 	obj->GetTransform().SetPosition(position);
 	obj->SetColor(ColorUtils::GetRandomColor());
@@ -124,6 +121,24 @@ PointLight* Scene::Add(PointLight * light)
 	return light;
 }
 
+SpotLight * Scene::Add(SpotLight * light)
+{
+	spotLights.push_back(light);
+	return light;
+}
+
+void Scene::SetLights(Object * object)
+{
+	auto shader = object->GetShaderProgram();
+	shader->Send("pointLightCount", (int)pointLights.size());
+	for (int i = 0; i < pointLights.size(); i++)
+		pointLights[i]->Send(shader, i);
+
+	shader->Send("spotLightCount", (int)spotLights.size());
+	for (int i = 0; i < spotLights.size(); i++)
+		spotLights[i]->Send(shader, i);
+}
+
 void Scene::ChangeViewPort()
 {
 	glViewport(0, 0, size.GetWidth(), size.GetHeight());
@@ -132,6 +147,9 @@ void Scene::ChangeViewPort()
 void Scene::Update()
 {
 	for (auto &light : pointLights)
+		light->Update();
+
+	for (auto &light : spotLights)
 		light->Update();
 
 	for (auto &object : objects)

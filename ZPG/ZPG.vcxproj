@@ -147,7 +147,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColorUtils.cpp" />
     <ClCompile Include="DependencyResolver.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FourSpheresSceneBuilder.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -160,7 +160,6 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Updatable.cpp" />
-    <ClCompile Include="LightBase.cpp" />
     <ClCompile Include="StaticModelBase.cpp" />
     <ClCompile Include="StaticModelFactory.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -200,7 +199,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorUtils.h" />
     <ClInclude Include="DependencyResolver.h" />
-    <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ErrorChecker.h" />
     <ClInclude Include="FactoryBase.h" />

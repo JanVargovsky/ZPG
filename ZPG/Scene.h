@@ -4,6 +4,7 @@
 #include "PointLight.h"
 #include "Camera.h"
 #include "Size.h"
+#include "SpotLight.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -20,6 +21,7 @@ private:
 	std::vector<Object*> objects;
 	std::vector<Program*> shaders;
 	std::vector<PointLight*> pointLights;
+	std::vector<SpotLight*> spotLights;
 
 public:
 	Scene(Camera *camera, int width = 800, int height = 600);
@@ -30,6 +32,7 @@ public:
 	Object* Add(Object *object);
 	Program* Add(Program *shader);
 	PointLight* Add(PointLight *light);
+	SpotLight* Add(SpotLight *light);
 
 	void ChangeViewPort(int width, int height);
 	void SetCamera();
@@ -47,6 +50,7 @@ public:
 	inline glm::vec4 GetViewPort() { return glm::vec4(0, 0, size.GetWidth(), size.GetHeight()); };
 
 private:
+	void SetLights(Object * object);
 	void ChangeViewPort();
 	void Update();
 	void RenderCursor();

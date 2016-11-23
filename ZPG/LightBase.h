@@ -8,14 +8,9 @@
 
 class LightBase : public Updatable
 {
-private:
-	Transform transform;
-
 protected:
 	LightBase() = default;
 
 public:
 	virtual void Send(Program * program, int index) = 0;
-
-	Transform & GetTransform();
 };

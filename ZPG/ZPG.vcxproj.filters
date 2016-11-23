@@ -106,9 +106,6 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Render\Light</Filter>
     </ClCompile>
-    <ClCompile Include="LightBase.cpp">
-      <Filter>Render\Light</Filter>
-    </ClCompile>
     <ClCompile Include="FourSpheresSceneBuilder.cpp">
       <Filter>Common\SceneBuilder</Filter>
     </ClCompile>
@@ -166,11 +163,11 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>Render\Sky</Filter>
     </ClCompile>
-    <ClCompile Include="DirectionalLight.cpp">
-      <Filter>Render\Light</Filter>
-    </ClCompile>
     <ClCompile Include="SkyDome.cpp">
       <Filter>Render\Sky</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Render\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,14 +319,14 @@
     <ClInclude Include="SkyBox.h">
       <Filter>Render\Sky</Filter>
     </ClInclude>
-    <ClInclude Include="DirectionalLight.h">
-      <Filter>Render\Light</Filter>
-    </ClInclude>
     <ClInclude Include="Sky.h">
       <Filter>Render\Sky</Filter>
     </ClInclude>
     <ClInclude Include="SkyDome.h">
       <Filter>Render\Sky</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Render\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

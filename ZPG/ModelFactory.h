@@ -7,6 +7,7 @@ enum ModelType {
 	Tree,
 	Butterfly,
 	FarmHouse,
+	LowPolyTree
 };
 
 class ModelFactory : public FactoryBase<ModelType, Model*> 
