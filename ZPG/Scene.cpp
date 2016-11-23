@@ -95,13 +95,15 @@ void Scene::ChangeColor(int id)
 
 void Scene::SpawnObject(glm::vec3 position)
 {
-	auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
-	auto obj = new Object(shaders[0], modelManager->Get(ModelType::LowPolyTree));
+	spotLights[0] = new SpotLight(camera->GetEye(), 1, position - camera->GetEye(), 0.95);
 
-	obj->GetTransform().SetPosition(position);
-	obj->SetColor(ColorUtils::GetRandomColor());
+	//auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
+	//auto obj = new Object(shaders[0], modelManager->Get(ModelType::LowPolyTree));
 
-	Add(obj);
+	//obj->GetTransform().SetPosition(position);
+	//obj->SetColor(ColorUtils::GetRandomColor());
+
+	//Add(obj);
 }
 
 void Scene::SetTitle(std::string title)

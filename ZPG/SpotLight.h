@@ -12,7 +12,7 @@ public:
 
 	virtual void Send(Program * program, int index) override;
 
-	inline void SetDirection(glm::vec3 value) { direction = value; }
+	inline void SetDirection(glm::vec3 value) { direction = glm::normalize(value); }
 	inline glm::vec3 GetDirection() { return direction; }
 
 	inline void SetRadius(float value) { radius = value;}

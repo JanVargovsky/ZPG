@@ -25,7 +25,7 @@ uniform vec3 cameraPosition;
 uniform PointLight pointLights[4];
 uniform int pointLightCount = 0;
 
-uniform SpotLight spotLights[2];
+uniform SpotLight spotLights[4];
 uniform int spotLightCount = 0;
 
 // Textures

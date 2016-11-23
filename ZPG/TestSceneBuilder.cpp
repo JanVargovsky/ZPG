@@ -17,9 +17,9 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 	{
 		auto model = modelManager->Get(ModelType::LowPolyTree);
-		const float X = 6;
-		for (float x = -X; x <= X; x += 2)
-			for (float z = -X; z <= X; z += 2)
+		const float X = 4;
+		for (float x = -X; x <= X; x += 1)
+			for (float z = -X; z <= X; z += 1)
 			{
 				auto &t = scene->Add(new Object(program, model))->GetTransform();
 				t.SetPosition(vec3(x, 0, z));
@@ -53,18 +53,18 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 	{
 		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.2));
-		spotLight->RegisterOnUpdate([spotLight]() {
-			//float radius = abs(sin(glfwGetTime()));
-			//spotLight->SetRadius(radius);
+		//spotLight->RegisterOnUpdate([spotLight]() {
+		//	//float radius = abs(sin(glfwGetTime()));
+		//	//spotLight->SetRadius(radius);
 
-			//float x = 3 + sin(glfwGetTime());
-			//Logger::Information("x= " + to_string(x));
-			//spotLight->SetPosition(vec3(0, x, 0));
+		//	//float x = 3 + sin(glfwGetTime());
+		//	//Logger::Information("x= " + to_string(x));
+		//	//spotLight->SetPosition(vec3(0, x, 0));
 
-			float r = abs(sin(glfwGetTime()));
-			Logger::Information("r= " + to_string(r));
-			spotLight->SetRadius(r);
-		});
+		//	float r = abs(sin(glfwGetTime()));
+		//	Logger::Information("r= " + to_string(r));
+		//	spotLight->SetRadius(r);
+		//});
 	}
 	return this;
 }

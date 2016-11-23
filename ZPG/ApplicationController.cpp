@@ -38,7 +38,7 @@ void ApplicationController::OnMouseMove(GLFWwindow * window, double x, double y)
 	auto viewPort = Application::GetInstance().GetScene()->GetViewPort();
 	auto position = unProject(screenPosition, view, projection, viewPort);
 
-	Logger::Verbose("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
+	//Logger::Verbose("object at x=" + to_string(position.x) + ", y=" + to_string(position.y) + ", z=" + to_string(position.z));
 }
 
 void ApplicationController::OnMouseButtonChange(GLFWwindow * window, int button, int action, int mode)

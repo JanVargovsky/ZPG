@@ -3,7 +3,7 @@
 using namespace std;
 
 SpotLight::SpotLight(glm::vec3 position, float attenuation, glm::vec3 direction, float radius)
-	:PointLight(position, attenuation), direction(direction), radius(radius)
+	:PointLight(position, attenuation), direction(normalize(direction)), radius(radius)
 {
 }
 
