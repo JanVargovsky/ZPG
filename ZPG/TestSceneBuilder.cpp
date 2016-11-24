@@ -52,7 +52,12 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 	//auto pointLight2 = scene->Add(new PointLight(vec3(0, 2, 0), 1));
 
 	{
-		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.2));
+		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.90));
+		spotLight->RegisterOnUpdate([spotLight]() {
+			auto r = 0.9f - abs(cos(glfwGetTime()) / 3);
+			Logger::Information("r=" + to_string(r));
+			spotLight->SetRadius(r);
+		});
 		//spotLight->RegisterOnUpdate([spotLight]() {
 		//	//float radius = abs(sin(glfwGetTime()));
 		//	//spotLight->SetRadius(radius);

@@ -15,6 +15,7 @@ public:
 	inline void SetDirection(glm::vec3 value) { direction = glm::normalize(value); }
 	inline glm::vec3 GetDirection() { return direction; }
 
+	// Note: Value is based on dot product (cos)
 	inline void SetRadius(float value) { radius = value;}
 	inline float GetRadius() { return radius; }
 

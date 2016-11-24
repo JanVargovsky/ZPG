@@ -40,4 +40,6 @@ public:
 	void SetColor(glm::vec3 c) {
 		color = c;
 	}
+private:
+	IRenderable* GetModel() { return model != nullptr ? static_cast<IRenderable*>(model) : static_cast<IRenderable*>(staticModel); }
 };

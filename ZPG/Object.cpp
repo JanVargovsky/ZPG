@@ -26,10 +26,7 @@ Object::Object(Program * program, StaticModelBase * model)
 void Object::PreRender()
 {
 	program->Use();
-	if (model != nullptr)
-		model->PreRender();
-	else
-		staticModel->PreRender();
+	GetModel()->PreRender();
 
 	program->Send("model", GetTransform().Get());
 	if (color.is_initialized())
@@ -40,18 +37,12 @@ void Object::PreRender()
 
 void Object::Render()
 {
-	if (model != nullptr)
-		model->Render();
-	else
-		staticModel->Render();
+	GetModel()->Render();
 }
 
 void Object::PostRender()
 {
-	if (model != nullptr)
-		model->PostRender();
-	else
-		staticModel->PostRender();
+	GetModel()->PostRender();
 	program->Unuse();
 }
 
