@@ -34,12 +34,12 @@ public:
 
 	Transform & GetTransform();
 
-	inline Program* GetShaderProgram() { return program; }
+	inline Program* GetProgram() { return program; }
 	inline int GetId() { return id; }
 
 	void SetColor(glm::vec3 c) {
 		color = c;
 	}
-private:
+
 	IRenderable* GetModel() { return model != nullptr ? static_cast<IRenderable*>(model) : static_cast<IRenderable*>(staticModel); }
 };

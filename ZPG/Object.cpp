@@ -25,12 +25,12 @@ Object::Object(Program * program, StaticModelBase * model)
 
 void Object::PreRender()
 {
-	program->Use();
+	GetProgram()->Use();
 	GetModel()->PreRender();
 
-	program->Send("model", GetTransform().Get());
+	GetProgram()->Send("model", GetTransform().Get());
 	if (color.is_initialized())
-		program->Send("color", color.get());
+		GetProgram()->Send("color", color.get());
 
 	glStencilFunc(GL_ALWAYS, id, 0xFF);
 }
@@ -43,7 +43,7 @@ void Object::Render()
 void Object::PostRender()
 {
 	GetModel()->PostRender();
-	program->Unuse();
+	GetProgram()->Unuse();
 }
 
 Transform & Object::GetTransform()

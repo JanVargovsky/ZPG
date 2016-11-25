@@ -5,6 +5,7 @@
 #include "Sphere.h"
 #include "SuziFlat.h"
 #include "SuziSmooth.h"
+#include "Cube.h"
 
 using namespace std;
 
@@ -28,6 +29,9 @@ StaticModelBase* StaticModelFactory::Create(StaticModelType modelType)
 		break;
 	case SuziSmoothModel:
 		model = new SuziSmooth;
+		break;
+	case CubeModel:
+		model = new Cube;
 		break;
 	default:
 		throw exception("not implemented ModelType");

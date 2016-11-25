@@ -9,6 +9,7 @@ enum StaticModelType
 	SphereModel,
 	SuziFlatModel,
 	SuziSmoothModel,
+	CubeModel,
 };
 
 class StaticModelFactory : public FactoryBase<StaticModelType, StaticModelBase*>

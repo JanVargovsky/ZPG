@@ -1,7 +1,7 @@
 #pragma once
 #include "ArrayBase.h"
 
-/// Vertex Buffer Objects
+/// Vertex Array Objects
 class VAO : public ArrayBase
 {
 public:

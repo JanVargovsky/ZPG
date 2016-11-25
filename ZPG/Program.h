@@ -15,6 +15,7 @@ private:
 
 public:
 	Program(const GLchar* vertexPath, const GLchar* fragmentPath);
+	Program(const std::string pathToShadersWithNameWithoutExtension);
 	~Program();
 
 	bool Compile();

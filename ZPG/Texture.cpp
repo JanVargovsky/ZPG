@@ -26,7 +26,6 @@ void Texture::Unbind()
 
 void Texture::SetImage(int width, int height, void * data)
 {
-	glActiveTexture(GL_TEXTURE0);
 	Bind(0);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

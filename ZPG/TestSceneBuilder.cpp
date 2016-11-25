@@ -4,6 +4,7 @@
 #include "ErrorChecker.h"
 #include "SpotLight.h"
 #include "Logger.h"
+#include "SkyBox.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -35,12 +36,12 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 		transform.SetScale(vec3(scale, scale, scale));
 	}
 	{
-		auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
-		auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::SquareModel)));
-		floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
-		auto &transform = floorObject->GetTransform();
-		transform.SetPosition(vec3(0, 0, 0));
-		transform.SetScale(vec3(100));
+		//auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
+		//auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::SquareModel)));
+		//floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
+		//auto &transform = floorObject->GetTransform();
+		//transform.SetPosition(vec3(0, 0, 0));
+		//transform.SetScale(vec3(100));
 	}
 
 	return this;
@@ -76,5 +77,18 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 {
+	auto program = scene->Add(new Program("Shaders/SkyBox"));
+	string images[6] = {
+		"Models/mp_midnight/midnight-silence_rt.jpg",
+		"Models/mp_midnight/midnight-silence_lf.jpg",
+		"Models/mp_midnight/midnight-silence_up.jpg",
+		"Models/mp_midnight/midnight-silence_dn.jpg",
+		"Models/mp_midnight/midnight-silence_bk.jpg",
+		"Models/mp_midnight/midnight-silence_ft.jpg"
+	};
+
+	auto skyBox = new SkyBox(program, staticModelManager->Get(StaticModelType::CubeModel), images);
+	scene->Add(skyBox);
+
 	return this;
 }

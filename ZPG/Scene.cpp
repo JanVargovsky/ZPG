@@ -98,7 +98,7 @@ void Scene::SpawnObject(glm::vec3 position)
 	//spotLights[0] = new SpotLight(camera->GetEye(), 1, position - camera->GetEye(), 0.);
 
 	auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
-	auto obj = new Object(shaders[0], modelManager->Get(ModelType::LowPolyTree));
+	auto obj = new Object(Add(new Program("Shaders/Phong")), modelManager->Get(ModelType::LowPolyTree));
 
 	obj->GetTransform().SetPosition(position);
 	obj->SetColor(ColorUtils::GetRandomColor());
@@ -131,13 +131,13 @@ SpotLight * Scene::Add(SpotLight * light)
 
 void Scene::SetLights(Object * object)
 {
-	auto shader = object->GetShaderProgram();
+	auto shader = object->GetProgram();
 	shader->Send("pointLightCount", (int)pointLights.size());
-	for (int i = 0; i < pointLights.size(); i++)
+	for (int i = 0; i < (int)pointLights.size(); i++)
 		pointLights[i]->Send(shader, i);
 
 	shader->Send("spotLightCount", (int)spotLights.size());
-	for (int i = 0; i < spotLights.size(); i++)
+	for (int i = 0; i < (int)spotLights.size(); i++)
 		spotLights[i]->Send(shader, i);
 }
 
@@ -163,7 +163,7 @@ void Scene::RenderCursor()
 	glDisable(GL_STENCIL_TEST);
 	glDisable(GL_DEPTH_TEST);
 
-	const float CURSOR_SIZE = 0.03;
+	const float CURSOR_SIZE = 0.03f;
 	glColor3f(0, 0, 0);
 	glLineWidth(3);
 	glBegin(GL_LINES);

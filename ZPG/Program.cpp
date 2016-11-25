@@ -23,6 +23,11 @@ Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
 	ErrorChecker::CheckOpenGLError();
 }
 
+Program::Program(const string pathToShadersWithNameWithoutExtension)
+	:Program((const GLchar*)(pathToShadersWithNameWithoutExtension + ".vert").c_str(), (const GLchar*)(pathToShadersWithNameWithoutExtension + ".frag").c_str())
+{
+}
+
 Program::~Program()
 {
 	glUseProgram(0);

@@ -147,6 +147,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColorUtils.cpp" />
     <ClCompile Include="DependencyResolver.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FourSpheresSceneBuilder.cpp" />
@@ -190,6 +191,8 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <None Include="Shaders\Simple.frag" />
     <None Include="Shaders\Simple.vert" />
     <None Include="Shaders\Phong.vert" />
+    <None Include="Shaders\SkyBox.frag" />
+    <None Include="Shaders\SkyBox.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -199,6 +202,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorUtils.h" />
     <ClInclude Include="DependencyResolver.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ErrorChecker.h" />
