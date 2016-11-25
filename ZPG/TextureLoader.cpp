@@ -1,4 +1,5 @@
 #include "TextureLoader.h"
+#include "Logger.h"
 
 #include <boost/filesystem.hpp>
 #include <opencv2\core\core.hpp>
@@ -18,6 +19,7 @@ Texture* TextureLoader::LoadTexture(std::string directory, std::string name, aiT
 	{
 		texture = new Texture();
 		cv::Mat image = imread(path, CV_LOAD_IMAGE_COLOR);
+		Logger::Verbose("Image " + path + "(" + to_string(image.cols) + " x " + to_string(image.rows) + ") was loaded");
 		//imshow(name, image);
 		texture->SetImage(image.cols, image.rows, image.ptr());
 		image.release();

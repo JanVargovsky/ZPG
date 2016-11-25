@@ -49,14 +49,14 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 {
-	//auto pointLight = scene->Add(new PointLight(vec3(5, 5, 5), 1));
-	//auto pointLight2 = scene->Add(new PointLight(vec3(0, 2, 0), 1));
+	auto pointLight = scene->Add(new PointLight(vec3(5, 5, 5), 1));
+	auto pointLight2 = scene->Add(new PointLight(vec3(0, 2, 0), 1));
 
 	{
 		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.90));
 		spotLight->RegisterOnUpdate([spotLight]() {
 			auto r = 0.9f - abs(cos(glfwGetTime()) / 3);
-			Logger::Information("r=" + to_string(r));
+			//Logger::Information("r=" + to_string(r));
 			spotLight->SetRadius(r);
 		});
 		//spotLight->RegisterOnUpdate([spotLight]() {
