@@ -7,8 +7,6 @@ class Texture
 {
 private:
 	GLuint id;
-	//aiTextureType type;
-	//std::string path;
 	GLenum target;
 
 public:
