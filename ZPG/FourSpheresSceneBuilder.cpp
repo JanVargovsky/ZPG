@@ -10,7 +10,7 @@ using namespace glm;
 
 SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 {
-	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
+	Program *program = new Program("Shaders\\Phong.vert", "Shaders\\Phong.frag");
 	scene->Add(program);
 	auto sphereModel = staticModelManager->Get(StaticModelType_Sphere);
 

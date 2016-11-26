@@ -1,12 +1,14 @@
 #include "Texture.h"
 
-Texture::Texture()
+Texture::Texture(GLenum target)
+	:target(target)
 {
 	Initialize();
 }
 
 Texture::~Texture()
 {
+	glDeleteTextures(1, &id);
 }
 
 void Texture::Initialize()
@@ -24,12 +26,10 @@ void Texture::Unbind()
 {
 }
 
-void Texture::SetImage(int width, int height, void * data)
+void Texture::SetImage(int width, int height, void * data, GLenum type)
 {
-	Bind();
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexImage2D(GL_TEXTURE_2D, // Type of texture 1D, 2D, 3D
+	glTexImage2D(type, // Type of texture 1D, 2D, 3D
 		0, // Pyramid level (for mip-mapping) - 0 is the top level
 		GL_RGB, // Internal colour format to convert to
 		width, // Image width i.e. 640

@@ -6,7 +6,7 @@
 class SkyDome : public Object
 {
 private:
-	Texture* texture;
+	Texture *texture;
 
 public:
 	SkyDome(Program *program, IRenderable *model, std::string textureName, float radius);

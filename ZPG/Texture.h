@@ -12,13 +12,13 @@ private:
 	GLenum target;
 
 public:
-	Texture();
+	Texture(GLenum target);
 	~Texture();
 
 	void Bind(int offset = 0);
 	void Unbind();
 
-	void SetImage(int width, int height, void *data);
+	void SetImage(int width, int height, void *data, GLenum type);
 
 private:
 	void Initialize();

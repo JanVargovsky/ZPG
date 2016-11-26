@@ -20,9 +20,10 @@ void SkyBox::PreRender()
 
 	GetProgram()->Use();
 	GetModel()->PreRender();
-	glActiveTexture(GL_TEXTURE0);
+	texture->Bind();
+	//glActiveTexture(GL_TEXTURE0);
 	GetProgram()->Send("skybox", 0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
+	//glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
 }
 
 void SkyBox::Render()
@@ -34,6 +35,7 @@ void SkyBox::PostRender()
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	GetModel()->PostRender();
+	texture->Unbind();
 	GetProgram()->Unuse();
 
 	glDepthMask(GL_TRUE);
@@ -41,6 +43,10 @@ void SkyBox::PostRender()
 
 void SkyBox::Initialize(std::string names[6])
 {
+	auto textureLoader = DependencyResolver::GetInstance().Resolve<TextureLoader*>();
+	texture = textureLoader->LoadCubeTexture("Models\\SkyBox", names);
+
+	/*
 	glGenTextures(1, &textureId);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
 
@@ -66,4 +72,5 @@ void SkyBox::Initialize(std::string names[6])
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 0);
 
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	*/
 }

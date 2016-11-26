@@ -15,7 +15,7 @@ using namespace std;
 
 SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 {
-	auto program = scene->Add(new Program("Shaders/Phong.vert", "Shaders/Phong.frag"));
+	auto program = scene->Add(new Program("Shaders\\Phong.vert", "Shaders\\Phong.frag"));
 
 	{
 		auto model = modelManager->Get(ModelType::ModelType_LowPolyTree);
@@ -82,7 +82,7 @@ SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 
 	if (skyBox)
 	{
-		auto program = scene->Add(new Program("Shaders/SkyBox"));
+		auto program = scene->Add(new Program("Shaders\\SkyBox"));
 		string images[6] = {
 			"midnight-silence_rt.jpg",
 			"midnight-silence_lf.jpg",
@@ -99,7 +99,7 @@ SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 	}
 	else
 	{
-		auto program = scene->Add(new Program("Shaders/SkyDome"));
+		auto program = scene->Add(new Program("Shaders\\SkyDome"));
 
 		auto dynamicSkyDomeModel = modelManager->Get(ModelType::ModelType_SkyDome);
 

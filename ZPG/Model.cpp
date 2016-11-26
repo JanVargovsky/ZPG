@@ -141,7 +141,7 @@ std::vector<Texture*> Model::LoadTextures(const aiMaterial * material, aiTexture
 		aiString aiName;
 		material->GetTexture(textureType, i, &aiName);
 
-		auto texture = textureLoader->LoadTexture(directory, aiName.C_Str(), textureType);
+		auto texture = textureLoader->LoadTexture(directory, aiName.C_Str());
 		textures.push_back(texture);
 	}
 

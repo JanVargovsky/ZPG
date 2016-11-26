@@ -34,5 +34,5 @@ void SkyDome::PostRender()
 void SkyDome::Initialize(std::string textureName)
 {
 	auto textureLoader = DependencyResolver::GetInstance().Resolve<TextureLoader*>();
-	texture = textureLoader->LoadTexture("Models/SkyDome/", textureName, aiTextureType::aiTextureType_UNKNOWN);
+	texture = textureLoader->LoadTexture("Models\\SkyDome", textureName);
 }

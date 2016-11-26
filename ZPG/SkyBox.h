@@ -1,10 +1,12 @@
 #pragma once
 #include "Object.h"
+#include "DependencyResolver.h"
+#include "TextureLoader.h"
 
 class SkyBox : public Object
 {
 private:
-	GLuint textureId;
+	Texture *texture;
 
 public:
 	SkyBox(Program *program, IRenderable *model, std::string names[6]);
