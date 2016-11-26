@@ -39,13 +39,13 @@ Texture * TextureLoader::LoadCubeTexture(std::string directory, std::string name
 			SetImage(texture, path, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i);
 		}
 
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 0);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0);
+		texture->Send(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 0);
 
 	}
 
@@ -66,7 +66,7 @@ void TextureLoader::SetImage(Texture *texture, std::string path, GLenum type)
 		Logger::Error("Bad image size");
 	texture->Bind();
 	texture->SetImage(image.cols, image.rows, image.ptr(), type);
-	Logger::Verbose("Image " + path + " (" + to_string(image.cols) + " x " + to_string(image.rows) + ") was loaded");
+	Logger::Verbose("Load image (" + to_string(image.cols) + " x " + to_string(image.rows) + ") " + path);
 
 	image.release();
 }

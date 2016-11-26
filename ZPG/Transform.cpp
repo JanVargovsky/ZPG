@@ -26,23 +26,6 @@ void Transform::AddPosition(const glm::vec3 & point, const float angle, const gl
 
 	position = vec3(transform * vec4(position, 1));
 
-	//// current position in circle's system
-	//vec3 currentPoint = position - point;
-
-	//// radians
-	//float currentAngle = atan2(currentPoint.z, currentPoint.x);
-
-	//float r = distance(position, point);
-	//vec3 newPosition = vec3(
-	//	cos(currentAngle + radians(angle)),
-	//	0,
-	//	sin(currentAngle + radians(angle))
-	//) * r;
-
-	//vec3 offset = (newPosition - currentPoint);
-
-	//position += offset;
-
 	matrix.reset();
 }
 

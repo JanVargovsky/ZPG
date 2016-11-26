@@ -24,6 +24,7 @@ void Texture::Bind(int offset)
 
 void Texture::Unbind()
 {
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Texture::SetImage(int width, int height, void * data, GLenum type)
@@ -40,5 +41,10 @@ void Texture::SetImage(int width, int height, void * data, GLenum type)
 		data);
 
 	glGenerateMipmap(GL_TEXTURE_2D);
+}
+
+void Texture::Send(GLenum target, GLenum pname, GLint param)
+{
+	glTexParameteri(target, pname, param);
 }
 

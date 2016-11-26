@@ -23,11 +23,7 @@ void BufferBase::Unbind()
 
 void BufferBase::BindData(const void * data, GLsizeiptr size)
 {
-	//Bind();
-
 	glBufferData(bufferType, size, data, bufferUsage);
-
-	//Unbind();
 }
 
 void BufferBase::Generate()

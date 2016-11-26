@@ -13,8 +13,6 @@ void Mesh::PreRender()
 
 	for (auto texture : textures)
 		texture->Bind();
-
-	//glBindVertexArray(this->VAO);
 }
 
 void Mesh::Render()
@@ -28,49 +26,10 @@ void Mesh::PostRender()
 
 	for (auto texture : textures)
 		texture->Unbind();
-
-	//glBindVertexArray(0);
 }
 
 void Mesh::Initialize()
 {
-	//ErrorChecker::CheckOpenGLError();
-	//// Create buffers/arrays
-	////glGenBuffers(1, &this->VBO);
-	////glGenBuffers(1, &this->EBO);
-	////glGenVertexArrays(1, &this->VAO);
-	//ErrorChecker::CheckOpenGLError();
-
-	////glBindVertexArray(this->VAO);
-	//vao.Bind();
-	//// Load data into vertex buffers
-	////glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	//vbo.Bind();
-	//// A great thing about structs is that their memory layout is sequential for all its items.
-	//// The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-	//// again translates to 3/2 floats which translates to a byte array.
-	//glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
-	//ErrorChecker::CheckOpenGLError();
-
-	////glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
-	//ebo.Bind();
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(GLuint), &this->indices[0], GL_STATIC_DRAW);
-	//ErrorChecker::CheckOpenGLError();
-
-	//// Set the vertex attribute pointers
-	//// Vertex Positions
-	//glEnableVertexAttribArray(0);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
-	//ErrorChecker::CheckOpenGLError();
-	//// Vertex Normals
-	//glEnableVertexAttribArray(1);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
-	//ErrorChecker::CheckOpenGLError();
-
-	////glBindVertexArray(0);
-	//vao.Unbind();
-	//ErrorChecker::CheckOpenGLError();
-
 	vao.Bind();
 	{
 		vbo.Bind();

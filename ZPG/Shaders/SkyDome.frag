@@ -9,5 +9,4 @@ void main()
 {
 	vec2 newTexCoords = vec2(abs(texCoord.x), abs(texCoord.y));
 	color = texture(skyDomeTexture, newTexCoords);
-	//color = texture(skyDomeTexture, texCoord);
 }

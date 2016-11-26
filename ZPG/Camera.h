@@ -50,7 +50,6 @@ public:
 	glm::mat4 GetProjection();
 	glm::vec3 GetEye();
 
-	//void Set(Program * program);
 	void Rotate(int x, int y);
 	void Move(CameraMove move, bool fast);
 	void Move(CameraZoom zoom);

@@ -22,12 +22,8 @@ void ArrayBase::Unbind()
 
 void ArrayBase::SetAttribute(GLuint layout, GLint size, AttributeType type, GLboolean normalized, GLsizei stride, const void * offset)
 {
-	//Bind();
-
 	glVertexAttribPointer(layout, size, type, normalized, stride, offset);
 	glEnableVertexAttribArray(layout);
-
-	//Unbind();
 }
 
 void ArrayBase::Generate()

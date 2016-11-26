@@ -37,7 +37,7 @@ public:
 		matrix.reset();
 	}
 
-	/// Rotate around point by angle and axis
+	// Rotate around point by angle and axis
 	void AddPosition(const glm::vec3 &point, const float angle, const glm::vec3 &axis);
 
 #pragma endregion

@@ -17,6 +17,7 @@ public:
 	void Unbind();
 
 	void SetImage(int width, int height, void *data, GLenum type);
+	void Send(GLenum target, GLenum pname, GLint param);
 
 private:
 	void Initialize();
