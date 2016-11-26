@@ -12,7 +12,7 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 {
 	Program *program = new Program("Shaders/Phong.vert", "Shaders/Phong.frag");
 	scene->Add(program);
-	auto sphereModel = staticModelManager->Get(SphereModel);
+	auto sphereModel = staticModelManager->Get(StaticModelType_Sphere);
 
 	const float T = 2.f;
 	auto positions = {
@@ -58,7 +58,7 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 		scene->Add(obj);
 	}
 
-	auto stickFigureModel = modelManager->Get(ModelType::StickFigure);
+	auto stickFigureModel = modelManager->Get(ModelType::ModelType_StickFigure);
 	auto obj = new Object(program, stickFigureModel);
 	obj->RegisterOnUpdate([obj]() {
 		obj->GetTransform().AddRotation(1, vec3(0, 1, 0));
@@ -68,7 +68,7 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 	obj->SetColor(vec3(0.5f, 0.5f, 0.5f));
 	scene->Add(obj);
 
-	auto floorObject = new Object(program, staticModelManager->Get(StaticModelType::SquareModel));
+	auto floorObject = new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Square));
 	floorObject->SetColor(ColorUtils::GetRandomColor());
 	auto &transform = floorObject->GetTransform();
 	transform.SetPosition(vec3(0, 0, 0));
@@ -76,7 +76,7 @@ SceneBuilder * FourSpheresSceneBuilder::BuildObjects(Scene * scene)
 	scene->Add(floorObject);
 
 
-	auto treeModel = modelManager->Get(ModelType::Tree);
+	auto treeModel = modelManager->Get(ModelType::ModelType_Tree);
 	for (int x = -20; x <= 20; x += 5)
 		for (int z = -20; z <= 20; z += 5)
 		{

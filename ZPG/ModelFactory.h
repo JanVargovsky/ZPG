@@ -3,11 +3,13 @@
 #include "Model.h"
 
 enum ModelType {
-	StickFigure,
-	Tree,
-	Butterfly,
-	FarmHouse,
-	LowPolyTree
+	ModelType_StickFigure,
+	ModelType_Tree,
+	ModelType_Butterfly,
+	ModelType_FarmHouse,
+	ModelType_LowPolyTree,
+	ModelType_SkyBox,
+	ModelType_SkyDome,
 };
 
 class ModelFactory : public FactoryBase<ModelType, Model*> 

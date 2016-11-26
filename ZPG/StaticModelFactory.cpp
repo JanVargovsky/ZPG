@@ -15,26 +15,26 @@ StaticModelBase* StaticModelFactory::Create(StaticModelType modelType)
 
 	switch (modelType)
 	{
-	case TriangleModel:
+	case StaticModelType_Triangle:
 		model = new Triangle;
 		break;
-	case SquareModel:
+	case StaticModelType_Square:
 		model = new Square;
 		break;
-	case SphereModel:
+	case StaticModelType_Sphere:
 		model = new Sphere;
 		break;
-	case SuziFlatModel:
+	case StaticModelType_SuziFlat:
 		model = new SuziFlat;
 		break;
-	case SuziSmoothModel:
+	case StaticModelType_SuziSmooth:
 		model = new SuziSmooth;
 		break;
-	case CubeModel:
+	case StaticModelType_Cube:
 		model = new Cube;
 		break;
 	default:
-		throw exception("not implemented ModelType");
+		throw exception("not implemented StaticModelType");
 	}
 
 	return model;

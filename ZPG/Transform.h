@@ -82,6 +82,11 @@ public:
 		matrix.reset();
 	}
 
+	void SetScale(const float value)
+	{
+		SetScale(glm::vec3(value, value, value));
+	}
+
 	inline void AddScale(const glm::vec3 value)
 	{
 		scale += value;

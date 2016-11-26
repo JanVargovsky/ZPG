@@ -4,12 +4,12 @@
 
 enum StaticModelType
 {
-	TriangleModel,
-	SquareModel,
-	SphereModel,
-	SuziFlatModel,
-	SuziSmoothModel,
-	CubeModel,
+	StaticModelType_Triangle,
+	StaticModelType_Square,
+	StaticModelType_Sphere,
+	StaticModelType_SuziFlat,
+	StaticModelType_SuziSmooth,
+	StaticModelType_Cube,
 };
 
 class StaticModelFactory : public FactoryBase<StaticModelType, StaticModelBase*>

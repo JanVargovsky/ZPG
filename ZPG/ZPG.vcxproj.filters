@@ -197,6 +197,12 @@
     <None Include="Shaders\SkyBox.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\SkyDome.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\SkyDome.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderLoader.h">
@@ -326,9 +332,6 @@
       <Filter>OpenGL\Texture</Filter>
     </ClInclude>
     <ClInclude Include="SkyBox.h">
-      <Filter>Render\Sky</Filter>
-    </ClInclude>
-    <ClInclude Include="Sky.h">
       <Filter>Render\Sky</Filter>
     </ClInclude>
     <ClInclude Include="SkyDome.h">

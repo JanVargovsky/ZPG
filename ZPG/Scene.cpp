@@ -98,7 +98,7 @@ void Scene::SpawnObject(glm::vec3 position)
 	//spotLights[0] = new SpotLight(camera->GetEye(), 1, position - camera->GetEye(), 0.);
 
 	auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
-	auto obj = new Object(Add(new Program("Shaders/Phong")), modelManager->Get(ModelType::LowPolyTree));
+	auto obj = new Object(Add(new Program("Shaders/Phong")), modelManager->Get(ModelType::ModelType_LowPolyTree));
 
 	obj->GetTransform().SetPosition(position);
 	obj->SetColor(ColorUtils::GetRandomColor());

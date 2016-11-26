@@ -193,6 +193,8 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <None Include="Shaders\Phong.vert" />
     <None Include="Shaders\SkyBox.frag" />
     <None Include="Shaders\SkyBox.vert" />
+    <None Include="Shaders\SkyDome.frag" />
+    <None Include="Shaders\SkyDome.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -215,7 +217,6 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="ModelFactory.h" />
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="Size.h" />
-    <ClInclude Include="Sky.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SkyDome.h" />
     <ClInclude Include="TestSceneBuilder.h" />

@@ -26,7 +26,7 @@ void Texture::Unbind()
 
 void Texture::SetImage(int width, int height, void * data)
 {
-	Bind(0);
+	Bind();
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, // Type of texture 1D, 2D, 3D

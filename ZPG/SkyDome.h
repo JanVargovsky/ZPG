@@ -1,12 +1,20 @@
 #pragma once
-#include "Sky.h"
-#include "TextureLoader.h";
+#include "Object.h"
+#include "DependencyResolver.h"
+#include "TextureLoader.h"
 
-class SkyDome : public Sky
+class SkyDome : public Object
 {
 private:
-	GLuint textureId;
+	Texture* texture;
 
 public:
-	SkyDome( std::string paths);
+	SkyDome(Program *program, IRenderable *model, std::string textureName, float radius);
+
+	virtual void PreRender() override;
+	virtual void Render() override;
+	virtual void PostRender() override;
+
+private:
+	void Initialize(std::string textureName);
 };

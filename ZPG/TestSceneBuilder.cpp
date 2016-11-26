@@ -5,6 +5,7 @@
 #include "SpotLight.h"
 #include "Logger.h"
 #include "SkyBox.h"
+#include "SkyDome.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,7 +18,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 	auto program = scene->Add(new Program("Shaders/Phong.vert", "Shaders/Phong.frag"));
 
 	{
-		auto model = modelManager->Get(ModelType::LowPolyTree);
+		auto model = modelManager->Get(ModelType::ModelType_LowPolyTree);
 		const float X = 4;
 		for (float x = -X; x <= X; x += 1)
 			for (float z = -X; z <= X; z += 1)
@@ -29,7 +30,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 	}
 
 	{
-		auto obj = scene->Add(new Object(program, modelManager->Get(ModelType::FarmHouse)));
+		auto obj = scene->Add(new Object(program, modelManager->Get(ModelType::ModelType_FarmHouse)));
 		auto &transform = obj->GetTransform();
 		transform.SetPosition(vec3(10, 0, 10));
 		const float scale = 0.15f;
@@ -53,9 +54,9 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 	auto pointLight2 = scene->Add(new PointLight(vec3(0, 2, 0), 1));
 
 	{
-		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.90));
+		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.90f));
 		spotLight->RegisterOnUpdate([spotLight]() {
-			auto r = 0.9f - abs(cos(glfwGetTime()) / 3);
+			float r = 0.9f - abs(cos((float)glfwGetTime()) / 3.f);
 			//Logger::Information("r=" + to_string(r));
 			spotLight->SetRadius(r);
 		});
@@ -77,17 +78,32 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 {
-	auto program = scene->Add(new Program("Shaders/SkyBox"));
-	string images[6] = {
-		"Models/mp_midnight/midnight-silence_rt.jpg",
-		"Models/mp_midnight/midnight-silence_lf.jpg",
-		"Models/mp_midnight/midnight-silence_up.jpg",
-		"Models/mp_midnight/midnight-silence_dn.jpg",
-		"Models/mp_midnight/midnight-silence_bk.jpg",
-		"Models/mp_midnight/midnight-silence_ft.jpg"
-	};
+	bool skyBox = true;
 
-	auto skyBox = scene->Add(new SkyBox(program, staticModelManager->Get(StaticModelType::CubeModel), images));
+	if (skyBox)
+	{
+		auto program = scene->Add(new Program("Shaders/SkyBox"));
+		string images[6] = {
+			"midnight-silence_rt.jpg",
+			"midnight-silence_lf.jpg",
+			"midnight-silence_up.jpg",
+			"midnight-silence_dn.jpg",
+			"midnight-silence_bk.jpg",
+			"midnight-silence_ft.jpg"
+		};
 
+		auto staticSkyBoxModel = staticModelManager->Get(StaticModelType::StaticModelType_Cube);
+		auto dynamicSkyBoxModel = modelManager->Get(ModelType::ModelType_SkyBox);
+
+		auto skyBox = scene->Add(new SkyBox(program, dynamicSkyBoxModel, images));
+	}
+	else
+	{
+		auto program = scene->Add(new Program("Shaders/SkyDome"));
+
+		auto dynamicSkyDomeModel = modelManager->Get(ModelType::ModelType_SkyDome);
+
+		auto skyDome = scene->Add(new SkyDome(program, dynamicSkyDomeModel, "SkyDome-Cloud-Few-MidMorning.png", 30));
+	}
 	return this;
 }
