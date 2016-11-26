@@ -8,13 +8,12 @@ private:
 	GLuint textureId;
 
 public:
-	SkyBox(Program *program, StaticModelBase *staticModel, std::string images[6]);
+	SkyBox(Program *program, IRenderable *model, std::string paths[6]);
 
 	virtual void PreRender() override;
 	virtual void Render() override;
 	virtual void PostRender() override;
 
 private:
-	void Initialize(std::string images[6]);
+	void Initialize(std::string textures[6]);
 };
-

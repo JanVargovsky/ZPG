@@ -4,7 +4,9 @@
 
 class SkyDome : public Sky
 {
-public:
-	SkyDome(std::string texture);
-};
+private:
+	GLuint textureId;
 
+public:
+	SkyDome( std::string paths);
+};

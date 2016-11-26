@@ -8,10 +8,10 @@
 using namespace std;
 using namespace cv;
 
-SkyBox::SkyBox(Program *program, StaticModelBase *model, std::string images[6])
+SkyBox::SkyBox(Program *program, IRenderable *model, std::string paths[6])
 	:Object(program, model)
 {
-	Initialize(images);
+	Initialize(paths);
 }
 
 void SkyBox::PreRender()
@@ -39,16 +39,16 @@ void SkyBox::PostRender()
 	glDepthMask(GL_TRUE);
 }
 
-void SkyBox::Initialize(std::string images[6])
+void SkyBox::Initialize(std::string paths[6])
 {
 	glGenTextures(1, &textureId);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
 
 	for (GLuint i = 0; i < 6; i++)
 	{
-		cv::Mat image = imread(images[i], CV_LOAD_IMAGE_COLOR);
+		cv::Mat image = imread(paths[i], CV_LOAD_IMAGE_COLOR);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		Logger::Verbose("Image " + images[i] + "(" + to_string(image.cols) + " x " + to_string(image.rows) + ") was loaded");
+		Logger::Verbose("Image " + paths[i] + "(" + to_string(image.cols) + " x " + to_string(image.rows) + ") was loaded");
 		glTexImage2D(
 			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
 			GL_RGB, image.cols, image.rows, 0, GL_RGB, GL_UNSIGNED_BYTE, image.ptr()

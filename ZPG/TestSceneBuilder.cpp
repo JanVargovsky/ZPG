@@ -87,8 +87,7 @@ SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 		"Models/mp_midnight/midnight-silence_ft.jpg"
 	};
 
-	auto skyBox = new SkyBox(program, staticModelManager->Get(StaticModelType::CubeModel), images);
-	scene->Add(skyBox);
+	auto skyBox = scene->Add(new SkyBox(program, staticModelManager->Get(StaticModelType::CubeModel), images));
 
 	return this;
 }

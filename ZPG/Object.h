@@ -18,15 +18,11 @@ class Object : public Updatable, public IRenderable
 private:
 	int id;
 	Program *program;
-	Model *model;
-	// Deprecated
-	StaticModelBase *staticModel;
+	IRenderable *model;
 	Transform transform;
 	boost::optional<glm::vec3> color;
 public:
-	Object(Program *program, Model *model);
-	// Deprecated
-	Object(Program *program, StaticModelBase *staticModel);
+	Object(Program *program, IRenderable *model);
 
 	virtual void PreRender();
 	virtual void Render();
@@ -37,9 +33,9 @@ public:
 	inline Program* GetProgram() { return program; }
 	inline int GetId() { return id; }
 
-	void SetColor(glm::vec3 c) {
-		color = c;
-	}
+	inline IRenderable* GetModel() { return model; }
 
-	IRenderable* GetModel() { return model != nullptr ? static_cast<IRenderable*>(model) : static_cast<IRenderable*>(staticModel); }
+	inline void SetColor(glm::vec3 c) { color = c;}
+
+
 };
