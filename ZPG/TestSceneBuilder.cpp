@@ -79,7 +79,9 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 {
 	bool skyBox = true;
+	bool rotate = true;
 
+	Object *sky = nullptr;
 	if (skyBox)
 	{
 		auto program = scene->Add(new Program("Shaders\\SkyBox"));
@@ -95,7 +97,7 @@ SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 		auto staticSkyBoxModel = staticModelManager->Get(StaticModelType::StaticModelType_Cube);
 		auto dynamicSkyBoxModel = modelManager->Get(ModelType::ModelType_SkyBox);
 
-		auto skyBox = scene->Add(new SkyBox(program, dynamicSkyBoxModel, images));
+		auto skyBox = sky = scene->Add(new SkyBox(program, dynamicSkyBoxModel, images));
 	}
 	else
 	{
@@ -103,7 +105,13 @@ SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 
 		auto dynamicSkyDomeModel = modelManager->Get(ModelType::ModelType_SkyDome);
 
-		auto skyDome = scene->Add(new SkyDome(program, dynamicSkyDomeModel, "SkyDome-Cloud-Few-MidMorning.png", 30));
+		auto skyDome = sky = scene->Add(new SkyDome(program, dynamicSkyDomeModel, "SkyDome-Cloud-Few-MidMorning.png", 30));
 	}
+
+	if (rotate)
+		sky->RegisterOnUpdate([sky]() {
+		sky->GetTransform().AddRotation(0.005f, vec3(0, 1, 0));
+	});
+
 	return this;
 }

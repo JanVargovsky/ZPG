@@ -20,6 +20,7 @@ void SkyBox::PreRender()
 
 	GetProgram()->Use();
 	GetModel()->PreRender();
+	GetProgram()->Send("model", GetTransform().Get());
 	texture->Bind();
 	GetProgram()->Send("skybox", 0);
 }
