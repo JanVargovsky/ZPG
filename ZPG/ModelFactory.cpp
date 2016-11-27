@@ -20,7 +20,7 @@ std::string ModelFactory::GetPath(ModelType modelType)
 	case ModelType_Butterfly:
 		return "Models\\Butterfly\\Butterfly.obj";
 	case ModelType_FarmHouse:
-		return "Models\\FarmHouse\\Farmhouse OBJ.obj";
+		return "Models\\FarmHouse\\Farmhouse.obj";
 	case ModelType_LowPolyTree:
 		return "Models\\LowPolyTree\\lowpoyltree.obj";
 	case ModelType_SkyBox:
