@@ -1,5 +1,6 @@
 #pragma once
 #include "LightBase.h"
+#include "IRenderable.h"
 
 class PointLight : public LightBase
 {
@@ -12,7 +13,7 @@ public:
 
 	virtual void Send(Program * program, int index) override;
 
-	inline void SetPosition(glm::vec3 value) { position= value; }
+	inline void SetPosition(glm::vec3 value) { position = value; }
 	inline glm::vec3 GetPosition() { return position; }
 
 protected:

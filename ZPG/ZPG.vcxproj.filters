@@ -19,9 +19,6 @@
     <Filter Include="Common\Factory">
       <UniqueIdentifier>{3dd3164d-10e7-4b00-a13f-5314e22e80e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IoC">
-      <UniqueIdentifier>{78d42ab5-024f-4e48-9439-ed21c6c3689f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Render\Light">
       <UniqueIdentifier>{1db82d46-63be-4b7c-a6cf-63b139ed3ac0}</UniqueIdentifier>
     </Filter>
@@ -46,14 +43,20 @@
     <Filter Include="OpenGL\Texture">
       <UniqueIdentifier>{cba7f566-6d10-4fdd-9d8c-f8aded528273}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\SceneBuilder">
-      <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Helpers">
       <UniqueIdentifier>{0abadce6-1cc2-44c7-b00e-fc40c8361042}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render\Sky">
       <UniqueIdentifier>{13b35d97-11a4-4efd-9064-15908a7a63df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{3b5d076f-4c28-4555-8acc-7b76df8f8321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\SceneBuilder">
+      <UniqueIdentifier>{849ede96-bab7-4956-8490-8da13997746f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings\IoC">
+      <UniqueIdentifier>{78d42ab5-024f-4e48-9439-ed21c6c3689f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -101,22 +104,19 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="DependencyResolver.cpp">
-      <Filter>IoC</Filter>
+      <Filter>Settings\IoC</Filter>
     </ClCompile>
     <ClCompile Include="PointLight.cpp">
       <Filter>Render\Light</Filter>
     </ClCompile>
     <ClCompile Include="FourSpheresSceneBuilder.cpp">
-      <Filter>Common\SceneBuilder</Filter>
+      <Filter>Settings\SceneBuilder</Filter>
     </ClCompile>
     <ClCompile Include="SceneBuilder.cpp">
-      <Filter>Common\SceneBuilder</Filter>
+      <Filter>Settings\SceneBuilder</Filter>
     </ClCompile>
     <ClCompile Include="ColorUtils.cpp">
       <Filter>Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="Updatable.cpp">
-      <Filter>Render</Filter>
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
       <Filter>Render\Model\Static</Filter>
@@ -152,7 +152,7 @@
       <Filter>Common\Factory</Filter>
     </ClCompile>
     <ClCompile Include="TestSceneBuilder.cpp">
-      <Filter>Common\SceneBuilder</Filter>
+      <Filter>Settings\SceneBuilder</Filter>
     </ClCompile>
     <ClCompile Include="TextureLoader.cpp">
       <Filter>OpenGL\Texture</Filter>
@@ -171,6 +171,15 @@
     </ClCompile>
     <ClCompile Include="Cube.cpp">
       <Filter>Render\Model\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Transformable.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Updatable.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="LightRenderHelper.cpp">
+      <Filter>Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +210,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\SkyDome.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Light.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Light.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -257,7 +272,7 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="DependencyResolver.h">
-      <Filter>IoC</Filter>
+      <Filter>Settings\IoC</Filter>
     </ClInclude>
     <ClInclude Include="PointLight.h">
       <Filter>Render\Light</Filter>
@@ -266,16 +281,13 @@
       <Filter>Render\Light</Filter>
     </ClInclude>
     <ClInclude Include="SceneBuilder.h">
-      <Filter>Common\SceneBuilder</Filter>
+      <Filter>Settings\SceneBuilder</Filter>
     </ClInclude>
     <ClInclude Include="FourSpheresSceneBuilder.h">
-      <Filter>Common\SceneBuilder</Filter>
+      <Filter>Settings\SceneBuilder</Filter>
     </ClInclude>
     <ClInclude Include="ColorUtils.h">
       <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Updatable.h">
-      <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="ErrorChecker.h">
       <Filter>OpenGL</Filter>
@@ -323,7 +335,7 @@
       <Filter>Common\Manager</Filter>
     </ClInclude>
     <ClInclude Include="TestSceneBuilder.h">
-      <Filter>Common\SceneBuilder</Filter>
+      <Filter>Settings\SceneBuilder</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoader.h">
       <Filter>OpenGL\Texture</Filter>
@@ -342,6 +354,15 @@
     </ClInclude>
     <ClInclude Include="Cube.h">
       <Filter>Render\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Updatable.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Transformable.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="LightRenderHelper.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

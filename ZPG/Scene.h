@@ -37,6 +37,7 @@ public:
 	void ChangeViewPort(int width, int height);
 	void SetCamera();
 	void SetCamera(Camera * camera);
+	void SetCamera(Program * program);
 
 	// Actions
 	void ChangeColor(int id);

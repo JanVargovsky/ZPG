@@ -3,6 +3,7 @@
 #include "ColorUtils.h"
 #include "DependencyResolver.h"
 #include "ModelManager.h"
+#include "LightRenderHelper.h"
 
 #include <GLFW/glfw3.h>  
 #include <glm/vec3.hpp>
@@ -71,6 +72,14 @@ void Scene::Render()
 		object->Render();
 		object->PostRender();
 	}
+
+	// DEBUG Light's position in scene
+	LightRenderHelper::GetInstance().SetCamera(camera);
+	static vec3 lightColor = ColorUtils::GetColor(255, 215, 21);
+	for (auto l : pointLights)
+		LightRenderHelper::GetInstance().RenderLight(l->GetPosition(), lightColor);
+	for (auto l : spotLights)
+		LightRenderHelper::GetInstance().RenderLight(l->GetPosition(), lightColor);
 
 	RenderCursor();
 	// put the stuff we’ve been drawing onto the display
@@ -181,7 +190,7 @@ void Scene::RenderCursor()
 	glEnable(GL_DEPTH_TEST);
 }
 
-Object * Scene::FindObjectById(int id)
+Object* Scene::FindObjectById(int id)
 {
 	for (auto &o : objects)
 		if (o->GetId() == id)
@@ -193,16 +202,19 @@ Object * Scene::FindObjectById(int id)
 void Scene::SetCamera(Camera * camera)
 {
 	for (auto & program : shaders)
-	{
-		program->Use();
+		SetCamera(program);
+}
 
-		program->Send("view", camera->GetView());
-		program->Send("projection", camera->GetProjection());
+void Scene::SetCamera(Program * program)
+{
+	program->Use();
 
-		program->Send("cameraPosition", camera->GetEye());
+	program->Send("view", camera->GetView());
+	program->Send("projection", camera->GetProjection());
 
-		program->Unuse();
-	}
+	program->Send("cameraPosition", camera->GetEye());
+
+	program->Unuse();
 }
 
 void Scene::ChangeViewPort(int width, int height)

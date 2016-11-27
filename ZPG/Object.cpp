@@ -38,8 +38,3 @@ void Object::PostRender()
 	GetModel()->PostRender();
 	GetProgram()->Unuse();
 }
-
-Transform & Object::GetTransform()
-{
-	return transform;
-}

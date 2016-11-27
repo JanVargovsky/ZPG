@@ -148,6 +148,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="ColorUtils.cpp" />
     <ClCompile Include="DependencyResolver.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="LightRenderHelper.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="FourSpheresSceneBuilder.cpp" />
@@ -160,6 +161,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="TestSceneBuilder.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
+    <ClCompile Include="Transformable.cpp" />
     <ClCompile Include="Updatable.cpp" />
     <ClCompile Include="StaticModelBase.cpp" />
     <ClCompile Include="StaticModelFactory.cpp" />
@@ -186,6 +188,8 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
       <SubType>Designer</SubType>
     </None>
     <Content Include="shader.vs" />
+    <None Include="Shaders\Light.frag" />
+    <None Include="Shaders\Light.vert" />
     <None Include="Shaders\Phong.frag" />
     <None Include="Shaders\PhongWithoutTexture.frag" />
     <None Include="Shaders\Simple.frag" />
@@ -205,6 +209,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="ColorUtils.h" />
     <ClInclude Include="DependencyResolver.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="LightRenderHelper.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="ErrorChecker.h" />
@@ -222,6 +227,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="TestSceneBuilder.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="Transformable.h" />
     <ClInclude Include="Updatable.h" />
     <ClInclude Include="LightBase.h" />
     <ClInclude Include="ManagerBase.h" />

@@ -32,17 +32,17 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 	{
 		auto obj = scene->Add(new Object(program, modelManager->Get(ModelType::ModelType_FarmHouse)));
 		auto &transform = obj->GetTransform();
-		transform.SetPosition(vec3(10, 0, 10));
+		transform.SetPosition(vec3(8, 0, 2));
 		const float scale = 0.15f;
 		transform.SetScale(vec3(scale, scale, scale));
 	}
 	{
-		//auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
-		//auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::SquareModel)));
-		//floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
-		//auto &transform = floorObject->GetTransform();
-		//transform.SetPosition(vec3(0, 0, 0));
-		//transform.SetScale(vec3(100));
+		auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
+		auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Square)));
+		floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
+		auto &transform = floorObject->GetTransform();
+		transform.SetPosition(vec3(0, 0, 0));
+		transform.SetScale(vec3(100));
 	}
 
 	return this;
@@ -50,15 +50,36 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 {
-	auto pointLight = scene->Add(new PointLight(vec3(5, 5, 5), 1));
-	auto pointLight2 = scene->Add(new PointLight(vec3(0, 2, 0), 1));
+	{
+		float a = 4;
+		float height = 2;
+		auto pointLightPositions = {
+			vec3(a, height, a),
+			//vec3(a, height, -a),
+			//vec3(-a, height, a),
+			vec3(-a, height, -a),
+		};
+		for (auto p : pointLightPositions)
+			scene->Add(new PointLight(p, 1));
+	}
 
 	{
-		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.90f));
+		// radius change
+		auto spotLight = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.95f));
 		spotLight->RegisterOnUpdate([spotLight]() {
-			float r = 0.9f - abs(cos((float)glfwGetTime()) / 3.f);
+			float r = 0.95f - abs(cos((float)glfwGetTime()) / 3.f);
 			//Logger::Information("r=" + to_string(r));
 			spotLight->SetRadius(r);
+		});
+
+		// direction change
+		auto spotLight2 = scene->Add(new SpotLight(vec3(0, 3, 3), 1, vec3(0, -1, 0), 0.93f));
+		spotLight2->RegisterOnUpdate([spotLight2]() {
+			float x = cos((float)glfwGetTime());
+			//Logger::Information("r=" + to_string(r));
+			auto dir = spotLight2->GetDirection();
+			dir.x = x;
+			spotLight2->SetDirection(dir);
 		});
 		//spotLight->RegisterOnUpdate([spotLight]() {
 		//	//float radius = abs(sin(glfwGetTime()));

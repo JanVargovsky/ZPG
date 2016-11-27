@@ -2,7 +2,7 @@
 #include "IRenderable.h"
 #include "Updatable.h"
 #include "Program.h"
-#include "Transform.h"
+#include "Transformable.h"
 #include "VBO.h"
 #include "EBO.h"
 #include "VAO.h"
@@ -13,22 +13,19 @@
 #include <functional>
 #include <memory>
 
-class Object : public Updatable, public IRenderable
+class Object : public Updatable, public IRenderable, public Transformable
 {
 private:
 	int id;
 	Program *program;
 	IRenderable *model;
-	Transform transform;
 	boost::optional<glm::vec3> color;
 public:
 	Object(Program *program, IRenderable *model);
 
-	virtual void PreRender();
-	virtual void Render();
-	virtual void PostRender();
-
-	Transform & GetTransform();
+	virtual void PreRender() override;
+	virtual void Render() override;
+	virtual void PostRender() override;
 
 	inline Program* GetProgram() { return program; }
 	inline int GetId() { return id; }
@@ -36,6 +33,4 @@ public:
 	inline IRenderable* GetModel() { return model; }
 
 	inline void SetColor(glm::vec3 c) { color = c;}
-
-
 };
