@@ -42,7 +42,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 		floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
 		auto &transform = floorObject->GetTransform();
 		transform.SetPosition(vec3(0, 0, 0));
-		transform.SetScale(vec3(100));
+		transform.SetScale(vec3(25));
 	}
 
 	return this;
