@@ -9,7 +9,7 @@ SkyDome::SkyDome(Program * program, IRenderable * model, std::string textureName
 
 void SkyDome::PreRender()
 {
-	glDepthMask(GL_FALSE);
+	//glDepthMask(GL_FALSE);
 
 	GetProgram()->Use();
 	GetModel()->PreRender();
@@ -28,7 +28,7 @@ void SkyDome::PostRender()
 	GetModel()->PostRender();
 	GetProgram()->Unuse();
 
-	glDepthMask(GL_TRUE);
+	//glDepthMask(GL_TRUE);
 }
 
 void SkyDome::Initialize(std::string textureName)

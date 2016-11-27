@@ -13,6 +13,11 @@
 using namespace glm;
 using namespace std;
 
+TestSceneBuilder::TestSceneBuilder()
+	:skyBox(true), rotate(true)
+{
+}
+
 SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 {
 	auto program = scene->Add(new Program("Shaders\\Phong.vert", "Shaders\\Phong.frag"));
@@ -37,12 +42,16 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 		transform.SetScale(vec3(scale, scale, scale));
 	}
 	{
-		auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
-		auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Square)));
-		floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
-		auto &transform = floorObject->GetTransform();
-		transform.SetPosition(vec3(0, 0, 0));
-		transform.SetScale(vec3(25));
+		// skybox doesnt require floor
+		if (!skyBox)
+		{
+			auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
+			auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Square)));
+			floorObject->SetColor(ColorUtils::GetColor(64, 46, 35));
+			auto &transform = floorObject->GetTransform();
+			transform.SetPosition(vec3(0, 0, 0));
+			transform.SetScale(vec3(200));
+		}
 	}
 
 	return this;
@@ -99,9 +108,6 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 {
-	bool skyBox = true;
-	bool rotate = true;
-
 	Object *sky = nullptr;
 	if (skyBox)
 	{
@@ -126,7 +132,9 @@ SceneBuilder * TestSceneBuilder::BuildSky(Scene * scene)
 
 		auto dynamicSkyDomeModel = modelManager->Get(ModelType::ModelType_SkyDome);
 
-		auto skyDome = sky = scene->Add(new SkyDome(program, dynamicSkyDomeModel, "SkyDome-Cloud-Few-MidMorning.png", 30));
+		string skyDomeTextures[] = { "skydome.png", "skydome2.png", "skydome3.jpg" };
+		auto skyDome = sky = scene->Add(new SkyDome(program, dynamicSkyDomeModel, skyDomeTextures[2], 30));
+		skyDome->GetTransform().SetPosition(vec3(0, -3, 0));
 	}
 
 	if (rotate)

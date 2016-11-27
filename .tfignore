@@ -1,2 +1,3 @@
 /packages
 /ZPG.VC.db
+!/ZPG/Models/*/*.obj

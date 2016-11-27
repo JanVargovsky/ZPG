@@ -16,9 +16,9 @@ void Logger::Information(std::string message)
 
 void Logger::Verbose(std::string message)
 {
-#if _DEBUG
+//#if _DEBUG
 	Write(LogType::LogType_Verbose, message);
-#endif
+//#endif
 }
 
 void Logger::Warning(std::string message)
