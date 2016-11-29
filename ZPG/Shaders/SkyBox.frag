@@ -3,9 +3,9 @@ in vec3 texCoord;
 
 out vec4 color;
 
-uniform samplerCube skybox;
+uniform samplerCube textureCube;
 
 void main()
 {
-	color = texture(skybox, texCoord);
+	color = texture(textureCube, texCoord);
 }

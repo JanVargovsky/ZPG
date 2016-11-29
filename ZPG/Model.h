@@ -6,6 +6,8 @@
 #include <vector>
 #include <memory>
 
+class TextureLoader;
+
 class Model : public IRenderable
 {
 private:
@@ -28,7 +30,7 @@ private:
 	std::vector<Vertex> LoadVertices(const aiMesh* mesh, const aiScene *scene);
 	std::vector<GLuint> LoadIndices(const aiMesh* mesh, const aiScene *scene);
 	std::vector<Texture*> LoadTextures(const aiMesh* mesh, const aiScene *scene);
-	std::vector<Texture*> LoadTextures(const aiMaterial* material, aiTextureType textureType);
+	std::vector<Texture*> LoadTextures(TextureLoader *textureLoader, const aiMaterial* material, aiTextureType textureType);
 	inline glm::vec3 ParseToVec3(aiVector3D &v);
 	inline glm::vec2 ParseToVec2(aiVector3D &v);
 };

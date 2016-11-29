@@ -1,7 +1,10 @@
 #include "Texture.h"
+#include "Program.h"
 
-Texture::Texture(GLenum target)
-	:target(target)
+using namespace std;
+
+Texture::Texture(GLenum target, TextureType type)
+	:target(target), type(type)
 {
 	Initialize();
 }
@@ -16,10 +19,31 @@ void Texture::Initialize()
 	glGenTextures(1, &id);
 }
 
+std::string Texture::ToString(TextureType type)
+{
+	if (type == TextureType_Diffuse)
+		return "Diffuse";
+	else if (type == TextureType_Specular)
+		return "Specular";
+	else if (type == TextureType_Normal)
+		return "Normal";
+	else if (type == TextureType_Cube)
+		return "Cube";
+	else
+		return "Unknown";
+}
+
 void Texture::Bind(int offset)
 {
 	glActiveTexture(GL_TEXTURE0 + offset);
 	glBindTexture(GL_TEXTURE_2D, id);
+
+	if (type != TextureType_Unknown &&  Program::Current() != nullptr)
+	{
+		string textureName = "texture" + ToString(type);
+		Program::Current()->Send(textureName.c_str(), offset);
+	}
+
 }
 
 void Texture::Unbind()

@@ -13,13 +13,13 @@ using namespace boost::algorithm;
 using namespace std;
 using namespace cv;
 
-Texture* TextureLoader::LoadTexture(std::string directory, std::string name)
+Texture* TextureLoader::LoadTexture(std::string directory, std::string name, TextureType type)
 {
 	string path = GetFullPath(directory, name);
 	auto texture = textures[path];
 	if (texture == nullptr)
 	{
-		textures[path] = texture = new Texture(GL_TEXTURE_2D);
+		textures[path] = texture = new Texture(GL_TEXTURE_2D, type);
 		SetImage(texture, path, GL_TEXTURE_2D);
 	}
 	return texture;
@@ -31,7 +31,7 @@ Texture * TextureLoader::LoadCubeTexture(std::string directory, std::string name
 	auto texture = textures[key];
 	if (texture == nullptr)
 	{
-		textures[key] = texture = new Texture(GL_TEXTURE_CUBE_MAP);
+		textures[key] = texture = new Texture(GL_TEXTURE_CUBE_MAP, TextureType_Cube);
 
 		for (GLuint i = 0; i < 6; i++)
 		{

@@ -3,9 +3,9 @@ in vec2 texCoord;
 
 out vec4 color;
 
-uniform sampler2D skyDomeTexture;
+uniform sampler2D textureDiffuse;
 
 void main()
 {
-	color = texture(skyDomeTexture, texCoord);
+	color = texture(textureDiffuse, texCoord);
 }

@@ -118,30 +118,41 @@ std::vector<Texture*> Model::LoadTextures(const aiMesh * mesh, const aiScene * s
 
 	if (mesh->mMaterialIndex > 0)
 	{
+		auto textureLoader = DependencyResolver::GetInstance().Resolve<TextureLoader*>();
+
 		auto material = scene->mMaterials[mesh->mMaterialIndex];
 
-		auto diffuseTextures = LoadTextures(material, aiTextureType_DIFFUSE);
+		auto diffuseTextures = LoadTextures(textureLoader, material, aiTextureType_DIFFUSE);
 		textures.insert(textures.end(), diffuseTextures.begin(), diffuseTextures.end());
 
-		auto specularTextures = LoadTextures(material, aiTextureType_SPECULAR);
+		auto specularTextures = LoadTextures(textureLoader, material, aiTextureType_SPECULAR);
 		textures.insert(textures.end(), specularTextures.begin(), specularTextures.end());
+
+		auto normalsTextures = LoadTextures(textureLoader, material, aiTextureType_NORMALS);
+		textures.insert(textures.end(), normalsTextures.begin(), normalsTextures.end());
+
+		if (normalsTextures.size() == 0)
+			textures.push_back(textureLoader->LoadTexture("Models\\Shared", "normal2.jpg", TextureType_Normal));
 	}
 
 	return textures;
 }
 
-std::vector<Texture*> Model::LoadTextures(const aiMaterial * material, aiTextureType textureType)
+std::vector<Texture*> Model::LoadTextures(TextureLoader *textureLoader, const aiMaterial * material, aiTextureType textureType)
 {
 	std::vector<Texture*> textures;
-
-	auto textureLoader = DependencyResolver::GetInstance().Resolve<TextureLoader*>();
 
 	for (auto i = 0; i < material->GetTextureCount(textureType); i++)
 	{
 		aiString aiName;
 		material->GetTexture(textureType, i, &aiName);
 
-		auto texture = textureLoader->LoadTexture(directory, aiName.C_Str());
+		TextureType type = textureType == aiTextureType_DIFFUSE ? TextureType_Diffuse :
+			textureType == aiTextureType_SPECULAR ? TextureType_Specular :
+			textureType == aiTextureType_NORMALS ? TextureType_Normal :
+			TextureType_Unknown;
+
+		auto texture = textureLoader->LoadTexture(directory, aiName.C_Str(), type);
 		textures.push_back(texture);
 	}
 

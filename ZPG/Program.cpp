@@ -9,6 +9,8 @@
 using namespace std;
 using namespace glm;
 
+Program* Program::current = nullptr;
+
 Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
 	:program(-1)
 {
@@ -34,6 +36,11 @@ Program::~Program()
 	glDeleteProgram(program);
 }
 
+Program * Program::Current()
+{
+	return current;
+}
+
 bool Program::Compile()
 {
 	GLuint shaderProgram = glCreateProgram();
@@ -49,22 +56,19 @@ bool Program::Compile()
 	return false;
 }
 
-void Program::Use() const
+void Program::Use()
 {
+	current = this;
 	glUseProgram(program);
 }
 
-void Program::Unuse() const
+void Program::Unuse()
 {
+	current = nullptr;
 	glUseProgram(0);
 }
 
-void Program::Use(GLint program) const
-{
-	glUseProgram(program);
-}
-
-bool Program::CheckProgram(const int program) const
+bool Program::CheckProgram(const int program)
 {
 	GLint success;
 	glGetProgramiv(program, GL_LINK_STATUS, &success);
@@ -77,14 +81,14 @@ bool Program::CheckProgram(const int program) const
 	return success == GL_TRUE;
 }
 
-GLint Program::GetCurrentProgram() const
+GLint Program::GetCurrentProgram()
 {
 	GLint id;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &id);
 	return id;
 }
 
-void Program::Send(const GLchar * name, mat4 & value) const
+void Program::Send(const GLchar * name, mat4 & value)
 {
 	GLuint location = glGetUniformLocation(program, name);
 	ErrorChecker::CheckOpenGLError();
@@ -92,7 +96,7 @@ void Program::Send(const GLchar * name, mat4 & value) const
 	ErrorChecker::CheckOpenGLError();
 }
 
-void Program::Send(const GLchar * name, glm::vec3 & value) const
+void Program::Send(const GLchar * name, glm::vec3 & value)
 {
 	GLuint location = glGetUniformLocation(program, name);
 	ErrorChecker::CheckOpenGLError();
@@ -100,7 +104,7 @@ void Program::Send(const GLchar * name, glm::vec3 & value) const
 	ErrorChecker::CheckOpenGLError();
 }
 
-void Program::Send(const GLchar * name, int value) const
+void Program::Send(const GLchar * name, int value)
 {
 	GLuint location = glGetUniformLocation(program, name);
 	ErrorChecker::CheckOpenGLError();
@@ -108,7 +112,7 @@ void Program::Send(const GLchar * name, int value) const
 	ErrorChecker::CheckOpenGLError();
 }
 
-void Program::Send(const GLchar * name, float value) const
+void Program::Send(const GLchar * name, float value)
 {
 	GLuint location = glGetUniformLocation(program, name);
 	ErrorChecker::CheckOpenGLError();

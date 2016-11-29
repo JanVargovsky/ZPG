@@ -12,7 +12,7 @@ private:
 	std::unordered_map<std::string, Texture*> textures;
 
 public:
-	Texture* LoadTexture(std::string directory, std::string name);
+	Texture* LoadTexture(std::string directory, std::string name, TextureType type);
 	Texture* LoadCubeTexture(std::string directory, std::string names[6]);
 
 private:

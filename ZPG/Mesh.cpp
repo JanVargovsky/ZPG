@@ -11,8 +11,14 @@ void Mesh::PreRender()
 {
 	vao.Bind();
 
-	for (auto texture : textures)
-		texture->Bind();
+	for (int i = 0; i < textures.size(); i++)
+	{
+		auto texture = textures[i];
+		texture->Bind(i);
+	}
+
+	//for (auto texture : textures)
+	//	texture->Bind();
 }
 
 void Mesh::Render()

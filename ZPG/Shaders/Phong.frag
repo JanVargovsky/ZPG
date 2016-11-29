@@ -32,13 +32,20 @@ uniform int spotLightCount = 0;
 // Textures
 uniform sampler2D textureDiffuse;
 uniform sampler2D textureSpecular;
+uniform sampler2D textureNormal;
 
 // Functions
 vec3 calcPointLight();
 vec3 calcSpotLight();
 
+vec3 normal;
+
 void main()
 {
+	// Normal mapping
+	normal = texture(textureNormal, texCoord).rgb;
+	normal = normalize(normal * 2.0f - 1.0f);
+
 	vec3 c = calcPointLight() + calcSpotLight();
 	outColor = texture(textureDiffuse, texCoord) * vec4(c, 1.0);
 };
@@ -60,9 +67,9 @@ vec3 calcPointLight()
 	for (int i = 0; i < pointLightCount; i++)
 	{
 		vec3 L = normalize(pointLights[i].position - worldPosition);
-		vec3 R = reflect(-L, worldNormal);
+		vec3 R = reflect(-L, normal);
 
-		float dotProductLN = max(dot(L, worldNormal), 0.0f);
+		float dotProductLN = max(dot(L, normal), 0.0f);
 		float dotProductVR = max(dot(V, R), 0);
 
 		diffuse += (I_L * vec3(dotProductLN));
@@ -81,9 +88,9 @@ vec3 calcSpotLight()
 		float angle = dot(-L, spotLights[i].direction);
 		if (angle >= spotLights[i].radius)
 		{
-			vec3 R = reflect(-L, worldNormal);
+			vec3 R = reflect(-L, normal);
 
-			float dotProductLN = max(dot(L, worldNormal), 0.0f);
+			float dotProductLN = max(dot(L, normal), 0.0f);
 
 			result += (spotLights[i].attenuation * vec3(dotProductLN));
 		}

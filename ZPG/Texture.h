@@ -3,14 +3,23 @@
 #include <GL/glew.h>
 #include <assimp/material.h>
 
+enum TextureType {
+	TextureType_Diffuse,
+	TextureType_Specular,
+	TextureType_Normal,
+	TextureType_Cube,
+	TextureType_Unknown,
+};
+
 class Texture
 {
 private:
 	GLuint id;
 	GLenum target;
+	TextureType type;
 
 public:
-	Texture(GLenum target);
+	Texture(GLenum target, TextureType type);
 	~Texture();
 
 	void Bind(int offset = 0);
@@ -21,5 +30,6 @@ public:
 
 private:
 	void Initialize();
+	std::string ToString(TextureType type);
 };
 
