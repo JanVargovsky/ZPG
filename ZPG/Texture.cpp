@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include "Program.h"
+#include "Logger.h"
 
 using namespace std;
 
@@ -7,6 +8,7 @@ Texture::Texture(GLenum target, TextureType type)
 	:target(target), type(type)
 {
 	Initialize();
+	Logger::Verbose("Created " + ToString(type) + " texture");
 }
 
 Texture::~Texture()

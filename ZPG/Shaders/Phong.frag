@@ -43,8 +43,9 @@ vec3 normal;
 void main()
 {
 	// Normal mapping
-	normal = texture(textureNormal, texCoord).rgb;
-	normal = normalize(normal * 2.0f - 1.0f);
+	//normal = normalize(texture(textureNormal, texCoord).rgb);
+	//normal = normalize(normal * 2.0f - 1.0f);
+	normal = worldNormal;
 
 	vec3 c = calcPointLight() + calcSpotLight();
 	outColor = texture(textureDiffuse, texCoord) * vec4(c, 1.0);

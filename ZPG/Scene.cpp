@@ -73,11 +73,10 @@ void Scene::Render()
 
 	// DEBUG Light's position in scene
 	LightRenderHelper::GetInstance().SetCamera(camera);
-	static vec3 lightColor = ColorUtils::GetColor(255, 215, 21);
 	for (auto l : pointLights)
-		LightRenderHelper::GetInstance().RenderLight(l->GetPosition(), lightColor);
+		LightRenderHelper::GetInstance().RenderLight(l->GetPosition(), ColorUtils::GetColor(255, 215, 21));
 	for (auto l : spotLights)
-		LightRenderHelper::GetInstance().RenderLight(l->GetPosition(), lightColor);
+		LightRenderHelper::GetInstance().RenderLight(l->GetPosition(), ColorUtils::GetColor(255, 128, 0));
 
 	RenderCursor();
 	// put the stuff we’ve been drawing onto the display
