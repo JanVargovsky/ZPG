@@ -19,6 +19,8 @@ string ShaderLoader::GetContent(const GLchar * path) const
 		ifstream in(path);
 		if (!in.is_open())
 			new exception("Could not open file.");
+		if (!in.good())
+			new exception("Some fail occured.");
 		string content = { istreambuf_iterator<char>(in), istreambuf_iterator<char>() };
 		in.close();
 		return content;

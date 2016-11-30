@@ -1,4 +1,4 @@
-﻿#version 330 core
+#version 330 core
 
 struct PointLight {
 	vec3 position;
@@ -53,25 +53,12 @@ void main()
 
 vec3 calcNormal()
 {
-	vec3 Normal = normalize(worldNormal);
-	vec3 Tangent = normalize(worldTangent);
-	//Gram–Schmidt process
-	Tangent = normalize(Tangent - dot(Tangent, Normal) * Normal);
-	vec3 Bitangent = cross(Tangent, Normal);
-
+	// Normal mapping
 	vec3 mappedNormal = texture(textureNormal, texCoord).xyz;
 	mappedNormal = mappedNormal * 2.0f - 1.0f;
 
-	mat3 TBN = mat3(Tangent, Bitangent, Normal);
+	mat3 TBN = mat3(worldBitangent, worldTangent, worldNormal);
 	return normalize(TBN * mappedNormal);
-
-
-	// Normal mapping
-	//vec3 mappedNormal = texture(textureNormal, texCoord).xyz;
-	//mappedNormal = normal * 2.0f - 1.0f;
-
-	//mat3 TBN = mat3(worldTangent, worldBitangent, mappedNormal);
-	//return normalize(TBN * mappedNormal);
 
 }
 

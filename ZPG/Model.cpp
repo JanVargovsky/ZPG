@@ -7,6 +7,7 @@
 #include <assimp/postprocess.h>
 #include <glm/vec3.hpp>
 #include <boost/filesystem.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
 
@@ -41,7 +42,7 @@ void Model::PostRender()
 void Model::Initialize()
 {
 	Importer importer;
-	auto scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	auto scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace);
 
 	if (!scene || !scene->mRootNode || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE)
 	{
@@ -97,14 +98,32 @@ std::vector<Vertex> Model::LoadVertices(const aiMesh * mesh, const aiScene * sce
 
 		auto tangent = mesh->HasTangentsAndBitangents() ? mesh->mTangents[i] : aiVector3D();
 		auto bitangent = mesh->HasTangentsAndBitangents() ? mesh->mBitangents[i] : aiVector3D();
-		
+
 		vertices.push_back(Vertex(
 			ParseToVec3(vertex),
-			ParseToVec3(normal),
+			normalize(ParseToVec3(normal)),
 			ParseToVec2(textureCoords),
-			ParseToVec3(tangent),
-			ParseToVec3(bitangent)
+			normalize(ParseToVec3(tangent)),
+			normalize(ParseToVec3(bitangent))
 		));
+
+		// Assimp calculates invalid bitangents for some random reason...
+		if (mesh->HasTangentsAndBitangents())
+		{
+			auto &v = vertices.back();
+
+			//Gram–Schmidt process
+			v.Tangent = normalize(v.Tangent - dot(v.Tangent, v.Normal) * v.Normal);
+			v.Bitangent = cross(v.Tangent, v.Normal);
+
+
+			const auto e = 0.001;
+			float nt = dot(v.Normal, v.Tangent);
+			float tb = dot(v.Tangent, v.Bitangent);
+			float bn = dot(v.Bitangent, v.Normal);
+			if (abs(nt) >= e || abs(tb) >= e || abs(bn) >= e)
+				Logger::Error("not ok");
+		}
 	}
 
 	return vertices;
