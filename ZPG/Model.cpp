@@ -107,23 +107,23 @@ std::vector<Vertex> Model::LoadVertices(const aiMesh * mesh, const aiScene * sce
 			normalize(ParseToVec3(bitangent))
 		));
 
+
+
 		// Assimp calculates invalid bitangents for some random reason...
-		if (mesh->HasTangentsAndBitangents())
-		{
-			auto &v = vertices.back();
-
+		//if (mesh->HasTangentsAndBitangents())
+		//{
+			//auto &v = vertices.back();
 			//Gram–Schmidt process
-			v.Tangent = normalize(v.Tangent - dot(v.Tangent, v.Normal) * v.Normal);
-			v.Bitangent = cross(v.Tangent, v.Normal);
+			//v.Tangent = normalize(v.Tangent - dot(v.Tangent, v.Normal) * v.Normal);
+			//v.Bitangent = cross(v.Tangent, v.Normal);
 
-
-			const auto e = 0.001;
-			float nt = dot(v.Normal, v.Tangent);
-			float tb = dot(v.Tangent, v.Bitangent);
-			float bn = dot(v.Bitangent, v.Normal);
-			if (abs(nt) >= e || abs(tb) >= e || abs(bn) >= e)
-				Logger::Error("not ok");
-		}
+			//const auto e = 0.001;
+			//float nt = dot(v.Normal, v.Tangent);
+			//float tb = dot(v.Tangent, v.Bitangent);
+			//float bn = dot(v.Bitangent, v.Normal);
+			//if (abs(nt) >= e || abs(tb) >= e || abs(bn) >= e)
+			//	Logger::Error("not ok");
+		//}
 	}
 
 	return vertices;
