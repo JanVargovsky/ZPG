@@ -1,4 +1,4 @@
-#version 330 core
+﻿#version 330 core
 
 struct PointLight {
 	vec3 position;
@@ -15,6 +15,8 @@ struct SpotLight {
 in vec3 worldPosition;
 in vec3 worldNormal;
 in vec2 texCoord;
+in vec3 worldTangent;
+in vec3 worldBitangent;
 
 out vec4 outColor;
 
@@ -35,6 +37,7 @@ uniform sampler2D textureSpecular;
 uniform sampler2D textureNormal;
 
 // Functions
+vec3 calcNormal();
 vec3 calcPointLight();
 vec3 calcSpotLight();
 
@@ -42,14 +45,35 @@ vec3 normal;
 
 void main()
 {
-	// Normal mapping
-	//normal = normalize(texture(textureNormal, texCoord).rgb);
-	//normal = normalize(normal * 2.0f - 1.0f);
-	normal = worldNormal;
+	normal = calcNormal();
 
 	vec3 c = calcPointLight() + calcSpotLight();
 	outColor = texture(textureDiffuse, texCoord) * vec4(c, 1.0);
 };
+
+vec3 calcNormal()
+{
+	vec3 Normal = normalize(worldNormal);
+	vec3 Tangent = normalize(worldTangent);
+	//Gram–Schmidt process
+	Tangent = normalize(Tangent - dot(Tangent, Normal) * Normal);
+	vec3 Bitangent = cross(Tangent, Normal);
+
+	vec3 mappedNormal = texture(textureNormal, texCoord).xyz;
+	mappedNormal = mappedNormal * 2.0f - 1.0f;
+
+	mat3 TBN = mat3(Tangent, Bitangent, Normal);
+	return normalize(TBN * mappedNormal);
+
+
+	// Normal mapping
+	//vec3 mappedNormal = texture(textureNormal, texCoord).xyz;
+	//mappedNormal = normal * 2.0f - 1.0f;
+
+	//mat3 TBN = mat3(worldTangent, worldBitangent, mappedNormal);
+	//return normalize(TBN * mappedNormal);
+
+}
 
 vec3 calcPointLight()
 {
@@ -73,8 +97,8 @@ vec3 calcPointLight()
 		float dotProductLN = max(dot(L, normal), 0.0f);
 		float dotProductVR = max(dot(V, R), 0);
 
-		diffuse += (I_L * vec3(dotProductLN));
-		specular += (I_L * R_S * vec3(pow(dotProductVR, h)));
+		diffuse += (pointLights[i].attenuation * I_L * vec3(dotProductLN));
+		specular += (pointLights[i].attenuation * I_L * R_S * vec3(pow(dotProductVR, h)));
 	}
 	return (ambient + diffuse + specular);
 }

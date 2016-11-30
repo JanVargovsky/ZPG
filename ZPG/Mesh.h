@@ -16,9 +16,11 @@ struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
 	glm::vec2 TextureCoords;
+	glm::vec3 Tangent;
+	glm::vec3 Bitangent;
 
-	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 textureCoords)
-		: Position(position), Normal(normal), TextureCoords(textureCoords)
+	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 textureCoords, glm::vec3 tangent, glm::vec3 bitangent)
+		: Position(position), Normal(normal), TextureCoords(textureCoords), Tangent(tangent), Bitangent(bitangent)
 	{
 	}
 };

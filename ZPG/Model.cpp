@@ -41,7 +41,7 @@ void Model::PostRender()
 void Model::Initialize()
 {
 	Importer importer;
-	auto scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	auto scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
 	if (!scene || !scene->mRootNode || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE)
 	{
@@ -86,12 +86,25 @@ std::vector<Vertex> Model::LoadVertices(const aiMesh * mesh, const aiScene * sce
 {
 	vector<Vertex> vertices;
 
+	if (!mesh->HasTangentsAndBitangents())
+		Logger::Error("mesh doesnt have a tangents and bitangents");
+
 	for (auto i = 0; i < mesh->mNumVertices; i++)
 	{
 		auto vertex = mesh->mVertices[i];
 		auto normal = mesh->HasNormals() ? mesh->mNormals[i] : aiVector3D();
 		auto textureCoords = mesh->HasTextureCoords(0) ? mesh->mTextureCoords[0][i] : aiVector3D();
-		vertices.push_back(Vertex(ParseToVec3(vertex), ParseToVec3(normal), ParseToVec2(textureCoords)));
+
+		auto tangent = mesh->HasTangentsAndBitangents() ? mesh->mTangents[i] : aiVector3D();
+		auto bitangent = mesh->HasTangentsAndBitangents() ? mesh->mBitangents[i] : aiVector3D();
+		
+		vertices.push_back(Vertex(
+			ParseToVec3(vertex),
+			ParseToVec3(normal),
+			ParseToVec2(textureCoords),
+			ParseToVec3(tangent),
+			ParseToVec3(bitangent)
+		));
 	}
 
 	return vertices;

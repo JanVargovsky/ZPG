@@ -68,8 +68,8 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 			//vec3(-a, height, a),
 			vec3(-a, height, -a),
 		};
-		for (auto p : pointLightPositions)
-			scene->Add(new PointLight(p, 1));
+		//for (auto p : pointLightPositions)
+		//	scene->Add(new PointLight(p, 1));
 	}
 
 	{

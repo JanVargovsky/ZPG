@@ -47,6 +47,8 @@ void Mesh::Initialize()
 		vao.SetAttribute(0, 3, AttributeType::Float, GL_FALSE, sizeof(Vertex), (GLvoid*)0);
 		vao.SetAttribute(1, 3, AttributeType::Float, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Normal));
 		vao.SetAttribute(2, 2, AttributeType::Float, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TextureCoords));
+		vao.SetAttribute(3, 3, AttributeType::Float, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Tangent));
+		vao.SetAttribute(4, 3, AttributeType::Float, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Bitangent));
 	}
 	vao.Unbind();
 	ErrorChecker::CheckOpenGLError();
