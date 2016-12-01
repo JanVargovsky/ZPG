@@ -2,12 +2,10 @@
 
 struct PointLight {
 	vec3 position;
-	float attenuation;
 };
 
 struct SpotLight {
 	vec3 position;
-	float attenuation;
 	vec3 direction;
 	float radius;
 };
@@ -38,74 +36,114 @@ uniform sampler2D textureNormal;
 
 // Functions
 vec3 calcNormal();
-vec3 calcPointLight();
-vec3 calcSpotLight();
+float calcAttenuation(vec3 lightPosition, vec3 fragmentPosition);
+vec3 calcLight(PointLight light);
+vec3 calcLight(SpotLight light);
+vec3 calcColor();
 
 vec3 normal;
 
 void main()
 {
 	normal = calcNormal();
-
-	vec3 c = calcPointLight() + calcSpotLight();
-	outColor = texture(textureDiffuse, texCoord) * vec4(c, 1.0);
+	outColor = vec4(calcColor(), 1.0f);
+	//if (abs(dot(worldNormal, worldTangent)) >= 0.1 || abs(dot(worldBitangent, worldTangent)) >= 0.1 || abs(dot(worldNormal, worldBitangent)) >= 0.1)
+ //   {
+ //       outColor = vec4(1, 0, 0, 0);
+ //   }
 };
 
 vec3 calcNormal()
 {
-	// Normal mapping
-	vec3 mappedNormal = texture(textureNormal, texCoord).xyz;
-	mappedNormal = mappedNormal * 2.0f - 1.0f;
+	bool useBumpMapping = true;
+	if (useBumpMapping)
+	{
+		// Normal mapping
+		vec3 mappedNormal = texture(textureNormal, texCoord).xyz;
+		mappedNormal = mappedNormal * 2.0f - 1.0f;
 
-	mat3 TBN = mat3(worldBitangent, worldTangent, worldNormal);
-	return normalize(TBN * mappedNormal);
-
+		mat3 TBN = mat3(worldBitangent, worldTangent, worldNormal);
+		return normalize(TBN * mappedNormal);
+	}
+	else
+		return worldNormal;
 }
 
-vec3 calcPointLight()
+vec3 calcColor()
 {
-	const float I_L = 0.2;
-	const float I_A = 1;
-	const float R_A = 0.3;
-	const float R_S = 10;
+	vec3 result = vec3(0.0);
+
+	for (int i = 0; i < pointLightCount; i++)
+		result += calcLight(pointLights[i]);
+
+	for (int i = 0; i < spotLightCount; i++)
+		result += calcLight(spotLights[i]);
+
+	return result;
+}
+
+float calcAttenuation(vec3 lightPosition, vec3 fragmentPosition)
+{
+	float d = length(lightPosition - fragmentPosition);
+	const float K_C = 1.0f;
+	const float K_L = 0.09f;
+	const float K_Q = 0.032f;
+	float attenuation = 1.f / (1.0 + K_C * d + K_Q * d * d);
+	return attenuation;
+}
+
+vec3 calcLight(PointLight light)
+{
 	const float h = 20;
 
-	vec3 V = normalize(cameraPosition - worldPosition);
-
-	vec3 ambient = vec3(I_A * R_A, I_A * R_A, I_A * R_A);
+	vec3 ambient = vec3(0);
 	vec3 diffuse = vec3(0);
 	vec3 specular = vec3(0);
 
-	for (int i = 0; i < pointLightCount; i++)
+	vec3 V = normalize(cameraPosition - worldPosition);
+	vec3 L = normalize(light.position - worldPosition);
+	vec3 R = reflect(-L, normal);
+
+	float dotProductLN = max(dot(L, normal), 0.0f);
+	float dotProductVR = max(dot(V, R), 0);
+
+	float attenuation = calcAttenuation(light.position, worldPosition);
+
+	ambient += (attenuation * vec3(0.5));
+	diffuse += (attenuation * vec3(dotProductLN));
+	specular += (attenuation * vec3(pow(dotProductVR, h)));
+
+	return vec3(texture(textureDiffuse, texCoord)) * ambient +
+		vec3(texture(textureDiffuse, texCoord)) * diffuse +
+		vec3(texture(textureSpecular, texCoord)) * specular;
+}
+
+vec3 calcLight(SpotLight light)
+{
+	const float h = 20;
+
+	vec3 ambient = vec3(0);
+	vec3 diffuse = vec3(0);
+	vec3 specular  = vec3(0);
+
+	vec3 L = normalize(light.position - worldPosition);
+	float angle = dot(-L, light.direction);
+	if (angle >= light.radius)
 	{
-		vec3 L = normalize(pointLights[i].position - worldPosition);
+		vec3 V = normalize(cameraPosition - worldPosition);
 		vec3 R = reflect(-L, normal);
 
 		float dotProductLN = max(dot(L, normal), 0.0f);
 		float dotProductVR = max(dot(V, R), 0);
 
-		diffuse += (pointLights[i].attenuation * I_L * vec3(dotProductLN));
-		specular += (pointLights[i].attenuation * I_L * R_S * vec3(pow(dotProductVR, h)));
+		float attenuation = calcAttenuation(light.position, worldPosition);
+
+		ambient += (attenuation * vec3(0.5));
+		diffuse += (attenuation * vec3(dotProductLN));
+		specular += (attenuation * vec3(pow(dotProductVR, h)));
 	}
-	return (ambient + diffuse + specular);
-}
 
-vec3 calcSpotLight()
-{
-	vec3 result = vec3(0);
-	for (int i = 0; i < spotLightCount; i++)
-	{
-		// vector from light's position to fragment
-		vec3 L = normalize(spotLights[i].position - worldPosition);
-		float angle = dot(-L, spotLights[i].direction);
-		if (angle >= spotLights[i].radius)
-		{
-			vec3 R = reflect(-L, normal);
-
-			float dotProductLN = max(dot(L, normal), 0.0f);
-
-			result += (spotLights[i].attenuation * vec3(dotProductLN));
-		}
-	}
-	return result;
+	return vec3(texture(textureDiffuse, texCoord)) * ambient +
+		vec3(texture(textureDiffuse, texCoord)) * diffuse +
+		vec3(texture(textureSpecular, texCoord)) * specular;
 }

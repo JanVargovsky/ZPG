@@ -107,23 +107,21 @@ std::vector<Vertex> Model::LoadVertices(const aiMesh * mesh, const aiScene * sce
 			normalize(ParseToVec3(bitangent))
 		));
 
-
-
-		// Assimp calculates invalid bitangents for some random reason...
-		//if (mesh->HasTangentsAndBitangents())
-		//{
-			//auto &v = vertices.back();
+		 //Assimp calculates invalid bitangents for some random reason...
+		if (mesh->HasTangentsAndBitangents())
+		{
+			auto &v = vertices.back();
 			//Gram–Schmidt process
-			//v.Tangent = normalize(v.Tangent - dot(v.Tangent, v.Normal) * v.Normal);
-			//v.Bitangent = cross(v.Tangent, v.Normal);
+			v.Tangent = normalize(v.Tangent - dot(v.Tangent, v.Normal) * v.Normal);
+			v.Bitangent = cross(v.Tangent, v.Normal);
 
-			//const auto e = 0.001;
-			//float nt = dot(v.Normal, v.Tangent);
-			//float tb = dot(v.Tangent, v.Bitangent);
-			//float bn = dot(v.Bitangent, v.Normal);
-			//if (abs(nt) >= e || abs(tb) >= e || abs(bn) >= e)
-			//	Logger::Error("not ok");
-		//}
+			const auto e = 0.001;
+			float nt = dot(v.Normal, v.Tangent);
+			float tb = dot(v.Tangent, v.Bitangent);
+			float bn = dot(v.Bitangent, v.Normal);
+			if (abs(nt) >= e || abs(tb) >= e || abs(bn) >= e)
+				Logger::Error("not ok");
+		}
 	}
 
 	return vertices;
@@ -158,13 +156,14 @@ std::vector<Texture*> Model::LoadTextures(const aiMesh * mesh, const aiScene * s
 		textures.insert(textures.end(), diffuseTextures.begin(), diffuseTextures.end());
 
 		auto specularTextures = LoadTextures(textureLoader, material, aiTextureType_SPECULAR);
+		if (specularTextures.size() == 0)
+			specularTextures.push_back(textureLoader->LoadTexture("Models\\Shared", "Specular.png", TextureType_Specular));
 		textures.insert(textures.end(), specularTextures.begin(), specularTextures.end());
 
 		auto normalsTextures = LoadTextures(textureLoader, material, aiTextureType_NORMALS);
-		textures.insert(textures.end(), normalsTextures.begin(), normalsTextures.end());
-
 		if (normalsTextures.size() == 0)
-			textures.push_back(textureLoader->LoadTexture("Models\\Shared", "normal2.jpg", TextureType_Normal));
+			normalsTextures.push_back(textureLoader->LoadTexture("Models\\Shared", "nor_sand.jpg", TextureType_Normal));
+		textures.insert(textures.end(), normalsTextures.begin(), normalsTextures.end());
 	}
 
 	return textures;

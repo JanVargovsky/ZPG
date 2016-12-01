@@ -60,16 +60,23 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 {
 	{
-		float a = 4;
+		float a = 3;
 		float height = 2;
 		auto pointLightPositions = {
-			vec3(a, height, a),
-			//vec3(a, height, -a),
-			//vec3(-a, height, a),
 			vec3(-a, height, -a),
+			vec3(a, height, -a),
 		};
-		//for (auto p : pointLightPositions)
-		//	scene->Add(new PointLight(p, 1));
+		for (auto p : pointLightPositions)
+		{
+			auto pointLight = scene->Add(new PointLight(p, 1));
+			pointLight->RegisterOnUpdate([pointLight]() {
+				float r = cos((float)glfwGetTime());
+
+				auto pos = pointLight->GetPosition();
+				pos.y = 3 + r;
+				pointLight->SetPosition(pos);
+			});
+		}
 	}
 
 	{
@@ -90,18 +97,6 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 			dir.x = x;
 			spotLight2->SetDirection(dir);
 		});
-		//spotLight->RegisterOnUpdate([spotLight]() {
-		//	//float radius = abs(sin(glfwGetTime()));
-		//	//spotLight->SetRadius(radius);
-
-		//	//float x = 3 + sin(glfwGetTime());
-		//	//Logger::Information("x= " + to_string(x));
-		//	//spotLight->SetPosition(vec3(0, x, 0));
-
-		//	float r = abs(sin(glfwGetTime()));
-		//	Logger::Information("r= " + to_string(r));
-		//	spotLight->SetRadius(r);
-		//});
 	}
 	return this;
 }
