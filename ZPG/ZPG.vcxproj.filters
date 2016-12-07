@@ -58,6 +58,12 @@
     <Filter Include="Settings\IoC">
       <UniqueIdentifier>{78d42ab5-024f-4e48-9439-ed21c6c3689f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{43d41641-a601-40f5-a7e4-215133063a6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math\Curve">
+      <UniqueIdentifier>{53be3e13-09a5-4221-a30d-b3ee11061a0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -180,6 +186,9 @@
     </ClCompile>
     <ClCompile Include="LightRenderHelper.cpp">
       <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="BezierCurve.cpp">
+      <Filter>Math\Curve</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -363,6 +372,9 @@
     </ClInclude>
     <ClInclude Include="LightRenderHelper.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="BezierCurve.h">
+      <Filter>Math\Curve</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "SkyBox.h"
 #include "SkyDome.h"
+#include "BezierCurve.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -41,6 +42,42 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 		const float scale = 0.15f;
 		transform.SetScale(vec3(scale, scale, scale));
 	}
+
+	{
+		auto obj = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Sphere)));
+		obj->GetTransform().SetScale(0.3);
+		obj->SetColor(ColorUtils::GetColor(255, 0, 128));
+		vector<vec2> points = { vec2(-1,0),vec2(1,-5), vec2(2,5), vec2(3,0)};
+		BezierCurve *curve = new BezierCurve(points);
+		obj->RegisterOnUpdate([obj, curve]() {
+			static float t = 0;
+			static bool forward = true;
+			auto p = curve->GetPoint(t);
+
+			obj->GetTransform().SetPosition(vec3(p.x, 4, p.y));
+
+			const float shift = 0.01;
+			if (forward)
+			{
+				t += shift;
+				if (t > 1)
+				{
+					t = 1;
+					forward = false;
+				}
+			}
+			else
+			{
+				t -= shift;
+				if (t < 0)
+				{
+					t = 0;
+					forward = true;
+				}
+			}
+		});
+	}
+
 	{
 		// skybox doesnt require floor
 		if (!skyBox)
@@ -97,6 +134,40 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 			dir.x = x;
 			spotLight2->SetDirection(dir);
 		});
+	}
+
+	{
+		auto obj = scene->Add(new SpotLight(vec3(0, 3, 0), 1, vec3(0, -1, 0), 0.95f));
+
+		vector<vec2> points = { vec2(-3,-3),vec2(-1.5, 10), vec2(-1.5,-10), vec2(3,3) };
+		BezierCurve *curve = new BezierCurve(points);
+		obj->RegisterOnUpdate([obj, curve]() {
+			static float t = 0;
+			static bool forward = true;
+			auto p = curve->GetPoint(t);
+
+			obj->SetPosition(vec3(p.x, 4, p.y));
+
+			const float shift = 0.01;
+			if (forward)
+			{
+				t += shift;
+				if (t > 1)
+				{
+					t = 1;
+					forward = false;
+				}
+			}
+			else
+			{
+				t -= shift;
+				if (t < 0)
+				{
+					t = 0;
+					forward = true;
+				}
+			}
+		});		
 	}
 	return this;
 }

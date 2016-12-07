@@ -143,6 +143,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ApplicationController.cpp" />
     <ClCompile Include="ArrayBase.cpp" />
+    <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="BufferBase.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ColorUtils.cpp" />
@@ -204,6 +205,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Application.h" />
     <ClInclude Include="ApplicationController.h" />
     <ClInclude Include="ArrayBase.h" />
+    <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="BufferBase.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ColorUtils.h" />
