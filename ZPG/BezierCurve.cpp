@@ -27,7 +27,7 @@ float BezierCurve::BernsteinPolynomial(unsigned int n, unsigned int i, float t)
 {
 	float a = boost::math::binomial_coefficient<float>(n, i);
 	float b = pow(t, i);
-	float c = pow((1. - t), n - i);
+	float c = pow((1.f - t), n - i);
 
 	return a * b * c;
 }

@@ -46,7 +46,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 	{
 		auto obj = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Sphere)));
-		obj->GetTransform().SetScale(0.3);
+		obj->GetTransform().SetScale(0.3f);
 		obj->SetColor(ColorUtils::GetColor(255, 0, 128));
 		//vector<vec2> points = { vec2(-1,0),vec2(1,-5), vec2(2,5), vec2(3,0) };
 		vector<vec2> points = { vec2(0,1),vec2(5, 1), vec2(1,5), vec2(1,0) };
@@ -58,7 +58,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 			obj->GetTransform().SetPosition(vec3(p.x, 4, p.y));
 
-			const float shift = 0.005;
+			const float shift = 0.005f;
 			if (forward)
 			{
 				t += shift;
@@ -155,7 +155,7 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 			obj->SetPosition(vec3(p.x, 4, p.y));
 
-			const float shift = 0.005;
+			const float shift = 0.005f;
 			if (forward)
 			{
 				t += shift;

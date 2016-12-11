@@ -73,9 +73,9 @@ bool Application::Initialize()
 		return false;
 	}
 
-	//glFrontFace(GL_CCW);
-	//glCullFace(GL_BACK);
-	//glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
 
 	// Wireframe mode
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
