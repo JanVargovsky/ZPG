@@ -48,7 +48,8 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 		auto obj = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Sphere)));
 		obj->GetTransform().SetScale(0.3);
 		obj->SetColor(ColorUtils::GetColor(255, 0, 128));
-		vector<vec2> points = { vec2(-1,0),vec2(1,-5), vec2(2,5), vec2(3,0)};
+		//vector<vec2> points = { vec2(-1,0),vec2(1,-5), vec2(2,5), vec2(3,0) };
+		vector<vec2> points = { vec2(0,1),vec2(5, 1), vec2(1,5), vec2(1,0) };
 		BezierCurve *curve = new BezierCurve(points);
 		obj->RegisterOnUpdate([obj, curve]() {
 			static float t = 0;
@@ -57,7 +58,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 			obj->GetTransform().SetPosition(vec3(p.x, 4, p.y));
 
-			const float shift = 0.01;
+			const float shift = 0.005;
 			if (forward)
 			{
 				t += shift;
@@ -98,7 +99,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 {
 	{
-		vec3 direction = vec3(0.6f, -0.4f, 0.6f);
+		vec3 direction = vec3(0.6f, -0.8f, 0.6f);
 		scene->Add(new DirectionalLight(direction));
 	}
 
@@ -154,7 +155,7 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 
 			obj->SetPosition(vec3(p.x, 4, p.y));
 
-			const float shift = 0.01;
+			const float shift = 0.005;
 			if (forward)
 			{
 				t += shift;
@@ -173,7 +174,7 @@ SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 					forward = true;
 				}
 			}
-		});		
+		});
 	}
 	return this;
 }
