@@ -190,6 +190,9 @@
     <ClCompile Include="BezierCurve.cpp">
       <Filter>Math\Curve</Filter>
     </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Render\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -375,6 +378,9 @@
     </ClInclude>
     <ClInclude Include="BezierCurve.h">
       <Filter>Math\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Render\Light</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

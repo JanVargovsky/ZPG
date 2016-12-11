@@ -10,6 +10,10 @@ struct SpotLight {
 	float radius;
 };
 
+struct DirectionalLight {
+	vec3 direction;
+};
+
 in vec3 worldPosition;
 in vec3 worldNormal;
 in vec2 texCoord;
@@ -28,6 +32,8 @@ uniform int pointLightCount = 0;
 // Spot light
 uniform SpotLight spotLights[4];
 uniform int spotLightCount = 0;
+// Directional light
+uniform DirectionalLight directionalLight;
 
 // Textures
 uniform sampler2D textureDiffuse;
@@ -39,6 +45,7 @@ vec3 calcNormal();
 float calcAttenuation(vec3 lightPosition, vec3 fragmentPosition);
 vec3 calcLight(PointLight light);
 vec3 calcLight(SpotLight light);
+vec3 calcLight(DirectionalLight light);
 vec3 calcColor();
 
 vec3 normal;
@@ -78,6 +85,8 @@ vec3 calcColor()
 
 	for (int i = 0; i < spotLightCount; i++)
 		result += calcLight(spotLights[i]);
+
+	result += calcLight(directionalLight);
 
 	return result;
 }
@@ -142,6 +151,32 @@ vec3 calcLight(SpotLight light)
 		diffuse += (attenuation * vec3(dotProductLN));
 		specular += (attenuation * vec3(pow(dotProductVR, h)));
 	}
+
+	return vec3(texture(textureDiffuse, texCoord)) * ambient +
+		vec3(texture(textureDiffuse, texCoord)) * diffuse +
+		vec3(texture(textureSpecular, texCoord)) * specular;
+}
+
+vec3 calcLight(DirectionalLight light)
+{
+	const float h = 300;
+
+	vec3 ambient = vec3(0);
+	vec3 diffuse = vec3(0);
+	vec3 specular  = vec3(0);
+
+	vec3 L = normalize(-light.direction);
+	float angle = dot(normal, light.direction);
+
+	vec3 V = normalize(cameraPosition - worldPosition);
+	vec3 R = reflect(-L, normal);
+
+	float dotProductLN = max(dot(L, normal), 0.0f);
+	float dotProductVR = max(dot(V, R), 0);
+
+	ambient += (vec3(0.3));
+	diffuse += (vec3(dotProductLN));
+	specular += (0.2 * vec3(pow(dotProductVR, h)));
 
 	return vec3(texture(textureDiffuse, texCoord)) * ambient +
 		vec3(texture(textureDiffuse, texCoord)) * diffuse +

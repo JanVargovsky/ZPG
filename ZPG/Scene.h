@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Size.h"
 #include "SpotLight.h"
+#include "DirectionalLight.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -22,6 +23,7 @@ private:
 	std::vector<Program*> shaders;
 	std::vector<PointLight*> pointLights;
 	std::vector<SpotLight*> spotLights;
+	DirectionalLight *directionalLight;
 
 public:
 	Scene(Camera *camera, int width = 800, int height = 600);
@@ -33,6 +35,7 @@ public:
 	Program* Add(Program *shader);
 	PointLight* Add(PointLight *light);
 	SpotLight* Add(SpotLight *light);
+	DirectionalLight* Add(DirectionalLight *light);
 
 	void ChangeViewPort(int width, int height);
 	void SetCamera();

@@ -135,6 +135,12 @@ SpotLight * Scene::Add(SpotLight * light)
 	return light;
 }
 
+DirectionalLight * Scene::Add(DirectionalLight * light)
+{
+	directionalLight = light;
+	return light;
+}
+
 void Scene::SetLights(Object * object)
 {
 	auto shader = object->GetProgram();
@@ -145,6 +151,8 @@ void Scene::SetLights(Object * object)
 	shader->Send("spotLightCount", (int)spotLights.size());
 	for (int i = 0; i < (int)spotLights.size(); i++)
 		spotLights[i]->Send(shader, i);
+
+	directionalLight->Send(shader);
 }
 
 void Scene::ChangeViewPort()

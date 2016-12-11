@@ -7,6 +7,7 @@
 #include "SkyBox.h"
 #include "SkyDome.h"
 #include "BezierCurve.h"
+#include "DirectionalLight.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -96,6 +97,11 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 
 SceneBuilder * TestSceneBuilder::BuildLights(Scene * scene)
 {
+	{
+		vec3 direction = vec3(0.6f, -0.4f, 0.6f);
+		scene->Add(new DirectionalLight(direction));
+	}
+
 	{
 		float a = 3;
 		float height = 2;
