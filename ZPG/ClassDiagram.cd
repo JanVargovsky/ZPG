@@ -46,7 +46,7 @@
   <Class Name="Scene">
     <Position X="7.75" Y="16" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAYAIQAEAhCQAwCAgIACIABAwUAAAAEIBBAAAACIAAA=</HashCode>
+      <HashCode>AAYAIQAEAhCQAwCAgIACIABAwUAAAAEIBBAAAACIAAE=</HashCode>
       <FileName>Scene.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -183,8 +183,8 @@
       <FileName>StaticModelBase.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="vao" />
       <Field Name="vbo" />
+      <Field Name="vao" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Mesh">
@@ -200,8 +200,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="vao" />
-      <Field Name="ebo" />
       <Field Name="vbo" />
+      <Field Name="ebo" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Model">
@@ -285,7 +285,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="LightRenderHelper">
-    <Position X="30.75" Y="11.75" Width="4" />
+    <Position X="31.5" Y="17.25" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIAAAAAAACAACABAAEAAAAAAAgAAAIAAE=</HashCode>
       <FileName>LightRenderHelper.h</FileName>
@@ -347,6 +347,13 @@
     <TypeIdentifier>
       <HashCode>AAAAgAAAACAEAAAAAAgAAAAAAAAAAAAAAAAEAEAAAgA=</HashCode>
       <FileName>ArrayBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectionalLight">
+    <Position X="32.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAIIAAAAEAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>DirectionalLight.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="Vertex">
