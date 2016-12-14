@@ -8,6 +8,7 @@
 #include "SkyDome.h"
 #include "BezierCurve.h"
 #include "DirectionalLight.h"
+#include "Terrain.h"
 
 #include <glm/vec3.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -16,7 +17,7 @@ using namespace glm;
 using namespace std;
 
 TestSceneBuilder::TestSceneBuilder()
-	:skyBox(true), rotate(true)
+	:skyBox(true), rotate(true), generatedTerrain(true)
 {
 }
 
@@ -81,8 +82,16 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 	}
 
 	{
+		if (generatedTerrain)
+		{
+			auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
+			auto terrain = new Terrain(50, 50);
+			auto obj = scene->Add(new Object(program, terrain));
+			obj->SetColor(ColorUtils::GetColor(0x9B, 0xE7, 0x4F));
+			obj->GetTransform().SetPosition(vec3(0, -0.3, 0));
+		}
 		// skybox doesnt require floor
-		if (!skyBox)
+		else if (!skyBox)
 		{
 			auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
 			auto floorObject = scene->Add(new Object(program, staticModelManager->Get(StaticModelType::StaticModelType_Square)));

@@ -6,6 +6,7 @@ class TestSceneBuilder : public SceneBuilder
 private:
 	bool skyBox;
 	bool rotate;
+	bool generatedTerrain;
 public:
 	TestSceneBuilder();
 

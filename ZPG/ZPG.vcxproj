@@ -160,6 +160,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClCompile Include="ModelFactory.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SkyDome.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TestSceneBuilder.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
@@ -228,6 +229,7 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <ClInclude Include="Size.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SkyDome.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="TestSceneBuilder.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureLoader.h" />
