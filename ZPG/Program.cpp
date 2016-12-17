@@ -11,7 +11,7 @@ using namespace glm;
 
 Program* Program::current = nullptr;
 
-Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
+Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath, const GLchar *geometryPath)
 	:program(-1)
 {
 	ShaderLoader *shaderLoader = DependencyResolver::GetInstance().Resolve<ShaderLoader*>();
@@ -20,6 +20,12 @@ Program::Program(const GLchar * vertexPath, const GLchar * fragmentPath)
 
 	shaders.push_back(move(vertex));
 	shaders.push_back(move(fragment));
+
+	if (geometryPath != "")
+	{
+		unique_ptr<Shader> geometry = shaderLoader->CreateShader(geometryPath, ShaderType_Geometry);
+		shaders.push_back(move(geometry));
+	}
 
 	Compile();
 	ErrorChecker::CheckOpenGLError();

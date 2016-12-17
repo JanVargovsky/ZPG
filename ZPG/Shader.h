@@ -7,6 +7,7 @@
 enum ShaderType {
 	ShaderType_Vertex = GL_VERTEX_SHADER,
 	ShaderType_Fragment = GL_FRAGMENT_SHADER,
+	ShaderType_Geometry = GL_GEOMETRY_SHADER,
 };
 
 class Shader

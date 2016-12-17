@@ -31,6 +31,12 @@ std::string Texture::ToString(TextureType type)
 		return "Normal";
 	else if (type == TextureType_Cube)
 		return "Cube";
+	else if (type == TextureType_TerrainX)
+		return "X";
+	else if (type == TextureType_TerrainY)
+		return "Y";
+	else if (type == TextureType_TerrainZ)
+		return "Z";
 	else
 		return "Unknown";
 }

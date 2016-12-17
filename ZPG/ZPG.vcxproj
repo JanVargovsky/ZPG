@@ -193,6 +193,9 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <Content Include="shader.vs" />
     <None Include="Shaders\Light.frag" />
     <None Include="Shaders\Light.vert" />
+    <None Include="Shaders\Normals.frag" />
+    <None Include="Shaders\Normals.geom" />
+    <None Include="Shaders\Normals.vert" />
     <None Include="Shaders\Phong.frag" />
     <None Include="Shaders\PhongWithoutTexture.frag" />
     <None Include="Shaders\Simple.frag" />
@@ -202,6 +205,8 @@ copy "$(ProjectDir)Shaders\*.*" "$(TargetDir)Shaders\*"</Command>
     <None Include="Shaders\SkyBox.vert" />
     <None Include="Shaders\SkyDome.frag" />
     <None Include="Shaders\SkyDome.vert" />
+    <None Include="Shaders\Terrain.frag" />
+    <None Include="Shaders\Terrain.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />

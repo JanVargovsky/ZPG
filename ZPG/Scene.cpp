@@ -3,6 +3,7 @@
 #include "ColorUtils.h"
 #include "DependencyResolver.h"
 #include "ModelManager.h"
+#include "StaticModelManager.h"
 #include "LightRenderHelper.h"
 
 #include <GLFW/glfw3.h>  
@@ -104,7 +105,11 @@ void Scene::SpawnObject(glm::vec3 position)
 	//spotLights[0] = new SpotLight(camera->GetEye(), 1, position - camera->GetEye(), 0.);
 
 	auto modelManager = DependencyResolver::GetInstance().Resolve<ModelManager*>();
-	auto obj = new Object(Add(new Program("Shaders/Phong")), modelManager->Get(ModelType::ModelType_LowPolyTree));
+	auto staticModelManager = DependencyResolver::GetInstance().Resolve<StaticModelManager*>();
+
+	//IRenderable *model = modelManager->Get(ModelType::ModelType_LowPolyTree);
+	IRenderable *model = staticModelManager->Get(StaticModelType::StaticModelType_Sphere);
+	auto obj = new Object(Add(new Program("Shaders/Phong")), model);
 
 	obj->GetTransform().SetPosition(position);
 	obj->SetColor(ColorUtils::GetRandomColor());

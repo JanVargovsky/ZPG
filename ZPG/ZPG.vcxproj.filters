@@ -236,6 +236,21 @@
     <None Include="Shaders\Light.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\Terrain.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Terrain.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Normals.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Normals.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Normals.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ShaderLoader.h">

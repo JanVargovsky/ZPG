@@ -15,7 +15,7 @@ private:
 	std::vector<std::unique_ptr<Shader>> shaders;
 
 public:
-	Program(const GLchar* vertexPath, const GLchar* fragmentPath);
+	Program(const GLchar* vertexPath, const GLchar* fragmentPath, const GLchar *geometryPath = "");
 	Program(const std::string pathToShadersWithNameWithoutExtension);
 	~Program();
 

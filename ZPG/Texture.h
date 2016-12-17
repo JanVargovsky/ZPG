@@ -8,6 +8,9 @@ enum TextureType {
 	TextureType_Specular,
 	TextureType_Normal,
 	TextureType_Cube,
+	TextureType_TerrainX,
+	TextureType_TerrainY,
+	TextureType_TerrainZ,
 	TextureType_Unknown,
 };
 

@@ -84,11 +84,19 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 	{
 		if (generatedTerrain)
 		{
-			auto program = scene->Add(new Program("Shaders/Simple.vert", "Shaders/Simple.frag"));
-			auto terrain = new Terrain(50, 50);
+			auto program = scene->Add(new Program("Shaders/Terrain.vert", "Shaders/Terrain.frag"));
+			auto terrain = new Terrain(75);
 			auto obj = scene->Add(new Object(program, terrain));
-			obj->SetColor(ColorUtils::GetColor(0x9B, 0xE7, 0x4F));
-			obj->GetTransform().SetPosition(vec3(0, -0.3, 0));
+			vec3 terrainOffset = vec3(0, -0.3f, 0);
+			obj->GetTransform().SetPosition(terrainOffset);
+
+			bool showNormals = true;
+			if (showNormals)
+			{
+				auto normalsProgram = scene->Add(new Program("Shaders/Normals.vert", "Shaders/Normals.frag", "Shaders/Normals.geom"));
+				auto normalsTerrain = scene->Add(new Object(normalsProgram, terrain));
+				normalsTerrain->GetTransform().SetPosition(terrainOffset);
+			}
 		}
 		// skybox doesnt require floor
 		else if (!skyBox)

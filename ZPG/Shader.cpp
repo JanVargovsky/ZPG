@@ -42,6 +42,8 @@ string Shader::ToString(const ShaderType type) const
 		return "Vertex";
 	case ShaderType_Fragment:
 		return "Fragment";
+	case ShaderType_Geometry:
+		return "Geometry";
 	default:
 		return "Unknown";
 	}
