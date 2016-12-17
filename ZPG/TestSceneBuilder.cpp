@@ -90,7 +90,7 @@ SceneBuilder * TestSceneBuilder::BuildObjects(Scene * scene)
 			vec3 terrainOffset = vec3(0, -0.3f, 0);
 			obj->GetTransform().SetPosition(terrainOffset);
 
-			bool showNormals = true;
+			bool showNormals = false;
 			if (showNormals)
 			{
 				auto normalsProgram = scene->Add(new Program("Shaders/Normals.vert", "Shaders/Normals.frag", "Shaders/Normals.geom"));

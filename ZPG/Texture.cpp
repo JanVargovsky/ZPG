@@ -4,11 +4,21 @@
 
 using namespace std;
 
-Texture::Texture(GLenum target, TextureType type)
-	:target(target), type(type)
+Texture::Texture(GLenum target, TextureType type, std::string name)
+	:target(target), type(type), name(name)
 {
 	Initialize();
-	Logger::Verbose("Created " + ToString(type) + " texture");
+	Logger::Verbose("Created " + ToString(type) + " texture with name ='" + name + "'");
+}
+
+Texture::Texture(GLenum target, TextureType type)
+	: Texture(target, type, "texture" + ToString(type))
+{
+}
+
+Texture::Texture(GLenum target, std::string name)
+	: Texture(target, TextureType::TextureType_Custom, name)
+{
 }
 
 Texture::~Texture()
@@ -23,7 +33,9 @@ void Texture::Initialize()
 
 std::string Texture::ToString(TextureType type)
 {
-	if (type == TextureType_Diffuse)
+	if (type == TextureType_Custom)
+		return "Custom";
+	else if (type == TextureType_Diffuse)
 		return "Diffuse";
 	else if (type == TextureType_Specular)
 		return "Specular";
@@ -48,10 +60,8 @@ void Texture::Bind(int offset)
 
 	if (type != TextureType_Unknown &&  Program::Current() != nullptr)
 	{
-		string textureName = "texture" + ToString(type);
-		Program::Current()->Send(textureName.c_str(), offset);
+		Program::Current()->Send(name.c_str(), offset);
 	}
-
 }
 
 void Texture::Unbind()

@@ -17,7 +17,7 @@ class Terrain : public StaticModelBase
 {
 private:
 	int width, height;
-	Texture *x, *y, *z;
+	Texture *textureLow, *textureNormal, *textureHigh;
 
 public:
 	Terrain(int w, int h);
@@ -25,8 +25,8 @@ public:
 
 private:
 	void Initialize();
-	std::vector<TerrainVertex> Generate(int width, int height);
-	TerrainVertex* GenerateTerrain(int width, int height);
+	std::vector<TerrainVertex> GenerateTriangleStripData(int width, int height);
+	std::vector<TerrainVertex> GenerateTerrain(int width, int height);
 	TerrainVertex GenerateVertex(int x, int y);
 
 public:

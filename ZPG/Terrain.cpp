@@ -22,7 +22,7 @@ Terrain::Terrain(int size)
 
 void Terrain::Initialize()
 {
-	auto arr = Generate(width, height);
+	auto arr = GenerateTriangleStripData(width, height);
 
 	ErrorChecker::CheckOpenGLError();
 	vao.Bind();
@@ -44,20 +44,20 @@ void Terrain::Initialize()
 	string dir = "Models/Terrain";
 	//"X.png", "Y.png", "Z.png";
 	//"ash.jpg", "snow.jpg", "grass.jpg";
-	string textureX = "ash.jpg", textureY = "ash.jpg", textureZ = "ash.jpg";
-	x = textureLoader->LoadTexture(dir, textureX, TextureType::TextureType_TerrainX);
-	y = textureLoader->LoadTexture(dir, textureY, TextureType::TextureType_TerrainY);
-	z = textureLoader->LoadTexture(dir, textureZ, TextureType::TextureType_TerrainZ);
+
+	textureLow = textureLoader->LoadTexture(dir, "ash.jpg", "textureTerrainLow");
+	textureNormal = textureLoader->LoadTexture(dir, "grass.jpg", "textureTerrainNormal");
+	textureHigh = textureLoader->LoadTexture(dir, "snow.jpg", "textureTerrainHigh");
 }
 
-std::vector<TerrainVertex> Terrain::Generate(int width, int height)
+std::vector<TerrainVertex> Terrain::GenerateTriangleStripData(int width, int height)
 {
 	vector<TerrainVertex> result;
 	result.reserve(width * height * 2);
 
-	TerrainVertex *terrain = GenerateTerrain(width, height + 1);
+	auto terrain = GenerateTerrain(width, height);
 
-	for (int y = 0; y < height; y++)
+	for (int y = 0; y < height - 1; y++)
 		for (int x = 0; x < width; x++)
 		{
 			//result.push_back(GenerateVertex(x, y));
@@ -69,15 +69,16 @@ std::vector<TerrainVertex> Terrain::Generate(int width, int height)
 	return result;
 }
 
-TerrainVertex* Terrain::GenerateTerrain(int width, int height)
+std::vector<TerrainVertex> Terrain::GenerateTerrain(int width, int height)
 {
-	TerrainVertex *terrain = new TerrainVertex[width * height];
+	std::vector<TerrainVertex> terrain = std::vector<TerrainVertex>(width * height);
 
 	for (int y = 0; y < height; y++)
 		for (int x = 0; x < width; x++)
 		{
 			glm::vec2 c = 4.0f * glm::vec2(x / (float)(width), y / (float)(height));
-			auto value = 2 * glm::perlin(c);
+			auto value = 10 * glm::perlin(c);
+
 			terrain[y * width + x].Position = vec3(-width / 2 + x, value, -height / 2 + y);
 		}
 
@@ -131,9 +132,9 @@ TerrainVertex Terrain::GenerateVertex(int x, int y)
 
 void Terrain::Render()
 {
-	x->Bind(0);
-	y->Bind(1);
-	z->Bind(2);
+	textureLow->Bind(0);
+	textureNormal->Bind(1);
+	textureHigh->Bind(2);
 
 	for (int i = 0; i < height; i++)
 	{

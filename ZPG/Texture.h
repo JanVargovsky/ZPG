@@ -4,6 +4,7 @@
 #include <assimp/material.h>
 
 enum TextureType {
+	TextureType_Custom, // Used for custom naming
 	TextureType_Diffuse,
 	TextureType_Specular,
 	TextureType_Normal,
@@ -20,9 +21,12 @@ private:
 	GLuint id;
 	GLenum target;
 	TextureType type;
+	std::string name;
 
 public:
+	Texture(GLenum target, TextureType type, std::string name);
 	Texture(GLenum target, TextureType type);
+	Texture(GLenum target, std::string name);
 	~Texture();
 
 	void Bind(int offset = 0);
@@ -34,5 +38,6 @@ public:
 private:
 	void Initialize();
 	std::string ToString(TextureType type);
+	std::string GetTextureName();
 };
 
